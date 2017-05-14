@@ -1,15 +1,23 @@
 Assets Needed:
 	3D
-		Character
-	Pixel Art
-		Bomb
-		Explosion
+		3D props maybe?
+	Pixel Art (Low res png)
+		Bombs
+		Explosions
 	Images (1920x1080 png)
 		Backgrond Stills
 		Title Graphic
 	Video
-		Cut Scenes
-	Music
+		Cut Scenes?
+		Looping video backgrounds?
+	Sounds
 		Title music
 		Game music
+		Sound FX
+			Explosions
+			Environment
+			Hit
+			Death
+			Game Start
+			Game Over
 		
