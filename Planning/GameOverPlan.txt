@@ -21,3 +21,31 @@ Assets Needed:
 			Game Start
 			Game Over
 		
+		
+I do not dislike the idea of having a 3D background, if it looks realistic. It might give us some scope to move around it a bit more. 
+
+We need some type of script/timeline?
+
+for example, the way I imagine it is:
+
+1. Video introduction.
+title of game
+game starts: player is on a street, bombs are falling. Objective: avoiding bombs but player has to retrieve some items to be able to travel:
+1. passport
+2. jewels/money
+3. baby??
+
+level 2, 
+in the sea.
+Video introduction
+player has to give his money/jewels in exchange for a life vest. 
+Next he is inside a boat which is rocking from side to side. 
+Obstacles: 
+Storm
+coastguard boats trying to sink players vessel. 
+
+level 3, 
+in the border
+Video introduction
+player has to cross a fence where there is holes but there is dogs/guards with batons on the other side.
+
