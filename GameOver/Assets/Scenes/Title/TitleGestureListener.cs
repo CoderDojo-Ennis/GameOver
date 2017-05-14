@@ -112,6 +112,9 @@ public class TitleGestureListener : MonoBehaviour, KinectGestures.GestureListene
 
     public event EventHandler OnUserDetected;
     public event EventHandler OnUserLost;
+    public event EventHandler OnSwipeLeft;
+    public event EventHandler OnSwipeRight;
+    public event EventHandler OnSwipeUp;
 
     /// <summary>
     /// Invoked when a user gets lost. All tracked gestures for this user are cleared automatically.
@@ -209,13 +212,31 @@ public class TitleGestureListener : MonoBehaviour, KinectGestures.GestureListene
 			string sGestureText = gesture + " detected";
 			gestureInfo.text = sGestureText;
 		}
-		
-		if(gesture == KinectGestures.Gestures.SwipeLeft)
-			swipeLeft = true;
-		else if(gesture == KinectGestures.Gestures.SwipeRight)
-			swipeRight = true;
-		else if(gesture == KinectGestures.Gestures.SwipeUp)
-			swipeUp = true;
+
+        if (gesture == KinectGestures.Gestures.SwipeLeft)
+        {
+            swipeLeft = true;
+            if (OnSwipeLeft != null)
+            {
+                OnSwipeLeft(this, null);
+            }
+        }
+        else if (gesture == KinectGestures.Gestures.SwipeRight)
+        {
+            swipeRight = true;
+            if (OnSwipeRight != null)
+            {
+                OnSwipeRight(this, null);
+            }
+        }
+        else if (gesture == KinectGestures.Gestures.SwipeUp)
+        {
+            swipeUp = true;
+            if (OnSwipeUp != null)
+            {
+                OnSwipeUp(this, null);
+            }
+        }
 
 		return true;
 	}
