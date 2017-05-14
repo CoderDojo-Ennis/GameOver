@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: ef0611de52437c340a4f053c9f785c73
+timeCreated: 1494776476
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Quartz MS
+  fontNames:
+  - Quartz MS
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
