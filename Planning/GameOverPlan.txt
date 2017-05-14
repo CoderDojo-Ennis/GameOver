@@ -1,0 +1,15 @@
+Assets Needed:
+	3D
+		Character
+	Pixel Art
+		Bomb
+		Explosion
+	Images (1920x1080 png)
+		Backgrond Stills
+		Title Graphic
+	Video
+		Cut Scenes
+	Music
+		Title music
+		Game music
+		
