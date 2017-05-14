@@ -8,6 +8,8 @@ public class TitlePresentationScript : MonoBehaviour
     public Camera screenCamera;
 
     public GameObject StepForwardObject;
+    public AudioSource SoundUserFound;
+    public AudioSource SoundUserLost;
 
     private TitleGestureListener gestureListener;
 
@@ -42,11 +44,13 @@ public class TitlePresentationScript : MonoBehaviour
 
     public void UserFound()
     {
+        SoundUserFound.Play();
         StepForwardObject.SetActive(false);
     }
 
     public void UserLost()
     {
+        SoundUserLost.Play();
         StepForwardObject.SetActive(true);
     }
 }
