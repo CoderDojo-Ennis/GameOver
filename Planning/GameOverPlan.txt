@@ -10,7 +10,14 @@ Assets Needed:
 	Video
 		Cut Scenes?
 		Looping video backgrounds?
-	Music
+	Sounds
 		Title music
 		Game music
+		Sound FX
+			Explosions
+			Environment
+			Hit
+			Death
+			Game Start
+			Game Over
 		
