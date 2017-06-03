@@ -1928,7 +1928,7 @@ MonoBehaviour:
   DisplayMapsWidthPercent: 20
   useMultiSourceReader: 1
   minUserDistance: 0.5
-  maxUserDistance: 2.4
+  maxUserDistance: 3.5
   maxLeftRightDistance: 0
   maxTrackedUsers: 1
   showTrackedUsersOnly: 1
@@ -1972,7 +1972,7 @@ MonoBehaviour:
   dilateIterations: 0
   debugText: {fileID: 0}
   scale: 0.7
-  offsetX: -250
+  offsetX: 0
   offsetY: 0
 --- !u!1 &1396397575
 GameObject:
