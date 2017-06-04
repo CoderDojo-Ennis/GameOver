@@ -87,7 +87,7 @@ public class GmDelayPromise
 
     public void Then(Action thenCallback)
     {
-        this.then = thenCallback;
+        this.then += thenCallback;
     }
 
     internal void Done()

@@ -11,6 +11,11 @@ public class GeekyMonkeyVideoPlaylist : MonoBehaviour {
     public VideoClip[] VideoClips;
 
     /// <summary>
+    /// Heading text
+    /// </summary>
+    public string Heading;
+
+    /// <summary>
     /// Current video index
     /// </summary>
     private int Index;
@@ -37,7 +42,7 @@ public class GeekyMonkeyVideoPlaylist : MonoBehaviour {
         }
         PlayerPrefs.SetInt(prefsKey, index);
 
-        return VideoDirector.PlayClip(VideoClips[index]);
+        return VideoDirector.PlayClip(VideoClips[index], Heading);
     }
 
 	// Update is called once per frame

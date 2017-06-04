@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -15,6 +16,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     private GmDelayPromise playPromise;
     private Camera videoCamera;
     private AudioSource audioSource;
+    private TextMeshPro headingText;
 
     public static GeekyMonkeyVideoDirector Instance;
 
@@ -40,6 +42,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         videoPlayer = this.GetComponent<VideoPlayer>();
         videoCamera = this.GetComponentInChildren<Camera>(true);
         quadRenderer = this.GetComponentInChildren<MeshRenderer>();
+        headingText = GameObject.Find("VideoHeading").GetComponent<TextMeshPro>();
         videoMaterial = quadRenderer.material;
 
         audioSource.volume = 0;
@@ -138,9 +141,11 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         if (FadeInSeconds > 0)
         {
             videoMaterial.Fade(this, FadeInFrom, visibleColor, FadeInSeconds);
+            headingText.FadeAlpha(0, 1, FadeInSeconds);
         } else
         {
             videoMaterial.SetColor("_Color", visibleColor);
+            headingText.SetAlpha(1);
         }
     }
 
@@ -151,6 +156,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     {
         this.fadingOutVideo = true;
         videoMaterial.Fade(this, visibleColor, FadeOutTo, FadeOutSeconds);
+        headingText.FadeAlpha(1, 0, FadeOutSeconds);
     }
 
     /// <summary>
@@ -166,8 +172,11 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     /// Play a video clip using the current settings
     /// </summary>
     /// <param name="clip">The video clip to play (if null, then current clip will play)</param>
-    public GmDelayPromise PlayClip(VideoClip clip = null)
+    public GmDelayPromise PlayClip(VideoClip clip = null, string heading = null)
     {
+        // Heading
+        headingText.SetText(heading ?? "");
+
         videoMaterial.SetColor("_Color", FadeInFrom);
         videoCamera.enabled = true;
 

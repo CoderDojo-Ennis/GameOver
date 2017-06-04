@@ -15,4 +15,15 @@ public static class GeekyMonkeyColorExtensions
     {
         return new Color(color.r, color.g, color.b, alpha);
     }
+
+    /// <summary>
+    /// Convert a color to another color with a different alpha
+    /// </summary>
+    /// <param name="color">The original color</param>
+    /// <param name="alpha">New alpha value</param>
+    /// <returns></returns>
+    public static Color32 WithAlpha(this Color32 color, float alpha)
+    {
+        return new Color32(color.r, color.g, color.b, (byte)(alpha * 255f));
+    }
 }
