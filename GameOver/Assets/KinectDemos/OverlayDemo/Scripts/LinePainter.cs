@@ -91,7 +91,8 @@ public class LinePainter : MonoBehaviour
 			if (currentLine != null)
 			{
 				lineVertexIndex++;
-				currentLine.SetVertexCount(lineVertexIndex);
+                currentLine.positionCount = lineVertexIndex;
+				// currentLine.SetVertexCount(lineVertexIndex);
 
 				Vector3 cursorPos = handOverlayer.GetCursorPos();
 				cursorPos.z = Camera.main.nearClipPlane;
