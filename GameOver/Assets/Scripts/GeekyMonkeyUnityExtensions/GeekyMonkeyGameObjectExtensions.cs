@@ -83,4 +83,20 @@ public static class GeekyMonkeyGameobjectExtensions
 
         return mask;
     }
+
+    /*
+    /// <summary>
+    /// Sets the game object active/inactive and returns a promise that is satisfied on the next frame
+    /// </summary>
+    /// <param name="gameObject"></param>
+    /// <param name="active"></param>
+    /// <returns>Promise</returns>
+    public static GmDelayPromise SetActiveAsync(this GameObject gameObject, MonoBehaviour mb, bool active)
+    {
+        gameObject.SetActive(active);
+        var promise = new GmDelayPromise();
+        mb.Delay(0.1f, () => { promise.Done(); });
+        return promise;
+    }
+    */
 }

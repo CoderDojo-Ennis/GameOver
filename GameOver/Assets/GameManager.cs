@@ -18,12 +18,12 @@ public class GameManager : MonoBehaviour {
     public GameObject Sea;
     GameObject SceneActive;
 
-    GeekyMonkeyVideoDirector videoDirector;
+    //GeekyMonkeyVideoDirector videoDirector;
 
     GameObject Menu;
     GameObject GameCamera;
     GameObject KinectCamera;
-    GameObject VideoCamera;
+    //GameObject VideoCamera;
 
 
 	// Use this for initialization
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         // Gather the stuff
-        videoDirector = GeekyMonkeyVideoDirector.Instance;
+        //videoDirector = GeekyMonkeyVideoDirector.Instance;
 
         // Disable everything but the intro video
         GameCamera = GameObject.Find("GameCamera");
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour {
         KinectCamera.SetActive(false);
 
         // Start intro video
-        VideoCamera = GameObject.Find("VideoCamera");
+        //VideoCamera = GameObject.Find("VideoCamera");
         VideoPlaylist_Intro.PlayNext().Then(() =>
         {
             KinectCamera.SetActive(true);
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour {
         } else
         {
             SceneActive = scene;
-            SceneActive.gameObject.SetActive(true);
+            SceneActive.SetActive(true);
             SceneActive.GetComponent<BaseGameScene>().FadeIn();
         }
 
