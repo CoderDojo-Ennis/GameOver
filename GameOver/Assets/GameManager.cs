@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour {
     GameObject SceneActive;
 
     GameObject Menu;
-    GameObject GameCamera;
-    GameObject KinectCamera;
+    //GameObject GameCamera;
+    public GameObject KinectCamera;
 
     // Preload / Show the next scene
     string PreloadedSceneName;
@@ -53,36 +53,7 @@ public class GameManager : MonoBehaviour {
 
         // Start Kinect
         KinectController.SetActive(true);
-
-        if (SceneManager.GetActiveScene().name == "Complete")
-        {
-            StartIntro();
-        }
-    }
-
-    private void StartIntro()
-    {
-        // Disable everything but the intro video
-        GameCamera = GameObject.Find("GameCamera");
-        GameCamera.SetActive(false);
         KinectCamera = GameObject.Find("KinectCamera");
-        KinectCamera.SetActive(false);
-
-        // Start intro video
-        //VideoCamera = GameObject.Find("VideoCamera");
-        VideoPlaylist_Intro.PlayNext().Then(() =>
-        {
-            KinectCamera.SetActive(true);
-            ShowScene("WarScene");
-        });
-
-        // Allow for video fade-in, then load the next scene in the background
-        this.Delay(1, () =>
-        {
-            GameCamera.SetActive(true);
-            PreloadScene("WarScene", false);
-            //SceneManager.LoadScene("WarScene");
-        });
     }
 
     // Update is called once per frame
@@ -128,6 +99,48 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public GmDelayPromise PlayNextPlyalistVideo(VideoPlaylists Playlist)
+    {
+        // Disable everything but the intro video
+        //GameCamera = GameObject.Find("GameCamera");
+        //GameCamera.SetActive(false);
+        //KinectCamera = GameObject.Find("KinectCamera");
+        //KinectCamera.SetActive(false);
+        HideKinect();
+
+        // Start intro video
+        //VideoCamera = GameObject.Find("VideoCamera");
+        GeekyMonkeyVideoPlaylist playlist;
+        switch (Playlist)
+        {
+            case VideoPlaylists.Intro:
+            default:
+                playlist = VideoPlaylist_Intro;
+                break;
+            case VideoPlaylists.War:
+                playlist = VideoPlaylist_War;
+                break;
+            case VideoPlaylists.Sea:
+                playlist = VideoPlaylist_Sea;
+                break;
+            case VideoPlaylists.Land:
+                playlist = VideoPlaylist_Land;
+                break;
+        }
+
+        var videoDone = playlist.PlayNext();
+        return videoDone;
+    }
+
+    public void ShowKinect()
+    {
+        KinectCamera.SetActive(true);
+    }
+
+    public void HideKinect()
+    {
+        KinectCamera.SetActive(false);
+    }
 
     /*
     public void ShowNextScene()
@@ -154,4 +167,12 @@ public class GameManager : MonoBehaviour {
         }
     }
     */
+}
+
+public enum VideoPlaylists
+{
+    Intro,
+    War,
+    Sea,
+    Land
 }

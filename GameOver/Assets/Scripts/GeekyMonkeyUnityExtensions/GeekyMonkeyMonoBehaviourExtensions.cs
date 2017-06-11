@@ -97,11 +97,6 @@ public class GmDelayPromise
 
     internal void Done()
     {
-        if (this.coroutine == null)
-        {
-            Debug.LogError("GmDelayPromise must have a coroutine assigned");
-        }
-
         if (this.then != null)
         {
             this.then();

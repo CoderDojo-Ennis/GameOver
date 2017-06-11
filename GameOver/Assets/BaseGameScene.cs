@@ -17,18 +17,23 @@ public class BaseGameScene : MonoBehaviour {
 	public void Start () {
         Debug.Log("Base Start");
 
-        LightIntensities = new float[SceneLights.Length];
-        for (var i = 0; i < SceneLights.Length; i++)
+        if (SceneLights != null)
         {
-            LightIntensities[i] = SceneLights[i].intensity;
+            LightIntensities = new float[SceneLights.Length];
+            for (var i = 0; i < SceneLights.Length; i++)
+            {
+                LightIntensities[i] = SceneLights[i].intensity;
+            }
         }
 
         SceneCamera = this.gameObject.GetComponentInChildren<Camera>();
-        SceneCamera.enabled = false;
+        if (SceneCamera != null)
+        {
+            SceneCamera.enabled = false;
+            FadeIn();
+        }
         //gameObject.SetActive(false);
-
-        FadeIn();
-	}
+    }
 	
 	// Update is called once per frame
 	public void Update () {
@@ -99,5 +104,19 @@ public class BaseGameScene : MonoBehaviour {
         {
             GameManager.Instance.ShowScene(sceneName);
         });
+    }
+
+    // Shortcuts to game manager
+    public void PreloadScene(string sceneName, bool showImmediately)
+    {
+        GameManager.Instance.PreloadScene(sceneName, showImmediately);
+    }
+    public void ShowScene(string sceneName)
+    {
+        GameManager.Instance.ShowScene(sceneName);
+    }
+    public GmDelayPromise PlayNextPlyalistVideo(VideoPlaylists playlist)
+    {
+        return GameManager.Instance.PlayNextPlyalistVideo(playlist);
     }
 }
