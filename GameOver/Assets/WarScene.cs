@@ -6,6 +6,7 @@ public class WarScene : BaseGameScene {
 
 	// Use this for initialization
 	new void Start () {
+        Debug.Log("War Start");
         base.Start();
 	}
 	
@@ -15,8 +16,10 @@ public class WarScene : BaseGameScene {
         
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            var seaScene = GameManager.Instance.Sea;
-            GameManager.Instance.ShowScene(seaScene);
+            FadeToScene("SeaScene");
+
+            //var seaScene = GameManager.Instance.Sea;
+            //GameManager.Instance.ShowScene(seaScene);
         }
     }
 }

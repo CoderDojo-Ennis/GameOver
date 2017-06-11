@@ -15,8 +15,9 @@ public class SeaScene : BaseGameScene {
         
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            var warScene = GameManager.Instance.War;
-            GameManager.Instance.ShowScene(warScene);
+            FadeToScene("WarScene");
+            //var warScene = GameManager.Instance.War;
+            //GameManager.Instance.ShowScene(warScene);
         }
     }
 }

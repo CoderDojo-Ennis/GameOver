@@ -15,6 +15,8 @@ public class BaseGameScene : MonoBehaviour {
 
 	// Use this for initialization
 	public void Start () {
+        Debug.Log("Base Start");
+
         LightIntensities = new float[SceneLights.Length];
         for (var i = 0; i < SceneLights.Length; i++)
         {
@@ -23,7 +25,9 @@ public class BaseGameScene : MonoBehaviour {
 
         SceneCamera = this.gameObject.GetComponentInChildren<Camera>();
         SceneCamera.enabled = false;
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+
+        FadeIn();
 	}
 	
 	// Update is called once per frame
@@ -37,6 +41,8 @@ public class BaseGameScene : MonoBehaviour {
     /// <returns></returns>
     public GmDelayPromise FadeIn()
     {
+        Debug.Log("Fade In " + this.gameObject.name);
+
         SceneCamera.enabled = true;
         GmDelayPromise promise = null;
 
@@ -54,20 +60,44 @@ public class BaseGameScene : MonoBehaviour {
     /// <returns></returns>
     public GmDelayPromise FadeOut()
     {
-        SceneCamera.enabled = true;
+        Debug.Log("Fade Out " + this.gameObject.name);
         GmDelayPromise promise = null;
 
-        for (var i = 0; i < SceneLights.Length; i++)
+        SceneCamera.enabled = true;
+
+        if (SceneLights.Length > 0)
         {
-            promise = SceneLights[i].FadeIntensity(this, LightIntensities[i], 0, FadeSeconds);
+            for (var i = 0; i < SceneLights.Length; i++)
+            {
+                promise = SceneLights[i].FadeIntensity(this, LightIntensities[i], 0, FadeSeconds);
+            }
+        } else
+        {
+            promise = this.Delay(0.1f);
         }
 
         promise.Then(() =>
         {
             SceneCamera.enabled = false;
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         });
 
         return promise;
+    }
+
+    /// <summary>
+    /// Fade out this scene, then switch to another scene
+    /// </summary>
+    /// <param name="sceneName"></param>
+    public void FadeToScene(string sceneName)
+    {
+        // Preload the next scene
+        GameManager.Instance.PreloadScene(sceneName, false);
+
+        // Fade out
+        this.FadeOut().Then(() =>
+        {
+            GameManager.Instance.ShowScene(sceneName);
+        });
     }
 }

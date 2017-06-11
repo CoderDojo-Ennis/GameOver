@@ -175,7 +175,10 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     public GmDelayPromise PlayClip(VideoClip clip = null, string heading = null)
     {
         // Heading
-        headingText.SetText(heading ?? "");
+        if (headingText != null)
+        {
+            headingText.SetText(heading ?? "");
+        }
 
         videoMaterial.SetColor("_Color", FadeInFrom);
         videoCamera.enabled = true;

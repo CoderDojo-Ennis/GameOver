@@ -80,6 +80,11 @@ public class GmDelayPromise
     internal MonoBehaviour monobehaviour;
     private Action then;
 
+    // Protected constructor
+    internal GmDelayPromise()
+    {
+    }
+
     public void Abort()
     {
         this.monobehaviour.StopCoroutine(this.coroutine);
@@ -92,6 +97,11 @@ public class GmDelayPromise
 
     internal void Done()
     {
+        if (this.coroutine == null)
+        {
+            Debug.LogError("GmDelayPromise must have a coroutine assigned");
+        }
+
         if (this.then != null)
         {
             this.then();

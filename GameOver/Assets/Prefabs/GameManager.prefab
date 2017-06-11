@@ -29,7 +29,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1022391756478010
 GameObject:
   m_ObjectHideFlags: 1
@@ -917,8 +917,7 @@ MonoBehaviour:
   VideoPlaylist_War: {fileID: 114000655715197166}
   VideoPlaylist_Sea: {fileID: 114812218527327676}
   VideoPlaylist_Land: {fileID: 114211894634443588}
-  War: {fileID: 0}
-  Sea: {fileID: 0}
+  KinectController: {fileID: 1006059252881904}
 --- !u!114 &114394974671849228
 MonoBehaviour:
   m_ObjectHideFlags: 1
