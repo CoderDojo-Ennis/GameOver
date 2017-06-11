@@ -27,4 +27,56 @@ public static class GeekyMonkeyTextMeshProExtensions
         tmp.faceColor = tmp.faceColor.WithAlpha(alpha);
         tmp.outlineColor = tmp.outlineColor.WithAlpha(alpha);
     }
+
+    /// <summary>
+    /// Type out the characters one at a time
+    /// </summary>
+    /// <param name="tmp"></param>
+    /// <param name="mb"></param>
+    /// <param name="characterSeconds"></param>
+    /// <param name="characterShown"></param>
+    /// <returns></returns>
+    public static GmDelayPromise Type(this TextMeshProUGUI tmp, MonoBehaviour mb, float characterSeconds, bool realtime = false, Action characterShown = null)
+    {
+        if (tmp == null || mb == null)
+        {
+            return null;
+        }
+
+        GmDelayPromise finishPromise;
+
+        TMP_TextInfo textInfo = tmp.textInfo;
+
+        int charCount = textInfo.characterCount; // Get # of Visible Character in text object
+        Debug.Log("Typing " + charCount + " characters");
+
+        tmp.maxVisibleCharacters = 0;
+
+        if (realtime)
+        {
+            finishPromise = mb.RepeatRealtime(characterSeconds, charCount, () =>
+            {
+                Debug.Log("Typing character");
+                tmp.maxVisibleCharacters += 1;
+                if (characterShown != null)
+                {
+                    characterShown();
+                }
+            });
+        }
+        else
+        {
+            finishPromise = mb.Repeat(characterSeconds, charCount, () =>
+            {
+                Debug.Log("Typing character");
+                tmp.maxVisibleCharacters += 1;
+                if (characterShown != null)
+                {
+                    characterShown();
+                }
+            });
+        }
+
+        return finishPromise;
+    }
 }

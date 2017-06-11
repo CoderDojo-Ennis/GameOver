@@ -8,29 +8,57 @@ public static class GeekyMonkeyMonoBehaviourExtensions
     public static GmDelayPromise Delay(this MonoBehaviour mb, float delaySeconds, Action callback = null)
     {
         var promise = new GmDelayPromise { monobehaviour = mb };
-        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, 1, callback, promise));
+        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, 1, callback, promise, false));
+        return promise;
+    }
+
+    public static GmDelayPromise DelayRealtime(this MonoBehaviour mb, float delaySeconds, Action callback = null)
+    {
+        var promise = new GmDelayPromise { monobehaviour = mb };
+        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, 1, callback, promise, true));
         return promise;
     }
 
     public static GmDelayPromise Repeat(this MonoBehaviour mb, float delaySeconds, int times, Action callback = null)
     {
         var promise = new GmDelayPromise { monobehaviour = mb };
-        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, times, callback, promise));
+        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, times, callback, promise, false));
+        return promise;
+    }
+
+    public static GmDelayPromise RepeatRealtime(this MonoBehaviour mb, float delaySeconds, int times, Action callback = null)
+    {
+        var promise = new GmDelayPromise { monobehaviour = mb };
+        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, times, callback, promise, true));
         return promise;
     }
 
     public static GmDelayPromise Forever(this MonoBehaviour mb, float delaySeconds, Action callback = null)
     {
         var promise = new GmDelayPromise { monobehaviour = mb };
-        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, int.MaxValue, callback, promise));
+        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, int.MaxValue, callback, promise, false));
         return promise;
     }
 
-    private static IEnumerator WaitThenCallback(float seconds, int times, Action callback, GmDelayPromise promise)
+    public static GmDelayPromise ForeverRealtime(this MonoBehaviour mb, float delaySeconds, Action callback = null)
+    {
+        var promise = new GmDelayPromise { monobehaviour = mb };
+        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, int.MaxValue, callback, promise, true));
+        return promise;
+    }
+
+    private static IEnumerator WaitThenCallback(float seconds, int times, Action callback, GmDelayPromise promise, bool realTime)
     {
         for (var i = 0; i < times || times == int.MaxValue; i++)
         {
-            yield return new WaitForSeconds(seconds);
+            if (realTime)
+            {
+                yield return new WaitForSecondsRealtime(seconds);
+            }
+            else
+            {
+                yield return new WaitForSeconds(seconds);
+            }
             if (callback != null)
             {
                 try

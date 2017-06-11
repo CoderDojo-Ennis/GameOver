@@ -17,6 +17,8 @@ public class BaseGameScene : MonoBehaviour {
 	public void Start () {
         Debug.Log("Base Start");
 
+        GameManager.Instance.ActiveGameScene = this;
+
         if (SceneLights != null)
         {
             LightIntensities = new float[SceneLights.Length];
@@ -118,5 +120,19 @@ public class BaseGameScene : MonoBehaviour {
     public GmDelayPromise PlayNextPlyalistVideo(VideoPlaylists playlist)
     {
         return GameManager.Instance.PlayNextPlyalistVideo(playlist);
+    }
+
+    /// <summary>
+    /// The game has been paused
+    /// </summary>
+    public virtual void OnPause()
+    {
+    }
+
+    /// <summary>
+    /// The game has resumed
+    /// </summary>
+    public virtual void OnResume()
+    {
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
+    /// <summary>
+    /// Singleton Game Manager
+    /// </summary>
     public static GameManager Instance;
 
     [Header("Video Playlists")]
@@ -13,22 +14,35 @@ public class GameManager : MonoBehaviour {
     public GeekyMonkeyVideoPlaylist VideoPlaylist_Sea;
     public GeekyMonkeyVideoPlaylist VideoPlaylist_Land;
 
+    internal bool IsVideoPlaying;
+
     [Header("Kinect")]
     public GameObject KinectController;
-
-    GameObject SceneActive;
-
-    GameObject Menu;
-    //GameObject GameCamera;
     public GameObject KinectCamera;
+    private KinectManager KinectManager;
+    private GameGestureListener GameGestureListener;
 
     // Preload / Show the next scene
     string PreloadedSceneName;
     AsyncOperation NextSceneAsync;
 
+    internal BaseMenu ActiveMenu;
+
+    /// <summary>
+    /// The active BaseScene
+    /// </summary>
+    internal BaseGameScene ActiveGameScene;
+
+    /// <summary>
+    /// Is the game paused
+    /// </summary>
+    internal bool Paused;
+
+    /// <summary>
+    /// Seen Awake (before start)
+    /// </summary>
     private void Awake()
     {
-
         // Singleton that survives scene changes
         if (Instance != null)
         {
@@ -43,22 +57,169 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    // Use this for initialization
+    /// <summary>
+    /// Scene Started (after all objects awake)
+    /// </summary>
     void Start() {
 
         Debug.Log("Game manager start");
 
-        // Gather the stuff
-        //videoDirector = GeekyMonkeyVideoDirector.Instance;
+        HideMenu();
 
         // Start Kinect
         KinectController.SetActive(true);
         KinectCamera = GameObject.Find("KinectCamera");
+        KinectManager = KinectController.GetComponent<KinectManager>();
+        GameGestureListener = KinectController.GetComponent<GameGestureListener>();
+        GameGestureListener.OnUserDetected += GameGestureListener_OnUserDetected;
+        GameGestureListener.OnUserLost += GameGestureListener_OnUserLost;
+    }
+
+    /// <summary>
+    /// Kinect user detected
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void GameGestureListener_OnUserDetected(object sender, System.EventArgs e)
+    {
+        //todo - show user resume menu
+        Debug.Log("User Detected");
+    }
+
+    /// <summary>
+    /// Kinect user lost
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void GameGestureListener_OnUserLost(object sender, System.EventArgs e)
+    {
+        Debug.Log("User Lost");
+        PauseGame();
     }
 
     // Update is called once per frame
     void Update() {
+        InputProcessKeyboard();
+        InputProcessGamepad();
+        InputProcessKinect();
+    }
 
+    /// <summary>
+    /// Process inpt events for keyboard
+    /// </summary>
+    private void InputProcessKeyboard()
+    {
+        // Pause/Resume
+        if (Input.GetKeyUp(KeyCode.P)) {
+            if (Paused)
+            {
+                ResumeGame();
+            } else
+            {
+                PauseGame();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Process input events for gamepad
+    /// </summary>
+    private void InputProcessGamepad()
+    {
+        //todo
+    }
+
+    /// <summary>
+    /// Process input events for kinect
+    /// </summary>
+    private void InputProcessKinect()
+    {
+        if (!KinectManager)
+        {
+            return;
+        }
+
+        if (this.KinectManager.isActiveAndEnabled)
+        {
+            Debug.Log("todo: Check kinect");
+        } else
+        {
+            Debug.Log("No kinect");
+        }
+        //todo
+    }
+
+    /// <summary>
+    /// Pause the game
+    /// </summary>
+    public void PauseGame()
+    {
+        Paused = true;
+        Time.timeScale = 0;
+        ShowMenu("Pause");
+        if (ActiveGameScene)
+        {
+            ActiveGameScene.OnPause();
+        }
+    }
+
+    /// <summary>
+    /// Resume the paused game
+    /// </summary>
+    public void ResumeGame()
+    {
+        Paused = false;
+        Time.timeScale = 1;
+        HideMenu();
+        if (ActiveGameScene)
+        {
+            ActiveGameScene.OnResume();
+        }
+    }
+
+    public void HideMenu(bool deactivate = true)
+    {
+        var menus = GameObject.Find("Menus");
+        foreach (var menuTransform in menus.GetComponentsInChildren<Transform>(true))
+        {
+            // Only immediate children
+            if (menuTransform.parent == menus.transform && menuTransform.gameObject.activeInHierarchy)
+            {
+                Debug.Log("Deactivate " + menuTransform.gameObject.name);
+                menuTransform.gameObject.SetActive(false);
+            }
+        }
+        if (deactivate)
+        {
+            ActiveMenu = null;
+        }
+    }
+
+    public void ShowMenu(string menuName)
+    {
+        var menus = GameObject.Find("Menus");
+        BaseMenu baseMenu = null;
+        foreach (var menuTransform in menus.GetComponentsInChildren<Transform>(true))
+        {
+            // Only immediate children
+            if (menuTransform.parent == menus.transform)
+            {
+                if (menuTransform.gameObject.name == menuName)
+                {
+                    baseMenu = menuTransform.gameObject.GetComponent<BaseMenu>();
+                }
+            }
+
+            if (baseMenu)
+            {
+                ActiveMenu = baseMenu;
+                if (!IsVideoPlaying)
+                {
+                    baseMenu.gameObject.SetActive(true);
+                    baseMenu.ShowMenu();
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -99,17 +260,18 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Play the next video for the given playlist
+    /// </summary>
+    /// <param name="Playlist">The playlist to choose from</param>
+    /// <returns>Promise for video completion</returns>
     public GmDelayPromise PlayNextPlyalistVideo(VideoPlaylists Playlist)
     {
-        // Disable everything but the intro video
-        //GameCamera = GameObject.Find("GameCamera");
-        //GameCamera.SetActive(false);
-        //KinectCamera = GameObject.Find("KinectCamera");
-        //KinectCamera.SetActive(false);
+        // Disable everything but the video
         HideKinect();
+        HideMenu(false);
 
         // Start intro video
-        //VideoCamera = GameObject.Find("VideoCamera");
         GeekyMonkeyVideoPlaylist playlist;
         switch (Playlist)
         {
@@ -128,51 +290,38 @@ public class GameManager : MonoBehaviour {
                 break;
         }
 
+        IsVideoPlaying = true;
         var videoDone = playlist.PlayNext();
+        videoDone.Then(() => {
+            IsVideoPlaying = false;
+            // If a menu needs to be shown when the video is done
+            if (ActiveMenu)
+            {
+                ShowMenu(ActiveMenu.gameObject.name);
+            }
+        });
         return videoDone;
     }
 
+    /// <summary>
+    /// Show the kinect overlay
+    /// </summary>
     public void ShowKinect()
     {
-        KinectCamera.SetActive(true);
-    }
-
-    public void HideKinect()
-    {
-        KinectCamera.SetActive(false);
-    }
-
-    /*
-    public void ShowNextScene()
-    {
-    }
-
-    // Show a specific game scene
-    public void ShowScene(GameObject scene)
-    {
-        GameCamera.SetActive(false);
-        if (SceneActive != null)
+        if (KinectCamera)
         {
-            // Fade out the current scene
-            SceneActive.GetComponent<BaseGameScene>().FadeOut().Then(() => {
-                SceneActive = scene;
-                SceneActive.SetActive(true);
-                SceneActive.GetComponent<BaseGameScene>().FadeIn();
-            });
-        } else
-        {
-            SceneActive = scene;
-            SceneActive.SetActive(true);
-            SceneActive.GetComponent<BaseGameScene>().FadeIn();
+            KinectCamera.SetActive(true);
         }
     }
-    */
-}
 
-public enum VideoPlaylists
-{
-    Intro,
-    War,
-    Sea,
-    Land
+    /// <summary>
+    /// Hide the kinect overlay
+    /// </summary>
+    public void HideKinect()
+    {
+        if (KinectCamera)
+        {
+            KinectCamera.SetActive(false);
+        }
+    }
 }
