@@ -8,6 +8,7 @@ public class PauseMenu : BaseMenu {
 
     public GameObject Background;
     public TextMeshProUGUI HeadingText;
+    public float TypingSeconds = 0.05f;
 
     public override void ShowMenu()
     {
@@ -18,10 +19,9 @@ public class PauseMenu : BaseMenu {
         //var backgroundImage = Background.GetComponent<Image>();
         //backgroundImage.GetComponent<CanvasRenderer>().FadeAlpha(this, 0, 1, 1);
 
-        HeadingText.Type(this, 0.1f, true, () =>
+        HeadingText.Type(this, TypingSeconds, true, () =>
         {
-            // todo - play sound
-            // Debug.Log("Pause heading char shown");
+            AudioManager.Instance.PlayTypeCharacter();
         });
     }
 }
