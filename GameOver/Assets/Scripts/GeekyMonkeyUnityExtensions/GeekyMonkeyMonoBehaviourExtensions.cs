@@ -5,49 +5,28 @@ using UnityEngine;
 
 public static class GeekyMonkeyMonoBehaviourExtensions
 {
-    public static GmDelayPromise Delay(this MonoBehaviour mb, float delaySeconds, Action callback = null)
+    public static GmDelayPromise Delay(this MonoBehaviour mb, float delaySeconds, Action callback = null, bool realtime = false)
     {
         var promise = new GmDelayPromise { monobehaviour = mb };
-        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, 1, callback, promise, false));
+        promise.coroutine = mb.StartCoroutine(WaitThenCallback(mb, delaySeconds, 1, callback, promise, realtime));
         return promise;
     }
 
-    public static GmDelayPromise DelayRealtime(this MonoBehaviour mb, float delaySeconds, Action callback = null)
+    public static GmDelayPromise Repeat(this MonoBehaviour mb, float delaySeconds, int times, Action callback = null, bool realtime = false)
     {
         var promise = new GmDelayPromise { monobehaviour = mb };
-        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, 1, callback, promise, true));
+        promise.coroutine = mb.StartCoroutine(WaitThenCallback(mb, delaySeconds, times, callback, promise, realtime));
         return promise;
     }
 
-    public static GmDelayPromise Repeat(this MonoBehaviour mb, float delaySeconds, int times, Action callback = null)
+    public static GmDelayPromise Forever(this MonoBehaviour mb, float delaySeconds, Action callback = null, bool realtime = false)
     {
         var promise = new GmDelayPromise { monobehaviour = mb };
-        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, times, callback, promise, false));
+        promise.coroutine = mb.StartCoroutine(WaitThenCallback(mb, delaySeconds, int.MaxValue, callback, promise, realtime));
         return promise;
     }
 
-    public static GmDelayPromise RepeatRealtime(this MonoBehaviour mb, float delaySeconds, int times, Action callback = null)
-    {
-        var promise = new GmDelayPromise { monobehaviour = mb };
-        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, times, callback, promise, true));
-        return promise;
-    }
-
-    public static GmDelayPromise Forever(this MonoBehaviour mb, float delaySeconds, Action callback = null)
-    {
-        var promise = new GmDelayPromise { monobehaviour = mb };
-        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, int.MaxValue, callback, promise, false));
-        return promise;
-    }
-
-    public static GmDelayPromise ForeverRealtime(this MonoBehaviour mb, float delaySeconds, Action callback = null)
-    {
-        var promise = new GmDelayPromise { monobehaviour = mb };
-        promise.coroutine = mb.StartCoroutine(WaitThenCallback(delaySeconds, int.MaxValue, callback, promise, true));
-        return promise;
-    }
-
-    private static IEnumerator WaitThenCallback(float seconds, int times, Action callback, GmDelayPromise promise, bool realTime)
+    private static IEnumerator WaitThenCallback(MonoBehaviour mb, float seconds, int times, Action callback, GmDelayPromise promise, bool realTime)
     {
         for (var i = 0; i < times || times == int.MaxValue; i++)
         {
@@ -59,7 +38,7 @@ public static class GeekyMonkeyMonoBehaviourExtensions
             {
                 yield return new WaitForSeconds(seconds);
             }
-            if (callback != null)
+            if (callback != null && mb != null && mb.gameObject != null && mb.isActiveAndEnabled)
             {
                 try
                 {

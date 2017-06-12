@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -65,6 +66,8 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Game manager start");
 
         HideMenu();
+
+        GetComponentInChildren<EventSystem>().enabled = true;
 
         // Start Kinect
         KinectController.SetActive(true);
@@ -209,15 +212,15 @@ public class GameManager : MonoBehaviour {
                     baseMenu = menuTransform.gameObject.GetComponent<BaseMenu>();
                 }
             }
+        }
 
-            if (baseMenu)
+        if (baseMenu)
+        {
+            ActiveMenu = baseMenu;
+            if (!IsVideoPlaying)
             {
-                ActiveMenu = baseMenu;
-                if (!IsVideoPlaying)
-                {
-                    baseMenu.gameObject.SetActive(true);
-                    baseMenu.ShowMenu();
-                }
+                baseMenu.gameObject.SetActive(true);
+                baseMenu.ShowMenu();
             }
         }
     }

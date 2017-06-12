@@ -11,7 +11,7 @@ public static class GeekyMonkeyMaterialExtensions
     /// <param name="fromColor">From Color</param>
     /// <param name="toColor">To Color</param>
     /// <param name="seconds">Seconds</param>
-    public static GmDelayPromise Fade(this Material mat, MonoBehaviour mb, Color fromColor, Color toColor, float seconds)
+    public static GmDelayPromise Fade(this Material mat, MonoBehaviour mb, Color fromColor, Color toColor, float seconds, bool realtime)
     {
         float intervalSeconds = 0.1f;
         float startTime = Time.time;
@@ -24,6 +24,6 @@ public static class GeekyMonkeyMaterialExtensions
             float timePercent = Mathf.Clamp((Time.time - startTime) / seconds, 0, 1);
             //Debug.Log("Fade % = " + timePercent);
             mat.SetColor("_Color", Color.Lerp(fromColor, toColor, timePercent));
-        });
+        }, realtime);
     }
 }

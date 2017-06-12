@@ -59,7 +59,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         if (isPlaying)
         {
@@ -85,23 +85,35 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
             {
                 ClipComplete();
             }
+        }
 
+        ProcessKeyboardInput();
+    }
+
+    void ProcessKeyboardInput()
+    {
+        if (isPlaying)
+        {
             // Abort
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 if (!fadingOutAudio || !fadingOutVideo) {
+                    float fadeOutSeconds = 0;
+
                     if (!fadingOutAudio)
                     {
+                        fadeOutSeconds = FadeOutAudioSeconds;
                         FadeOutAudio();
                     }
 
                     if (!fadingOutVideo)
                     {
+                        fadeOutSeconds = Mathf.Max(fadeOutSeconds, FadeOutSeconds);
                         FadeOutVideo();
                     }
 
                     // After fade-out - stop the clip
-                    this.Delay(Mathf.Max(FadeOutAudioSeconds, FadeOutSeconds), ClipComplete);
+                    this.Delay(fadeOutSeconds, ClipComplete, true);
                 }
             }
         }
@@ -125,7 +137,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     {
         if (FadeInAudioSeconds > 0)
         {
-            audioSource.Fade(this, 0, 1, FadeInAudioSeconds);
+            audioSource.Fade(this, 0, 1, FadeInAudioSeconds, true);
         }
         else
         {
@@ -140,8 +152,8 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     {
         if (FadeInSeconds > 0)
         {
-            videoMaterial.Fade(this, FadeInFrom, visibleColor, FadeInSeconds);
-            headingText.FadeAlpha(0, 1, FadeInSeconds);
+            videoMaterial.Fade(this, FadeInFrom, visibleColor, FadeInSeconds, true);
+            headingText.FadeAlpha(0, 1, FadeInSeconds, true);
         } else
         {
             videoMaterial.SetColor("_Color", visibleColor);
@@ -155,8 +167,8 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     private void FadeOutVideo()
     {
         this.fadingOutVideo = true;
-        videoMaterial.Fade(this, visibleColor, FadeOutTo, FadeOutSeconds);
-        headingText.FadeAlpha(1, 0, FadeOutSeconds);
+        videoMaterial.Fade(this, visibleColor, FadeOutTo, FadeOutSeconds, true);
+        headingText.FadeAlpha(1, 0, FadeOutSeconds, true);
     }
 
     /// <summary>
@@ -165,7 +177,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     private void FadeOutAudio()
     {
         this.fadingOutAudio = true;
-        audioSource.Fade(this, 1, 0, FadeOutAudioSeconds);
+        audioSource.Fade(this, 1, 0, FadeOutAudioSeconds, true);
     }
 
     /// <summary>

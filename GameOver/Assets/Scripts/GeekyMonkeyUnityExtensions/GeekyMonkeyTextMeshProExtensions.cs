@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public static class GeekyMonkeyTextMeshProExtensions
 {
-    public static GmDelayPromise FadeAlpha(this TextMeshPro tmp, float fromAlpha, float toAlpha, float seconds)
+    public static GmDelayPromise FadeAlpha(this TextMeshPro tmp, float fromAlpha, float toAlpha, float seconds, bool realtime)
     {
         float intervalSeconds = 0.1f;
         float startTime = Time.time;
@@ -19,7 +17,7 @@ public static class GeekyMonkeyTextMeshProExtensions
             float timePercent = Mathf.Clamp((Time.time - startTime) / seconds, 0, 1);
             //Debug.Log("Fade % = " + timePercent);
             tmp.SetAlpha(Mathf.Lerp(fromAlpha, toAlpha, timePercent));
-        });
+        }, true);
     }
 
     public static void SetAlpha(this TextMeshPro tmp, float alpha)
@@ -52,30 +50,15 @@ public static class GeekyMonkeyTextMeshProExtensions
 
         tmp.maxVisibleCharacters = 0;
 
-        if (realtime)
+        finishPromise = mb.Repeat(characterSeconds, charCount, () =>
         {
-            finishPromise = mb.RepeatRealtime(characterSeconds, charCount, () =>
+            //Debug.Log("Typing character");
+            tmp.maxVisibleCharacters += 1;
+            if (characterShown != null)
             {
-                Debug.Log("Typing character");
-                tmp.maxVisibleCharacters += 1;
-                if (characterShown != null)
-                {
-                    characterShown();
-                }
-            });
-        }
-        else
-        {
-            finishPromise = mb.Repeat(characterSeconds, charCount, () =>
-            {
-                Debug.Log("Typing character");
-                tmp.maxVisibleCharacters += 1;
-                if (characterShown != null)
-                {
-                    characterShown();
-                }
-            });
-        }
+                characterShown();
+            }
+        }, realtime);
 
         return finishPromise;
     }

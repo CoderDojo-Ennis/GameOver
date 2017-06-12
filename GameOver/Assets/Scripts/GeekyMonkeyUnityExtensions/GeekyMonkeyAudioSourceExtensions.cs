@@ -11,7 +11,7 @@ public static class GeekyMonkeyAudioSourceExtensions
     /// <param name="fromVolume">From Volume (0-1)</param>
     /// <param name="toVolume">To Volume (0-1)</param>
     /// <param name="seconds">Seconds</param>
-    public static GmDelayPromise Fade(this AudioSource source, MonoBehaviour mb, float fromVolume, float toVolume, float seconds)
+    public static GmDelayPromise Fade(this AudioSource source, MonoBehaviour mb, float fromVolume, float toVolume, float seconds, bool realtime)
     {
         float intervalSeconds = 0.1f;
         float startTime = Time.time;
@@ -24,6 +24,6 @@ public static class GeekyMonkeyAudioSourceExtensions
             float timePercent = Mathf.Clamp((Time.time - startTime) / seconds, 0, 1);
             //Debug.Log("Fade % = " + timePercent);
             source.volume = Mathf.Lerp(fromVolume, toVolume, timePercent);
-        });
+        }, realtime);
     }
 }
