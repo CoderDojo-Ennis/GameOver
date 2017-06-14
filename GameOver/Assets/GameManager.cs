@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour {
     {
         //todo - show user resume menu
         Debug.Log("User Detected");
+        PauseGame();
     }
 
     /// <summary>
@@ -97,7 +98,7 @@ public class GameManager : MonoBehaviour {
     private void GameGestureListener_OnUserLost(object sender, System.EventArgs e)
     {
         Debug.Log("User Lost");
-        PauseGame();
+        InviteGame();
     }
 
     // Update is called once per frame
@@ -113,14 +114,28 @@ public class GameManager : MonoBehaviour {
     private void InputProcessKeyboard()
     {
         // Pause/Resume
-        if (Input.GetKeyUp(KeyCode.P)) {
+        if (Input.GetKeyUp(KeyCode.P))
+        {
             if (Paused)
             {
                 ResumeGame();
-            } else
+            }
+            else
             {
                 PauseGame();
             }
+        }
+
+        // Simulate kinect events
+        // Player IN
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            this.GameGestureListener_OnUserDetected(null, null);
+        }
+        // Player OUT
+        if (Input.GetKeyUp(KeyCode.O))
+        {
+            this.GameGestureListener_OnUserLost(null, null);
         }
     }
 
@@ -150,6 +165,20 @@ public class GameManager : MonoBehaviour {
             Debug.Log("No kinect");
         }
         //todo
+    }
+
+    /// <summary>
+    /// Invite the player
+    /// </summary>
+    public void InviteGame()
+    {
+        Paused = true;
+        Time.timeScale = 0;
+        ShowMenu("Invite");
+        if (ActiveGameScene)
+        {
+            ActiveGameScene.OnPause();
+        }
     }
 
     /// <summary>
@@ -200,6 +229,7 @@ public class GameManager : MonoBehaviour {
 
     public void ShowMenu(string menuName)
     {
+        HideMenu(true);
         var menus = GameObject.Find("Menus");
         BaseMenu baseMenu = null;
         foreach (var menuTransform in menus.GetComponentsInChildren<Transform>(true))
