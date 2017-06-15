@@ -30,12 +30,28 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     public float FadeOutSeconds = 0;
     public float FadeOutAudioSeconds = 0;
 
-    // Use this for initialization
+    /// <summary>
+    /// Is a video currently playing
+    /// </summary>
+    public bool IsPlaying
+    {
+        get
+        {
+            return isPlaying;
+        }
+    }
+
+    /// <summary>
+    /// Awake (before start)
+    /// </summary>
     void Awake()
     {
         Instance = this;
     }
 
+    /// <summary>
+    /// Start (after awake)
+    /// </summary>
     void Start()
     {
         audioSource = this.GetComponent<AudioSource>();
@@ -45,9 +61,11 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         headingText = GameObject.Find("VideoHeading").GetComponent<TextMeshPro>();
         videoMaterial = quadRenderer.material;
 
+        // Start faded out
         audioSource.volume = 0;
         videoCamera.enabled = false;
 
+        // Video prepare completed event
         videoPlayer.prepareCompleted += (sender) => {
             Debug.Log("Prepare completed");
             isPlaying = true;
@@ -58,7 +76,9 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         };
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
     void Update()
     {
         if (isPlaying)
@@ -81,6 +101,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
                 }
             }
 
+            // Are we there yet?
             if (this.videoPlayer.frameCount == (ulong)this.videoPlayer.frame)
             {
                 ClipComplete();
@@ -90,6 +111,9 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         ProcessKeyboardInput();
     }
 
+    /// <summary>
+    /// Process keyboard input for the video director
+    /// </summary>
     void ProcessKeyboardInput()
     {
         if (isPlaying)
@@ -97,24 +121,38 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
             // Abort
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                if (!fadingOutAudio || !fadingOutVideo) {
-                    float fadeOutSeconds = 0;
+                Abort();
+            }
+        }
+    }
 
-                    if (!fadingOutAudio)
-                    {
-                        fadeOutSeconds = FadeOutAudioSeconds;
-                        FadeOutAudio();
-                    }
+    /// <summary>
+    /// Abort the video playback. Do fadeout if configured. Then trigger the complete event.
+    /// </summary>
+    public void Abort()
+    {
+        // Is a video playing
+        if (isPlaying)
+        {
+            // Are we already fading out both the audio and video
+            if (!fadingOutAudio || !fadingOutVideo)
+            {
+                float fadeOutSeconds = 0;
 
-                    if (!fadingOutVideo)
-                    {
-                        fadeOutSeconds = Mathf.Max(fadeOutSeconds, FadeOutSeconds);
-                        FadeOutVideo();
-                    }
-
-                    // After fade-out - stop the clip
-                    this.Delay(fadeOutSeconds, ClipComplete, true);
+                if (!fadingOutAudio)
+                {
+                    fadeOutSeconds = FadeOutAudioSeconds;
+                    FadeOutAudio();
                 }
+
+                if (!fadingOutVideo)
+                {
+                    fadeOutSeconds = Mathf.Max(fadeOutSeconds, FadeOutSeconds);
+                    FadeOutVideo();
+                }
+
+                // After fade-out - stop the clip
+                this.Delay(fadeOutSeconds, ClipComplete, true);
             }
         }
     }

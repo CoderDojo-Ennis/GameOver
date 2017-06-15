@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour {
         GameGestureListener = KinectController.GetComponent<GameGestureListener>();
         GameGestureListener.OnUserDetected += GameGestureListener_OnUserDetected;
         GameGestureListener.OnUserLost += GameGestureListener_OnUserLost;
+        GameGestureListener.OnSwipeLeft += GameGestureListener_SwipeHorizontal;
     }
 
     /// <summary>
@@ -101,7 +102,21 @@ public class GameManager : MonoBehaviour {
         InviteGame();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Player has swiped left or right
+    /// </summary>
+    private void GameGestureListener_SwipeHorizontal(object sender, System.EventArgs e)
+    {
+        // Abort any playing video
+        if (GeekyMonkeyVideoDirector.Instance.IsPlaying)
+        {
+            GeekyMonkeyVideoDirector.Instance.Abort();
+        }
+    }
+
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
     void Update() {
         InputProcessKeyboard();
         InputProcessGamepad();
@@ -152,19 +167,13 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     private void InputProcessKinect()
     {
-        if (!KinectManager)
+        if (!KinectManager || !GameGestureListener || !GameGestureListener.IsPlayerDetected)
         {
+            Debug.Log("No kinect");
             return;
         }
 
-        if (this.KinectManager.isActiveAndEnabled)
-        {
-            Debug.Log("todo: Check kinect");
-        } else
-        {
-            Debug.Log("No kinect");
-        }
-        //todo
+        Debug.Log("todo: Check kinect");
     }
 
     /// <summary>

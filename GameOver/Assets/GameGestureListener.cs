@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 //using Windows.Kinect;
 
@@ -7,6 +6,12 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
 {
     [Tooltip("Index of the player, tracked by this component. 0 means the 1st player, 1 - the 2nd one, 2 - the 3rd one, etc.")]
     public int playerIndex = 0;
+
+    /// <summary>
+    /// Is the player currently detected
+    /// </summary>
+    [HideInInspector]
+    public bool IsPlayerDetected;
 
     // singleton instance of the class
     //private static GameGestureListener instance = null;
@@ -45,6 +50,8 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
             return;
         }
 
+        IsPlayerDetected = true;
+
         // detect these user specific gestures
         manager.DetectGesture(userId, KinectGestures.Gestures.SwipeLeft);
         manager.DetectGesture(userId, KinectGestures.Gestures.SwipeRight);
@@ -69,6 +76,8 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
         {
             return;
         }
+
+        IsPlayerDetected = false;
 
         if (OnUserLost != null)
         {
