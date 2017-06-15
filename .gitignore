@@ -43,3 +43,5 @@ Planning/Videos/Land/
 Planning/Videos/Sea/
 
 *.kra~
+*.png~
+*-autosave.kra
