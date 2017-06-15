@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     private void InputProcessKeyboard()
     {
+        /*
         // Pause/Resume
         if (Input.GetKeyUp(KeyCode.P))
         {
@@ -144,18 +145,7 @@ public class GameManager : MonoBehaviour {
                 PauseGame();
             }
         }
-
-        // Simulate kinect events
-        // Player IN
-        if (Input.GetKeyUp(KeyCode.I))
-        {
-            this.GameGestureListener_OnUserDetected(null, null);
-        }
-        // Player OUT
-        if (Input.GetKeyUp(KeyCode.O))
-        {
-            this.GameGestureListener_OnUserLost(null, null);
-        }
+        */
     }
 
     /// <summary>
@@ -171,6 +161,8 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     private void InputProcessKinect()
     {
+        // todo?
+        /*
         if (!KinectManager || !GameGestureListener || !GameGestureListener.IsPlayerDetected)
         {
             Debug.Log("No kinect");
@@ -178,6 +170,7 @@ public class GameManager : MonoBehaviour {
         }
 
         Debug.Log("todo: Check kinect");
+        */
     }
 
     /// <summary>

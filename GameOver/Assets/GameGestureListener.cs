@@ -220,5 +220,52 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
 
     void Update()
     {
+        KeyboardEmulateKinectEvents();
+    }
+
+    private void KeyboardEmulateKinectEvents()
+    {
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            if (OnSwipeLeft != null)
+            {
+                OnSwipeLeft(this, null);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            if (OnSwipeRight != null)
+            {
+                OnSwipeRight(this, null);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.W))
+        {
+            if (OnSwipeUp != null)
+            {
+                OnSwipeUp(this, null);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            if (OnSwipeDown != null)
+            {
+                OnSwipeDown(this, null);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.I))
+        {
+            if (OnUserDetected != null)
+            {
+                OnUserDetected(this, null);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.O))
+        {
+            if (OnUserLost != null)
+            {
+                OnUserLost(this, null);
+            }
+        }
     }
 }
