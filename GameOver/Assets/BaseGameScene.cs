@@ -13,11 +13,31 @@ public class BaseGameScene : MonoBehaviour {
     [HideInInspector]
     public Camera SceneCamera;
 
+    [HideInInspector]
+    public bool IsShowingInstructions;
+
 	// Use this for initialization
 	public void Start () {
         Debug.Log("Base Start");
 
         GameManager.Instance.ActiveGameScene = this;
+
+        IsShowingInstructions = true;
+        GameManager.Instance.ShowInstructions();
+
+        // If no player found - start with invitation
+        if (!GameManager.Instance.GameGestureListener.IsPlayerDetected)
+        {
+            GameManager.Instance.InviteGame();
+        }
+    }
+
+    /// <summary>
+    /// After instructions countdown
+    /// </summary>
+    public virtual void InstructionsComplete()
+    {
+        IsShowingInstructions = false;
 
         if (SceneLights != null)
         {
@@ -36,9 +56,9 @@ public class BaseGameScene : MonoBehaviour {
         }
         //gameObject.SetActive(false);
     }
-	
-	// Update is called once per frame
-	public void Update () {
+
+    // Update is called once per frame
+    public void Update () {
 		
 	}
 

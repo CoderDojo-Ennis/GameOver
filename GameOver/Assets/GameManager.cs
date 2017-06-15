@@ -21,7 +21,11 @@ public class GameManager : MonoBehaviour {
     public GameObject KinectController;
     public GameObject KinectCamera;
     private KinectManager KinectManager;
-    private GameGestureListener GameGestureListener;
+    [HideInInspector]
+    public GameGestureListener GameGestureListener;
+
+    [Header("Menus")]
+    public GameObject Instructions;
 
     // Preload / Show the next scene
     string PreloadedSceneName;
@@ -236,9 +240,47 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Show the level instructions
+    /// </summary>
+    public void ShowInstructions()
+    {
+        BaseMenu baseMenu = this.Instructions.gameObject.GetComponent<BaseMenu>();
+        ActiveMenu = baseMenu;
+        baseMenu.gameObject.SetActive(true);
+        baseMenu.ShowMenu();
+        baseMenu.GetComponent<InstructionsMenu>().ShowInstructions();
+    }
+
+    /// <summary>
+    /// Hide the level instructions
+    /// </summary>
+    public void HideInstructions()
+    {
+        BaseMenu baseMenu = this.Instructions.gameObject.GetComponent<BaseMenu>();
+        ActiveMenu = baseMenu;
+        baseMenu.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Show a specific menu
+    /// </summary>
+    /// <param name="menuName">Name of the menu to show</param>
     public void ShowMenu(string menuName)
     {
-        HideMenu(true);
+        if (ActiveMenu)
+        {
+            // Are we already showing the requested menu?
+            if (ActiveMenu.gameObject.name == menuName)
+            {
+                return;
+            }
+
+            // Hide other menu
+            HideMenu(true);
+        }
+
+        // Find the menu to show
         var menus = GameObject.Find("Menus");
         BaseMenu baseMenu = null;
         foreach (var menuTransform in menus.GetComponentsInChildren<Transform>(true))
@@ -253,6 +295,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+        // Found it?
         if (baseMenu)
         {
             ActiveMenu = baseMenu;

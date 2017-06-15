@@ -13,13 +13,16 @@ public class WarScene : BaseGameScene {
 	// Update is called once per frame
 	new void Update () {
         base.Update();
-        
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            FadeToScene("SeaScene");
 
-            //var seaScene = GameManager.Instance.Sea;
-            //GameManager.Instance.ShowScene(seaScene);
+        if (!IsShowingInstructions)
+        {
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                FadeToScene("SeaScene");
+
+                //var seaScene = GameManager.Instance.Sea;
+                //GameManager.Instance.ShowScene(seaScene);
+            }
         }
     }
 }

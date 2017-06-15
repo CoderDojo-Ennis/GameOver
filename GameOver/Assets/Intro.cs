@@ -6,7 +6,11 @@ public class Intro : BaseGameScene
 {
 	// Use this for initialization
 	new void Start () {
-        base.Start();
+        // Don't call base. This one is unique
+        // base.Start();
+
+        GameManager.Instance.ActiveGameScene = this;
+
         StartIntro();
 	}
 	
