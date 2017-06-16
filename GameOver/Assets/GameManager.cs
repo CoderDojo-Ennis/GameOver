@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
     AsyncOperation NextSceneAsync;
 
     internal BaseMenu ActiveMenu;
+    internal BaseMenu ActiveInstructions;
 
     /// <summary>
     /// The active BaseScene
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Game manager start");
 
         HideMenu();
+        HideInstructions();
 
         GetComponentInChildren<EventSystem>().enabled = true;
 
@@ -239,7 +241,7 @@ public class GameManager : MonoBehaviour {
     public void ShowInstructions()
     {
         BaseMenu baseMenu = this.Instructions.gameObject.GetComponent<BaseMenu>();
-        ActiveMenu = baseMenu;
+        ActiveInstructions = baseMenu;
         baseMenu.gameObject.SetActive(true);
         baseMenu.ShowMenu();
         baseMenu.GetComponent<InstructionsMenu>().ShowInstructions();
@@ -251,7 +253,7 @@ public class GameManager : MonoBehaviour {
     public void HideInstructions()
     {
         BaseMenu baseMenu = this.Instructions.gameObject.GetComponent<BaseMenu>();
-        ActiveMenu = baseMenu;
+        ActiveInstructions = null;
         baseMenu.gameObject.SetActive(false);
     }
 

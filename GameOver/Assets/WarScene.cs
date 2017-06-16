@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WarScene : BaseGameScene {
 
+    [Header("Bombs")]
+    public GameObject BombEmitter;
+
 	// Use this for initialization
 	new void Start () {
         Debug.Log("War Start");
@@ -24,5 +27,14 @@ public class WarScene : BaseGameScene {
                 //GameManager.Instance.ShowScene(seaScene);
             }
         }
+    }
+
+    /// <summary>
+    /// Instructions complete - begin gameplay
+    /// </summary>
+    public override void InstructionsComplete()
+    {
+        base.InstructionsComplete();
+        BombEmitter.GetComponent<BombEmitter>().StartBombing();
     }
 }
