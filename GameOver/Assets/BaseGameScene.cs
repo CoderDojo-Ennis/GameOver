@@ -22,6 +22,12 @@ public class BaseGameScene : MonoBehaviour {
 
         GameManager.Instance.ActiveGameScene = this;
 
+        // Hide the scene, and show instructions
+        SceneCamera = this.gameObject.GetComponentInChildren<Camera>();
+        if (SceneCamera != null)
+        {
+            SceneCamera.enabled = false;
+        }
         IsShowingInstructions = true;
         GameManager.Instance.ShowInstructions();
 
@@ -48,7 +54,6 @@ public class BaseGameScene : MonoBehaviour {
             }
         }
 
-        SceneCamera = this.gameObject.GetComponentInChildren<Camera>();
         if (SceneCamera != null)
         {
             SceneCamera.enabled = false;

@@ -10,6 +10,7 @@ public class Intro : BaseGameScene
         // base.Start();
 
         GameManager.Instance.ActiveGameScene = this;
+        GameManager.Instance.HideInstructions();
 
         StartIntro();
 	}
