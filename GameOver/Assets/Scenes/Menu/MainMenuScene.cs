@@ -9,6 +9,8 @@ public class MainMenuScene : BaseGameScene
     {
         Debug.Log("Main Menu Start");
         base.Start();
+
+        PlayerScript.Instance.SetInitialHealth();
     }
 
     // Update is called once per frame

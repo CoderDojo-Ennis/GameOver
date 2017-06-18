@@ -24,6 +24,9 @@ public class BombScript : MonoBehaviour
         Destroy(shadowOject);
         Instantiate(Explosion, this.transform.position, this.transform.rotation);
         Destroy(gameObject);
+
+        // todo - calculate damage
+        PlayerScript.Instance.Damage(10);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
