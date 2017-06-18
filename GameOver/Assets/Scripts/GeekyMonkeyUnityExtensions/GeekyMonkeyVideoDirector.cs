@@ -30,6 +30,9 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     public float FadeOutSeconds = 0;
     public float FadeOutAudioSeconds = 0;
 
+    [Header("Limits")]
+    public float MaxClipSeconds = 30;
+
     /// <summary>
     /// Is a video currently playing
     /// </summary>
@@ -64,6 +67,16 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         // Start faded out
         audioSource.volume = 0;
         videoCamera.enabled = false;
+        headingText.color = headingText.color.WithAlpha(0);
+
+        // Fade in heading
+        this.Delay(3f, () =>
+        {
+            this.Repeat(0.2f, 10, () =>
+            {
+                headingText.color = headingText.color.WithAlpha(headingText.color.a + 0.1f);
+            });
+        });
 
         // Video prepare completed event
         videoPlayer.prepareCompleted += (sender) => {
@@ -99,6 +112,12 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
                 {
                     FadeOutAudio();
                 }
+            }
+
+            // Limit?
+            if (this.videoPlayer.time >= this.MaxClipSeconds)
+            {
+                Abort();
             }
 
             // Are we there yet?

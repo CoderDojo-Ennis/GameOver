@@ -51,7 +51,7 @@ namespace TMPro.Examples
 
             TMP_TextInfo textInfo = textComponent.textInfo;
 
-            int totalVisibleCharacters = textInfo.characterCount; // Get # of Visible Character in text object
+            int totalVisibleCharacters; // = textInfo.characterCount; // Get # of Visible Character in text object
             int visibleCount = 0;
 
             while (true)
