@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bad08fb6d1d54e43b72f8ae40407050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundImage: {fileID: 926882617}
   FadeSeconds: 1
   SceneLights:
   - {fileID: 446102523}

@@ -364,6 +364,11 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 223459836852937654, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
   m_IsPrefabParent: 0
@@ -1270,6 +1275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e574dc78479ef6a45bd6671ca8b304ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundImage: {fileID: 0}
   FadeSeconds: 2
   SceneLights: []
   SceneCamera: {fileID: 0}

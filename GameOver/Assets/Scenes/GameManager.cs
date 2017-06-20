@@ -245,6 +245,10 @@ public class GameManager : MonoBehaviour {
         baseMenu.gameObject.SetActive(true);
         baseMenu.ShowMenu();
         baseMenu.GetComponent<InstructionsMenu>().ShowInstructions();
+        if (GameManager.Instance.ActiveGameScene.name != "Intro")
+        {
+            PlayerScript.Instance.ScoreVisible = true;
+        }
     }
 
     /// <summary>

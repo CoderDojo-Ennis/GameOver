@@ -23,6 +23,7 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
     public event EventHandler OnSwipeRight;
     public event EventHandler OnSwipeUp;
     public event EventHandler OnSwipeDown;
+    public event EventHandler OnOneHandUp;
 
     /// <summary>
     /// Gets the singleton CubeGestureListener instance.
@@ -57,6 +58,8 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
         manager.DetectGesture(userId, KinectGestures.Gestures.SwipeRight);
         manager.DetectGesture(userId, KinectGestures.Gestures.SwipeUp);
         manager.DetectGesture(userId, KinectGestures.Gestures.SwipeDown);
+        manager.DetectGesture(userId, KinectGestures.Gestures.RaiseLeftHand);
+        manager.DetectGesture(userId, KinectGestures.Gestures.RaiseRightHand);
 
         if (OnUserDetected != null)
         {
@@ -188,6 +191,13 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
                 OnSwipeDown(this, null);
             }
         }
+        else if (gesture == KinectGestures.Gestures.RaiseLeftHand || gesture == KinectGestures.Gestures.RaiseRightHand)
+        {
+            if (OnOneHandUp != null)
+            {
+                OnOneHandUp(this, null);
+            }
+        }
 
         return true;
     }
@@ -244,6 +254,13 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
             if (OnSwipeUp != null)
             {
                 OnSwipeUp(this, null);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.Q))
+        {
+            if (OnOneHandUp != null)
+            {
+                OnOneHandUp(this, null);
             }
         }
         else if (Input.GetKeyUp(KeyCode.S))

@@ -70,11 +70,13 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         headingText.color = headingText.color.WithAlpha(0);
 
         // Fade in heading
+        float headingAlpha = 0f;
         this.Delay(3f, () =>
         {
             this.Repeat(0.2f, 10, () =>
             {
-                headingText.color = headingText.color.WithAlpha(headingText.color.a + 0.1f);
+                headingAlpha += .1f;
+                headingText.color = headingText.color.WithAlpha(headingAlpha);
             });
         });
 

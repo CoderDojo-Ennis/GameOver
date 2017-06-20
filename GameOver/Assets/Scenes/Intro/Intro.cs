@@ -25,6 +25,7 @@ public class Intro : BaseGameScene
     /// </summary>
     private void StartIntro()
     {
+        PlayerScript.Instance.ScoreVisible = false;
         PreloadScene("MainMenuScene", false);
         PlayNextPlyalistVideo(VideoPlaylists.Intro).Then(() =>
         {

@@ -37,4 +37,10 @@ public class WarScene : BaseGameScene {
         base.InstructionsComplete();
         BombEmitter.GetComponent<BombEmitter>().StartBombing();
     }
+
+    public override GmDelayPromise FadeIn()
+    {
+
+        return base.FadeIn();
+    }
 }

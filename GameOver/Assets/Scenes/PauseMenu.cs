@@ -30,6 +30,16 @@ public class PauseMenu : BaseMenu {
     {
         GameManager.Instance.GameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
         GameManager.Instance.GameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
+        GameManager.Instance.GameGestureListener.OnOneHandUp += OneHandUp;
+    }
+
+    private void OneHandUp(object sender, EventArgs e)
+    {
+        if (GameManager.Instance.Paused)
+        {
+            PlayMenuSound(ResumeSound);
+            GameManager.Instance.ResumeGame();
+        }
     }
 
     /// <summary>

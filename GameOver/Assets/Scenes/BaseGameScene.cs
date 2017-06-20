@@ -1,8 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class BaseGameScene : MonoBehaviour {
+public class BaseGameScene : MonoBehaviour
+{
+
+    [Header("Background")]
+    public Image BackgroundImage;
 
     [Header("Transition")]
     public float FadeSeconds = 2;
@@ -16,8 +19,9 @@ public class BaseGameScene : MonoBehaviour {
     [HideInInspector]
     public bool IsShowingInstructions;
 
-	// Use this for initialization
-	public void Start () {
+    // Use this for initialization
+    public void Start()
+    {
         Debug.Log("Base Start");
 
         GameManager.Instance.ActiveGameScene = this;
@@ -27,6 +31,10 @@ public class BaseGameScene : MonoBehaviour {
         if (SceneCamera != null)
         {
             SceneCamera.enabled = false;
+        }
+        if (this.BackgroundImage != null)
+        {
+            this.BackgroundImage.SetAlpha(0);
         }
         IsShowingInstructions = true;
         GameManager.Instance.ShowInstructions();
@@ -63,15 +71,16 @@ public class BaseGameScene : MonoBehaviour {
     }
 
     // Update is called once per frame
-    public void Update () {
-		
-	}
+    public void Update()
+    {
+
+    }
 
     /// <summary>
     /// Fade in the lights in this scene
     /// </summary>
     /// <returns></returns>
-    public GmDelayPromise FadeIn()
+    public virtual GmDelayPromise FadeIn()
     {
         Debug.Log("Fade In " + this.gameObject.name);
 
@@ -86,6 +95,11 @@ public class BaseGameScene : MonoBehaviour {
             promise = SceneLights[i].FadeIntensity(this, 0, LightIntensities[i], FadeSeconds);
         }
 
+        if (this.BackgroundImage != null)
+        {
+            BackgroundImage.FadeAlpha(this, 0, 1, FadeSeconds);
+        }
+
         return promise;
     }
 
@@ -93,7 +107,7 @@ public class BaseGameScene : MonoBehaviour {
     /// Fade out the lights in this scene
     /// </summary>
     /// <returns></returns>
-    public GmDelayPromise FadeOut()
+    public virtual GmDelayPromise FadeOut()
     {
         Debug.Log("Fade Out " + this.gameObject.name);
         GmDelayPromise promise = null;
@@ -109,7 +123,8 @@ public class BaseGameScene : MonoBehaviour {
             {
                 promise = SceneLights[i].FadeIntensity(this, LightIntensities[i], 0, FadeSeconds);
             }
-        } else
+        }
+        else
         {
             promise = this.Delay(0.1f);
         }
@@ -153,6 +168,7 @@ public class BaseGameScene : MonoBehaviour {
     }
     public GmDelayPromise PlayNextPlyalistVideo(VideoPlaylists playlist)
     {
+        PlayerScript.Instance.ScoreVisible = false;
         return GameManager.Instance.PlayNextPlyalistVideo(playlist);
     }
 

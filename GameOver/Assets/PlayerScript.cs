@@ -12,6 +12,8 @@ public class PlayerScript : MonoBehaviour {
 
     public static PlayerScript Instance;
 
+    private Canvas ScoreCanvasCanvas;
+
     public void Awake()
     {
         if (Instance == null)
@@ -20,6 +22,22 @@ public class PlayerScript : MonoBehaviour {
         } else
         {
             GameObject.Destroy(this.gameObject);
+        }
+    }
+
+    public void Start()
+    {
+        ScoreCanvasCanvas = GameObject.Find("ScoreCanvas").GetComponent<Canvas>();
+    }
+
+    /// <summary>
+    /// Should the score/health be shown
+    /// </summary>
+    public bool ScoreVisible
+    {
+        set
+        {
+            ScoreCanvasCanvas.enabled = value;
         }
     }
 
