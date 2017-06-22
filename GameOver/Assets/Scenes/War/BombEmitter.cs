@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BombEmitter : MonoBehaviour {
+public class BombEmitter : MonoBehaviour
+{
 
     [Header("The Bomb")]
     public GameObject BombPrefab;
@@ -10,6 +9,13 @@ public class BombEmitter : MonoBehaviour {
     [Header("Frequency")]
     public float BombIntervalSeconds = 3;
     public float BombIntervalRandomSeconds = 0.5f;
+
+    // Don't drop bombs on collectables
+    [Header("Where")]
+    public bool AvoidLeft = false;
+    public bool AvoidRight = false;
+    public float AvoidPercent = .25f;
+    public Vector3? NextDropPoint = null;
 
     private float NextBombSeconds;
     private bool IsBombing;
@@ -51,18 +57,53 @@ public class BombEmitter : MonoBehaviour {
         // Should we abort?
         if (IsBombing)
         {
-            // Pick a point on the quad based on the scale
-            Vector3 center = this.transform.position;
-            Vector3 scale = this.transform.localScale;
-            Vector3 scaleHalf = this.transform.localScale * .5f;
-            Vector3 position = new Vector3(
-                center.x - Random.Range(-scaleHalf.x, scaleHalf.x),
-                center.y - Random.Range(-scaleHalf.y, scaleHalf.y),
-                center.z - Random.Range(-scaleHalf.z, scaleHalf.z));
+            Vector3 position;
+
+            // Aiming for something specific?
+            if (NextDropPoint != null)
+            {
+                position = NextDropPoint.Value;
+                NextDropPoint = null;
+            }
+            else
+            {
+                // Pick a point on the quad based on the scale
+                Vector3 center = this.transform.position;
+                Vector3 scale = this.transform.localScale;
+                float rangePct = 1;
+                if (AvoidLeft)
+                {
+                    rangePct -= AvoidPercent;
+                    center.SetX(center.x + (scale.x * AvoidPercent));
+                }
+                if (AvoidRight)
+                {
+                    rangePct -= AvoidPercent;
+                    center.SetX(center.x - (scale.x * AvoidPercent));
+                }
+                scale *= rangePct;
+                Vector3 scaleHalf = scale * .5f;
+                position = new Vector3(
+                    center.x - Random.Range(-scaleHalf.x, scaleHalf.x),
+                    center.y - Random.Range(-scaleHalf.y, scaleHalf.y),
+                    center.z - Random.Range(-scaleHalf.z, scaleHalf.z));
+            }
             Quaternion rotation = Quaternion.identity;
+
+            // Spawn
             GameObject.Instantiate(BombPrefab, position, rotation);
 
+            // Arís!
             ScheduleNextBomb();
         }
+    }
+
+    /// <summary>
+    ///  Whenever the next bomb drops - it should hit this
+    /// </summary>
+    /// <param name="nextTarget">What it should hit</param>
+    internal void DropNextBombFrom(Vector3 nextDropPoint)
+    {
+        NextDropPoint = nextDropPoint;
     }
 }
