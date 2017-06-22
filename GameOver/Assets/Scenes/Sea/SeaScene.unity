@@ -135,10 +135,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5293e4b85fb8e6f488bb31a47aa3686c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundImage: {fileID: 0}
+  BackgroundMusic: {fileID: 8300000, guid: da994a3f9963bbd4cb768a0d41e6f366, type: 3}
   FadeSeconds: 1
   SceneLights:
   - {fileID: 21170322}
   SceneCamera: {fileID: 0}
+  IsShowingInstructions: 0
 --- !u!4 &13088536
 Transform:
   m_ObjectHideFlags: 0

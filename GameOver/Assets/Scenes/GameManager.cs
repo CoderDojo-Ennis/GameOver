@@ -2,7 +2,8 @@
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     /// <summary>
     /// Singleton Game Manager
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviour {
 
     internal BaseMenu ActiveMenu;
     internal BaseMenu ActiveInstructions;
+
+    private AudioSource BackgroundMusicSource;
 
     /// <summary>
     /// The active BaseScene
@@ -66,7 +69,9 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     /// Scene Started (after all objects awake)
     /// </summary>
-    void Start() {
+    void Start()
+    {
+        BackgroundMusicSource = GameObject.Find("BackgroundMusicSource").GetComponent<AudioSource>();
 
         Debug.Log("Game manager start");
 
@@ -123,7 +128,8 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     /// Update is called once per frame
     /// </summary>
-    void Update() {
+    void Update()
+    {
         InputProcessKeyboard();
         InputProcessGamepad();
         InputProcessKinect();
@@ -336,12 +342,39 @@ public class GameManager : MonoBehaviour {
         {
             Debug.Log("Showing After Preloading " + sceneName);
             NextSceneAsync.allowSceneActivation = true;
-        } else
+        }
+        else
         {
             Debug.Log("Showing Non Preloaded  " + sceneName);
             NextSceneAsync = SceneManager.LoadSceneAsync(sceneName);
             NextSceneAsync.allowSceneActivation = true;
         }
+    }
+
+    /// <summary>
+    /// Play some background music
+    /// </summary>
+    /// <param name="music">The music to play</param>
+    public void PlayBackgroundMusic(AudioClip music)
+    {
+        BackgroundMusicSource.loop = true;
+        BackgroundMusicSource.Stop();
+        BackgroundMusicSource.clip = music;
+        BackgroundMusicSource.volume = 1;
+        BackgroundMusicSource.Play();
+    }
+
+    /// <summary>
+    /// Fade out and stop the background music
+    /// </summary>
+    public void StopBackroundMusic()
+    {
+        float fadeSeconds = 1;
+        BackgroundMusicSource.Fade(this, BackgroundMusicSource.volume, 0, fadeSeconds, true);
+        this.Delay(fadeSeconds, () =>
+        {
+            BackgroundMusicSource.Stop();
+        });
     }
 
     /// <summary>
@@ -354,6 +387,7 @@ public class GameManager : MonoBehaviour {
         // Disable everything but the video
         HideKinect();
         HideMenu(false);
+        StopBackroundMusic();
 
         // Start intro video
         GeekyMonkeyVideoPlaylist playlist;
@@ -376,7 +410,8 @@ public class GameManager : MonoBehaviour {
 
         IsVideoPlaying = true;
         var videoDone = playlist.PlayNext();
-        videoDone.Then(() => {
+        videoDone.Then(() =>
+        {
             IsVideoPlaying = false;
             // If a menu needs to be shown when the video is done
             if (ActiveMenu)

@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class BaseGameScene : MonoBehaviour
 {
-
     [Header("Background")]
     public Image BackgroundImage;
+    public AudioClip BackgroundMusic;
 
     [Header("Transition")]
     public float FadeSeconds = 2;
@@ -67,6 +67,12 @@ public class BaseGameScene : MonoBehaviour
             SceneCamera.enabled = false;
             FadeIn();
         }
+
+        if (BackgroundMusic != null)
+        {
+            GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
+        }
+
         //gameObject.SetActive(false);
     }
 
