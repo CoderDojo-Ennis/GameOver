@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Is the game paused
     /// </summary>
-    internal bool Paused;
+    public bool Paused;
 
     /// <summary>
     /// Seen Awake (before start)
@@ -114,6 +114,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("User Detected");
             Time.timeScale = 0;
             ShowMenu("Pause", 0);
+        }
+        else
+        {
+            PauseGame();
         }
     }
 
@@ -564,7 +568,6 @@ public class GameManager : MonoBehaviour
         var activeCameras = GameObject.FindObjectsOfType<Camera>();
         foreach (var camera in activeCameras)
         {
-            Debug.Log("  camera " + camera.name);
             if (camera.name != "KinectCamera" && camera != exceptCamera)
             {
                 if (camera.enabled)
