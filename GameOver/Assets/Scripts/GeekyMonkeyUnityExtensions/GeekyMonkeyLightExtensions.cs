@@ -11,17 +11,26 @@ public static class GeekyMonkeyLightExtensions
     /// <param name="fromVolume">From Volume (0-1)</param>
     /// <param name="toVolume">To Volume (0-1)</param>
     /// <param name="seconds">Seconds</param>
-    public static GmDelayPromise FadeIntensity(this Light light, MonoBehaviour mb, float fromIntensity, float toIntensity, float seconds)
+    public static GmDelayPromise FadeIntensity(this Light light, MonoBehaviour mb, float fromIntensity, float toIntensity, float seconds, bool realtime)
     {
+        if (seconds == 0)
+        {
+            light.intensity = toIntensity;
+            var done = new GmDelayPromise();
+            done.Done();
+            return done;
+        }
+
         float intervalSeconds = 0.1f;
-        float startTime = Time.time;
+        float step = 0;
         int fadeSteps = (int)Math.Ceiling(seconds / intervalSeconds);
         //Debug.Log("Fade Steps = " + fadeSteps);
 
         light.intensity = fromIntensity;
         return mb.Repeat(intervalSeconds, fadeSteps, () =>
         {
-            float timePercent = Mathf.Clamp((Time.time - startTime) / seconds, 0, 1);
+            step++;
+            float timePercent = Mathf.Clamp(step / fadeSteps, 0, 1);
             //Debug.Log("Fade % = " + timePercent);
             light.intensity = Mathf.Lerp(fromIntensity, toIntensity, timePercent);
         });

@@ -1,5 +1,5 @@
+﻿using System.Collections;
 using UnityEngine;
-using System.Collections;
 
 
 namespace TMPro.Examples
@@ -51,15 +51,15 @@ namespace TMPro.Examples
 
             TMP_TextInfo textInfo = textComponent.textInfo;
 
-            int totalVisibleCharacters; // = textInfo.characterCount; // Get # of Visible Character in text object
+            //int totalVisibleCharacters; // = textInfo.characterCount; // Get # of Visible Character in text object
             int visibleCount = 0;
 
             while (true)
             {
                 if (hasTextChanged)
                 {
-                    totalVisibleCharacters = textInfo.characterCount; // Update visible character count.
-                    hasTextChanged = false; 
+                    // totalVisibleCharacters = textInfo.characterCount; // Update visible character count.
+                    hasTextChanged = false;
                 }
 
                 /*

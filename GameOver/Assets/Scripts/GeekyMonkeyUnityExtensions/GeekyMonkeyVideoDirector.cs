@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class GeekyMonkeyVideoDirector : MonoBehaviour {
+public class GeekyMonkeyVideoDirector : MonoBehaviour
+{
 
-	private VideoPlayer videoPlayer;
+    private VideoPlayer videoPlayer;
     private bool fadingOutAudio;
     private bool fadingOutVideo;
+    private bool fadingIn;
     private Color visibleColor = new Color(1, 1, 1, 1);
     private MeshRenderer quadRenderer;
     private Material videoMaterial;
@@ -57,6 +57,8 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     /// </summary>
     void Start()
     {
+        Debug.Log("VideoDirector Start");
+
         audioSource = this.GetComponent<AudioSource>();
         videoPlayer = this.GetComponent<VideoPlayer>();
         videoCamera = this.GetComponentInChildren<Camera>(true);
@@ -67,26 +69,15 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         // Start faded out
         audioSource.volume = 0;
         videoCamera.enabled = false;
-        headingText.color = headingText.color.WithAlpha(0);
-
-        // Fade in heading
-        float headingAlpha = 0f;
-        this.Delay(3f, () =>
-        {
-            this.Repeat(0.2f, 10, () =>
-            {
-                headingAlpha += .1f;
-                headingText.color = headingText.color.WithAlpha(headingAlpha);
-            });
-        });
+        headingText.SetAlpha(0);
 
         // Video prepare completed event
-        videoPlayer.prepareCompleted += (sender) => {
+        videoPlayer.prepareCompleted += (sender) =>
+        {
             Debug.Log("Prepare completed");
             isPlaying = true;
             FadeInVideo();
             FadeInAudio();
-            videoCamera.enabled = true;
             videoPlayer.Play();
         };
     }
@@ -155,6 +146,12 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         // Is a video playing
         if (isPlaying)
         {
+            if (fadingIn)
+            {
+                this.Delay(FadeInSeconds * 2, Abort);
+                return;
+            }
+
             // Are we already fading out both the audio and video
             if (!fadingOutAudio || !fadingOutVideo)
             {
@@ -182,11 +179,13 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     {
         Debug.Log("Video End");
         isPlaying = false;
+        videoMaterial.SetColor("_Color", visibleColor.WithAlpha(0));
+        headingText.SetAlpha(0);
         fadingOutAudio = false;
         fadingOutVideo = false;
         videoPlayer.Stop();
         playPromise.Done();
-        videoCamera.enabled = false;
+        //videoCamera.enabled = false;
     }
 
     /// <summary>
@@ -209,12 +208,29 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     /// </summary>
     private void FadeInVideo()
     {
+        GameManager.Instance.ShowCamera(this.videoCamera);
+
         if (FadeInSeconds > 0)
         {
-            videoMaterial.Fade(this, FadeInFrom, visibleColor, FadeInSeconds, true);
-            headingText.FadeAlpha(0, 1, FadeInSeconds, true);
-        } else
+            fadingIn = true;
+            videoMaterial.Fade(this, FadeInFrom, visibleColor, FadeInSeconds, true).Then(() =>
+            {
+                if (headingText != null)
+                {
+                    headingText.FadeAlpha(0, 1, FadeInSeconds, true).Then(() =>
+                    {
+                        fadingIn = false;
+                    });
+                }
+                else
+                {
+                    fadingIn = false;
+                }
+            });
+        }
+        else
         {
+            fadingIn = false;
             videoMaterial.SetColor("_Color", visibleColor);
             headingText.SetAlpha(1);
         }
@@ -226,8 +242,16 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
     private void FadeOutVideo()
     {
         this.fadingOutVideo = true;
-        videoMaterial.Fade(this, visibleColor, FadeOutTo, FadeOutSeconds, true);
-        headingText.FadeAlpha(1, 0, FadeOutSeconds, true);
+        if (FadeOutSeconds > 0)
+        {
+            headingText.FadeAlpha(1, 0, FadeOutSeconds / 2, true);
+            videoMaterial.Fade(this, visibleColor, FadeOutTo, FadeOutSeconds, true);
+        }
+        else
+        {
+            videoMaterial.SetColor("_Color", visibleColor.WithAlpha(0));
+            headingText.SetAlpha(0);
+        }
     }
 
     /// <summary>
@@ -252,7 +276,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         }
 
         videoMaterial.SetColor("_Color", FadeInFrom);
-        videoCamera.enabled = true;
+        GameManager.Instance.ShowCamera(videoCamera);
 
         this.playPromise = new GmDelayPromise();
 
@@ -265,6 +289,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour {
         Debug.Log("Prepare");
         videoPlayer.Prepare();
 
+        fadingIn = false;
         fadingOutAudio = false;
         fadingOutVideo = false;
 

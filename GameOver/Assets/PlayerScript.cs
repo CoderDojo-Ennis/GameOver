@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerScript : MonoBehaviour {
+public class PlayerScript : MonoBehaviour
+{
     public int InitialHealth = 60;
     public int Health = 60;
 
@@ -16,10 +17,12 @@ public class PlayerScript : MonoBehaviour {
 
     public void Awake()
     {
+        ScoreCanvasCanvas = GameObject.Find("ScoreCanvas").GetComponent<Canvas>();
         if (Instance == null)
         {
             Instance = this;
-        } else
+        }
+        else
         {
             GameObject.Destroy(this.gameObject);
         }
@@ -27,7 +30,6 @@ public class PlayerScript : MonoBehaviour {
 
     public void Start()
     {
-        ScoreCanvasCanvas = GameObject.Find("ScoreCanvas").GetComponent<Canvas>();
     }
 
     /// <summary>
@@ -66,7 +68,8 @@ public class PlayerScript : MonoBehaviour {
         for (var h = 0; h < Hearts.Length; h++)
         {
             Sprite heartSprite = HeartEmpty;
-            if (hp >= 20) {
+            if (hp >= 20)
+            {
                 heartSprite = HeartFull;
             }
             else if (hp >= 10)

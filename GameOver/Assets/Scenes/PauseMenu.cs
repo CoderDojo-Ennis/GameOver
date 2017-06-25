@@ -1,20 +1,18 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class PauseMenu : BaseMenu {
-
-    [Header("Graphics")]
-    public GameObject Background;
-
+public class PauseMenu : BaseMenu
+{
     [Header("Instructions")]
-    public TextMeshProUGUI HeadingText;
+    public TextMeshPro PauseText;
     public float TypingSeconds = 0.05f;
 
     [Header("Sounds")]
     public AudioClip PlayerFoundSound;
     public AudioClip ResumeSound;
+
+    private GameGestureListener GameGestureListener;
 
     /// <summary>
     /// Awake (before start)
@@ -28,9 +26,12 @@ public class PauseMenu : BaseMenu {
     /// </summary>
     public void Start()
     {
-        GameManager.Instance.GameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
-        GameManager.Instance.GameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
-        GameManager.Instance.GameGestureListener.OnOneHandUp += OneHandUp;
+        GameGestureListener = gameObject.GetComponent<GameGestureListener>();
+        GameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
+        GameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
+        GameGestureListener.OnOneHandUp += OneHandUp;
+
+        GameManager.Instance.FadeCameraIn(1f, gameObject.GetComponentInChildren<Camera>());
     }
 
     private void OneHandUp(object sender, EventArgs e)
@@ -59,18 +60,14 @@ public class PauseMenu : BaseMenu {
     /// <summary>
     /// Show the menu
     /// </summary>
-    public override void ShowMenu()
+    public override void ShowMenu(float fadeSeconds)
     {
         Debug.Log("Show Pause Menu");
-        base.ShowMenu();
+        base.ShowMenu(fadeSeconds);
 
         PlayMenuSound(PlayerFoundSound);
 
-        // todo - fade in
-        //var backgroundImage = Background.GetComponent<Image>();
-        //backgroundImage.GetComponent<CanvasRenderer>().FadeAlpha(this, 0, 1, 1);
-
-        HeadingText.Type(this, TypingSeconds, true, () =>
+        PauseText.Type(this, TypingSeconds, true, () =>
         {
             AudioManager.Instance.PlayTypeCharacter();
         });
