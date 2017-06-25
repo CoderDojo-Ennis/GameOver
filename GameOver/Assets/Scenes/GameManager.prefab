@@ -48,7 +48,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1051988877618994
 GameObject:
   m_ObjectHideFlags: 1
@@ -2324,6 +2324,8 @@ MonoBehaviour:
   InstructionText: {fileID: 114663816548676306}
   TypingSeconds: 0.03
   PlayerLostSound: {fileID: 8300000, guid: 8ee6e28227a1e034eb9de163a6454055, type: 3}
+  GlideSprite: {fileID: 21300004, guid: af047bce09e333b45a339fb68999718b, type: 3}
+  IdleSprite: {fileID: 21300000, guid: af047bce09e333b45a339fb68999718b, type: 3}
 --- !u!114 &114211894634443588
 MonoBehaviour:
   m_ObjectHideFlags: 1
