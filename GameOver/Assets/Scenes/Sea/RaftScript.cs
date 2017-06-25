@@ -5,12 +5,13 @@ using UnityEngine;
 public class RaftScript : MonoBehaviour
 {
     public float YOffset;
+    public Vector3 RaftPosition;
 	void Start () {
 		
 	}
 
 	void Update () {
-        transform.position = new Vector3(0, 10, 0);
+        transform.position = RaftPosition;
         RaycastHit hit;
         Ray r = new Ray(transform.position, Vector3.down);
         if (Physics.Raycast(r, out hit))
