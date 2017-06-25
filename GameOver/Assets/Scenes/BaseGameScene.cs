@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class BaseGameScene : MonoBehaviour
 {
     [Header("Background")]
-    public Image BackgroundImage;
     public AudioClip BackgroundMusic;
 
     [Header("Transition")]
-    public float FadeSeconds = 2;
+    public float FadeSeconds = 1f;
 
-    public Light[] SceneLights;
-    private float[] LightIntensities;
-
-    [HideInInspector]
+    //[HideInInspector]
     public Camera SceneCamera;
 
-    [HideInInspector]
-    public bool IsShowingInstructions;
+    internal bool Paused;
+
+    public void Awake()
+    {
+        SceneCamera = gameObject.GetComponentInChildren<Camera>(true);
+    }
 
     // Use this for initialization
     public void Start()
@@ -26,54 +25,16 @@ public class BaseGameScene : MonoBehaviour
 
         GameManager.Instance.ActiveGameScene = this;
 
-        // Hide the scene, and show instructions
-        SceneCamera = this.gameObject.GetComponentInChildren<Camera>();
-        if (SceneCamera != null)
+        if (BackgroundMusic != null)
         {
-            SceneCamera.enabled = false;
+            GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
         }
-        if (this.BackgroundImage != null)
-        {
-            this.BackgroundImage.SetAlpha(0);
-        }
-        IsShowingInstructions = true;
-        GameManager.Instance.ShowInstructions();
 
         // If no player found - start with invitation
         if (!GameManager.Instance.GameGestureListener.IsPlayerDetected)
         {
             GameManager.Instance.InviteGame();
         }
-    }
-
-    /// <summary>
-    /// After instructions countdown
-    /// </summary>
-    public virtual void InstructionsComplete()
-    {
-        IsShowingInstructions = false;
-
-        if (SceneLights != null)
-        {
-            LightIntensities = new float[SceneLights.Length];
-            for (var i = 0; i < SceneLights.Length; i++)
-            {
-                LightIntensities[i] = SceneLights[i].intensity;
-            }
-        }
-
-        if (SceneCamera != null)
-        {
-            SceneCamera.enabled = false;
-            FadeIn();
-        }
-
-        if (BackgroundMusic != null)
-        {
-            GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
-        }
-
-        //gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -83,68 +44,11 @@ public class BaseGameScene : MonoBehaviour
     }
 
     /// <summary>
-    /// Fade in the lights in this scene
+    /// Fade in the scene camera
     /// </summary>
-    /// <returns></returns>
-    public virtual GmDelayPromise FadeIn()
+    public virtual GmDelayPromise FadeCameraIn()
     {
-        Debug.Log("Fade In " + this.gameObject.name);
-
-        if (SceneCamera != null)
-        {
-            SceneCamera.enabled = true;
-        }
-        GmDelayPromise promise = null;
-
-        for (var i = 0; i < SceneLights.Length; i++)
-        {
-            promise = SceneLights[i].FadeIntensity(this, 0, LightIntensities[i], FadeSeconds);
-        }
-
-        if (this.BackgroundImage != null)
-        {
-            BackgroundImage.FadeAlpha(this, 0, 1, FadeSeconds);
-        }
-
-        return promise;
-    }
-
-    /// <summary>
-    /// Fade out the lights in this scene
-    /// </summary>
-    /// <returns></returns>
-    public virtual GmDelayPromise FadeOut()
-    {
-        Debug.Log("Fade Out " + this.gameObject.name);
-        GmDelayPromise promise = null;
-
-        if (SceneCamera != null)
-        {
-            SceneCamera.enabled = true;
-        }
-
-        if (SceneLights.Length > 0)
-        {
-            for (var i = 0; i < SceneLights.Length; i++)
-            {
-                promise = SceneLights[i].FadeIntensity(this, LightIntensities[i], 0, FadeSeconds);
-            }
-        }
-        else
-        {
-            promise = this.Delay(0.1f);
-        }
-
-        promise.Then(() =>
-        {
-            if (SceneCamera != null)
-            {
-                SceneCamera.enabled = false;
-            }
-            //gameObject.SetActive(false);
-        });
-
-        return promise;
+        return GameManager.Instance.FadeCameraIn(this.FadeSeconds, this.SceneCamera);
     }
 
     /// <summary>
@@ -157,7 +61,7 @@ public class BaseGameScene : MonoBehaviour
         GameManager.Instance.PreloadScene(sceneName, false);
 
         // Fade out
-        this.FadeOut().Then(() =>
+        GameManager.Instance.FadeCameraOut(FadeSeconds).Then(() =>
         {
             GameManager.Instance.ShowScene(sceneName);
         });
@@ -183,6 +87,7 @@ public class BaseGameScene : MonoBehaviour
     /// </summary>
     public virtual void OnPause()
     {
+        Paused = true;
     }
 
     /// <summary>
@@ -190,5 +95,7 @@ public class BaseGameScene : MonoBehaviour
     /// </summary>
     public virtual void OnResume()
     {
+        Paused = false;
+        FadeCameraIn();
     }
 }

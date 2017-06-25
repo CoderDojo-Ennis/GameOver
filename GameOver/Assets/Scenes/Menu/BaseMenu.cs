@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class BaseMenu : MonoBehaviour
 {
     private AudioSource MenuAudioSource;
 
-    public virtual void ShowMenu()
+    public virtual void ShowMenu(float fadeSeconds)
     {
-
+        var menuCamera = gameObject.GetComponentInChildren<Camera>();
+        GameManager.Instance.FadeCameraIn(fadeSeconds, menuCamera);
     }
 
     /// <summary>

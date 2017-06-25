@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     /// <summary>
     /// Singleton Game Manager
     /// </summary>
@@ -27,15 +26,29 @@ public class GameManager : MonoBehaviour
 
     [Header("Menus")]
     public GameObject Instructions;
+    public SpriteRenderer CameraMask;
 
     // Preload / Show the next scene
     string PreloadedSceneName;
     AsyncOperation NextSceneAsync;
+    public Camera ActiveCamera;
 
     internal BaseMenu ActiveMenu;
     internal BaseMenu ActiveInstructions;
 
     private AudioSource BackgroundMusicSource;
+
+    private string ActiveCameraName
+    {
+        get
+        {
+            if (ActiveCamera == null)
+            {
+                return null;
+            }
+            return ActiveCamera.name;
+        }
+    }
 
     /// <summary>
     /// The active BaseScene
@@ -63,6 +76,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game manager awake");
 
         Instance = this;
+        BackgroundMusicSource = GameObject.Find("BackgroundMusicSource").GetComponent<AudioSource>();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -71,12 +85,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        BackgroundMusicSource = GameObject.Find("BackgroundMusicSource").GetComponent<AudioSource>();
-
         Debug.Log("Game manager start");
 
         HideMenu();
-        HideInstructions();
 
         GetComponentInChildren<EventSystem>().enabled = true;
 
@@ -97,9 +108,13 @@ public class GameManager : MonoBehaviour
     /// <param name="e"></param>
     private void GameGestureListener_OnUserDetected(object sender, System.EventArgs e)
     {
-        //todo - show user resume menu
-        Debug.Log("User Detected");
-        PauseGame();
+        //todo - show user resume menu - move this to invite script
+        if (Paused)
+        {
+            Debug.Log("User Detected");
+            Time.timeScale = 0;
+            ShowMenu("Pause", 0);
+        }
     }
 
     /// <summary>
@@ -188,7 +203,8 @@ public class GameManager : MonoBehaviour
     {
         Paused = true;
         Time.timeScale = 0;
-        ShowMenu("Invite");
+        ShowMenu("Invite", 1);
+        PauseBackroundMusic();
         if (ActiveGameScene)
         {
             ActiveGameScene.OnPause();
@@ -202,7 +218,8 @@ public class GameManager : MonoBehaviour
     {
         Paused = true;
         Time.timeScale = 0;
-        ShowMenu("Pause");
+        ShowMenu("Pause", 1);
+        PauseBackroundMusic();
         if (ActiveGameScene)
         {
             ActiveGameScene.OnPause();
@@ -214,13 +231,22 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResumeGame()
     {
+        // todo - could fade out
         Paused = false;
-        Time.timeScale = 1;
         HideMenu();
+        Time.timeScale = 0;
+        ResumeBackroundMusic();
         if (ActiveGameScene)
         {
             ActiveGameScene.OnResume();
         }
+        this.Delay(0.25f, () =>
+        {
+            this.Repeat(0.2f, 10, () =>
+            {
+                Time.timeScale += .1f;
+            }, true);
+        }, true);
     }
 
     public void HideMenu(bool deactivate = true)
@@ -242,36 +268,10 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Show the level instructions
-    /// </summary>
-    public void ShowInstructions()
-    {
-        BaseMenu baseMenu = this.Instructions.gameObject.GetComponent<BaseMenu>();
-        ActiveInstructions = baseMenu;
-        baseMenu.gameObject.SetActive(true);
-        baseMenu.ShowMenu();
-        baseMenu.GetComponent<InstructionsMenu>().ShowInstructions();
-        if (GameManager.Instance.ActiveGameScene.name != "Intro")
-        {
-            PlayerScript.Instance.ScoreVisible = true;
-        }
-    }
-
-    /// <summary>
-    /// Hide the level instructions
-    /// </summary>
-    public void HideInstructions()
-    {
-        BaseMenu baseMenu = this.Instructions.gameObject.GetComponent<BaseMenu>();
-        ActiveInstructions = null;
-        baseMenu.gameObject.SetActive(false);
-    }
-
-    /// <summary>
     /// Show a specific menu
     /// </summary>
     /// <param name="menuName">Name of the menu to show</param>
-    public void ShowMenu(string menuName)
+    public void ShowMenu(string menuName, float fadeSeconds)
     {
         if (ActiveMenu)
         {
@@ -307,7 +307,7 @@ public class GameManager : MonoBehaviour
             if (!IsVideoPlaying)
             {
                 baseMenu.gameObject.SetActive(true);
-                baseMenu.ShowMenu();
+                baseMenu.ShowMenu(fadeSeconds);
             }
         }
     }
@@ -337,18 +337,37 @@ public class GameManager : MonoBehaviour
     /// <param name="sceneName">Name of the scene</param>
     public void ShowScene(string sceneName)
     {
-        // Is it pre-loaded
-        if (PreloadedSceneName == sceneName)
+        bool justWatchedVideo = ActiveCameraName == "VideoCamera";
+        float fadeSeconds = justWatchedVideo ? 0.1f : 1f;
+        FadeCameraOut(fadeSeconds).Then(() =>
         {
-            Debug.Log("Showing After Preloading " + sceneName);
-            NextSceneAsync.allowSceneActivation = true;
-        }
-        else
+            // Is it pre-loaded
+            if (PreloadedSceneName == sceneName)
+            {
+                Debug.Log("Showing After Preloading " + sceneName);
+                NextSceneAsync.allowSceneActivation = true;
+            }
+            else
+            {
+                Debug.Log("Showing Non Preloaded  " + sceneName);
+                NextSceneAsync = SceneManager.LoadSceneAsync(sceneName);
+                NextSceneAsync.allowSceneActivation = true;
+            }
+        });
+    }
+
+    /// <summary>
+    /// Fade camera out and switch to another scene
+    /// </summary>
+    /// <param name="sceneName">Next scene name</param>
+    /// <param name="fadeSeconds">Fade seconds</param>
+    public void FadeToScene(string sceneName, float fadeSeconds)
+    {
+        PreloadScene(sceneName, false);
+        FadeCameraOut(fadeSeconds).Then(() =>
         {
-            Debug.Log("Showing Non Preloaded  " + sceneName);
-            NextSceneAsync = SceneManager.LoadSceneAsync(sceneName);
-            NextSceneAsync.allowSceneActivation = true;
-        }
+            ShowScene(sceneName);
+        });
     }
 
     /// <summary>
@@ -375,6 +394,48 @@ public class GameManager : MonoBehaviour
         {
             BackgroundMusicSource.Stop();
         });
+    }
+
+    /// <summary>
+    /// Fade out and stop the background music
+    /// </summary>
+    public void PauseBackroundMusic()
+    {
+        Debug.Log("Pause background music");
+        if (BackgroundMusicSource.clip != null)
+        {
+            float fadeSeconds = 0.5f;
+            BackgroundMusicSource.Fade(this, BackgroundMusicSource.volume, 0, fadeSeconds, true);
+            //BackgroundMusicSource.pitch = 1;
+            //this.Repeat(.2f, 10, () =>
+            //{
+            //    BackgroundMusicSource.pitch -= .01f;
+            //}, true);
+            this.Delay(fadeSeconds, () =>
+            {
+                Debug.Log("Pause background music now");
+                BackgroundMusicSource.Pause();
+            }, true);
+        }
+    }
+
+    /// <summary>
+    /// Fade out and stop the background music
+    /// </summary>
+    public void ResumeBackroundMusic()
+    {
+        Debug.Log("Resume background music");
+        if (BackgroundMusicSource.clip != null)
+        {
+            float fadeSeconds = 0.5f;
+            BackgroundMusicSource.UnPause();
+            BackgroundMusicSource.Fade(this, BackgroundMusicSource.volume, 1, fadeSeconds, true);
+            //BackgroundMusicSource.pitch = 0.9f;
+            //this.Repeat(.2f, 10, () =>
+            //{
+            //    BackgroundMusicSource.pitch += .01f;
+            //}, true);
+        }
     }
 
     /// <summary>
@@ -416,7 +477,7 @@ public class GameManager : MonoBehaviour
             // If a menu needs to be shown when the video is done
             if (ActiveMenu)
             {
-                ShowMenu(ActiveMenu.gameObject.name);
+                ShowMenu(ActiveMenu.gameObject.name, 0.5f);
             }
         });
         return videoDone;
@@ -441,6 +502,77 @@ public class GameManager : MonoBehaviour
         if (KinectCamera)
         {
             KinectCamera.SetActive(false);
+        }
+    }
+
+    public GmDelayPromise FadeCameraOut(float seconds)
+    {
+        return CameraMask.FadeAlpha(this, CameraMask.color.a, 1, seconds, true);
+    }
+
+    public GmDelayPromise FadeCameraIn(float seconds, Camera camera)
+    {
+        ShowCamera(camera);
+        return CameraMask.FadeAlpha(this, 1, 0, seconds, true);
+    }
+
+    /// <summary>
+    /// Fade the current camera out, switch to another camera and fade it in.  Promise when complete
+    /// </summary>
+    /// <param name="camera"></param>
+    /// <returns></returns>
+    public GmDelayPromise FadeToCamera(Camera camera, float fadeSeconds)
+    {
+        GmDelayPromise fadeComplete = new GmDelayPromise();
+
+        // Already faded out?
+        if (CameraMask.color.a == 0)
+        {
+            FadeCameraIn(fadeSeconds, camera).Then(() =>
+            {
+                fadeComplete.Done();
+            });
+        }
+        else
+        {
+            FadeCameraOut(fadeSeconds)
+                .Then(() =>
+                {
+                    FadeCameraIn(fadeSeconds, camera).Then(() =>
+                    {
+                        fadeComplete.Done();
+                    });
+                });
+        }
+
+        return fadeComplete;
+    }
+
+    public void ShowCamera(Camera camera)
+    {
+        Debug.Log("ShowCamera " + camera.name);
+        if (camera != null)
+        {
+            HideAllCameras(camera);
+            camera.enabled = true;
+        }
+        ActiveCamera = camera;
+    }
+
+    public void HideAllCameras(Camera exceptCamera)
+    {
+        var activeCameras = GameObject.FindObjectsOfType<Camera>();
+        foreach (var camera in activeCameras)
+        {
+            Debug.Log("  camera " + camera.name);
+            if (camera.name != "KinectCamera" && camera != exceptCamera)
+            {
+                if (camera.enabled)
+                {
+                    Debug.Log("Disble camera: " + camera.name);
+                    camera.enabled = false;
+                }
+            }
         }
     }
 }

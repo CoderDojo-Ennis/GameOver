@@ -13,15 +13,24 @@ public static class GeekyMonkeyMaterialExtensions
     /// <param name="seconds">Seconds</param>
     public static GmDelayPromise Fade(this Material mat, MonoBehaviour mb, Color fromColor, Color toColor, float seconds, bool realtime)
     {
+        if (seconds == 0)
+        {
+            mat.SetColor("_Color", toColor);
+            var done = new GmDelayPromise();
+            done.Done();
+            return done;
+        }
+
         float intervalSeconds = 0.1f;
-        float startTime = Time.time;
+        float step = 0;
         int fadeSteps = (int)Math.Ceiling(seconds / intervalSeconds);
         //Debug.Log("Fade Steps = " + fadeSteps);
 
         mat.SetColor("_Color", fromColor);
         return mb.Repeat(intervalSeconds, fadeSteps, () =>
         {
-            float timePercent = Mathf.Clamp((Time.time - startTime) / seconds, 0, 1);
+            step++;
+            float timePercent = Mathf.Clamp(step / fadeSteps, 0, 1);
             //Debug.Log("Fade % = " + timePercent);
             mat.SetColor("_Color", Color.Lerp(fromColor, toColor, timePercent));
         }, realtime);

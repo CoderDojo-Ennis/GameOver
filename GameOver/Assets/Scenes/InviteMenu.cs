@@ -1,21 +1,32 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class InviteMenu : BaseMenu {
-
-    [Header("Graphics")]
-    public GameObject Background;
-
+public class InviteMenu : BaseMenu
+{
     [Header("Instructions")]
-    public TextMeshProUGUI HeadingText;
+    public TextMeshPro InstructionText;
     public float TypingSeconds = 0.05f;
 
     [Header("Sounds")]
     public AudioClip PlayerLostSound;
 
+    [Header("Avatar")]
+    public Sprite GlideSprite;
+    public Sprite IdleSprite;
+
+    private AvatarScript Avatar;
+
     /// <summary>
     /// Awake (before start)
+    /// </summary>
+    public void Awake()
+    {
+        Avatar = GetComponentInChildren<AvatarScript>(true);
+        Avatar.gameObject.layer = this.gameObject.layer;
+    }
+
+    /// <summary>
+    /// Start (after awake)
     /// </summary>
     public void Start()
     {
@@ -24,20 +35,22 @@ public class InviteMenu : BaseMenu {
     /// <summary>
     /// Show the menu
     /// </summary>
-    public override void ShowMenu()
+    public override void ShowMenu(float fadeSeconds)
     {
         Debug.Log("Show Invite Menu");
-        base.ShowMenu();
+        base.ShowMenu(fadeSeconds);
 
         PlayMenuSound(PlayerLostSound);
 
-        // todo - fade in
-        //var backgroundImage = Background.GetComponent<Image>();
-        //backgroundImage.GetComponent<CanvasRenderer>().FadeAlpha(this, 0, 1, 1);
-
-        HeadingText.Type(this, TypingSeconds, true, () =>
+        InstructionText.Type(this, TypingSeconds, true, () =>
         {
             AudioManager.Instance.PlayTypeCharacter();
+        });
+
+        Avatar.SetSprite(GlideSprite);
+        Avatar.GlideX(-7, 0, 1).Then(() =>
+        {
+            Avatar.SetSprite(IdleSprite);
         });
     }
 }

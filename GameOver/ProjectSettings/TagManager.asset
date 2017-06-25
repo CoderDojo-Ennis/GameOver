@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bomb
   layers:
   - Default
   - TransparentFX
@@ -13,13 +14,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Sprites
+  - Invite
+  - Score
+  - Pause
+  - Video
+  - Instructions
+  - CameraMask
   - 
   - 
   - 
@@ -40,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: SortingLayer1
+    uniqueID: 1244225639
     locked: 0

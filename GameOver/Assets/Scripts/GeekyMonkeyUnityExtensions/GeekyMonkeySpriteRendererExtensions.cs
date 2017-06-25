@@ -1,19 +1,19 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 
-public static class GeekyMonkeyUIImageExtensions
+public static class GeekyMonkeySpriteRendererExtensions
 {
-    public static void SetAlpha(this Image img, float alpha)
+    public static void SetAlpha(this SpriteRenderer sr, float alpha)
     {
-        img.color = img.color.WithAlpha(alpha);
+        Debug.Log(sr.gameObject.name + " alpha = " + alpha);
+        sr.color = sr.color.WithAlpha(alpha);
     }
 
-    public static GmDelayPromise FadeAlpha(this Image img, MonoBehaviour mb, float fromAlpha, float toAlpha, float seconds, bool realtime)
+    public static GmDelayPromise FadeAlpha(this SpriteRenderer sr, MonoBehaviour mb, float fromAlpha, float toAlpha, float seconds, bool realtime)
     {
         if (seconds == 0)
         {
-            img.SetAlpha(toAlpha);
+            sr.SetAlpha(toAlpha);
             var done = new GmDelayPromise();
             done.Done();
             return done;
@@ -24,14 +24,14 @@ public static class GeekyMonkeyUIImageExtensions
         int fadeSteps = (int)Math.Ceiling(seconds / intervalSeconds);
         //Debug.Log("Fade Steps = " + fadeSteps);
 
-        img.color = img.color.WithAlpha(fromAlpha);
+        sr.SetAlpha(fromAlpha);
         return mb.Repeat(intervalSeconds, fadeSteps, () =>
         {
             step++;
             float timePercent = Mathf.Clamp(step / fadeSteps, 0, 1);
             //Debug.Log("Fade % = " + timePercent);
-            img.SetAlpha(Mathf.Lerp(fromAlpha, toAlpha, timePercent));
-        });
+            sr.SetAlpha(Mathf.Lerp(fromAlpha, toAlpha, timePercent));
+        }, realtime);
     }
 
 }

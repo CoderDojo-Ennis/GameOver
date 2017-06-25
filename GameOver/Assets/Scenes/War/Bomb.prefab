@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 82444189868536596}
   m_Layer: 0
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,7 +58,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 2
   m_AngularDrag: 0.05
-  m_GravityScale: 0.5
+  m_GravityScale: 0.55
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Explosion: {fileID: 1487152852006050, guid: b503345c53b304644877dd270cabeb7e, type: 2}
   Shadow: {fileID: 1951637164972268, guid: 4d70d741f19898849bc3a7281efecd53, type: 2}
-  ShadowY: -1.1
+  ShadowY: -3.3
 --- !u!212 &212402121408430290
 SpriteRenderer:
   m_ObjectHideFlags: 1
