@@ -28,8 +28,12 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Start (After Awake)
+    /// </summary>
     public void Start()
     {
+        SetInitialHealth();
     }
 
     /// <summary>

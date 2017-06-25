@@ -14,11 +14,15 @@ public class PauseMenu : BaseMenu
 
     private GameGestureListener GameGestureListener;
 
+    private AvatarScript Avatar;
+
     /// <summary>
     /// Awake (before start)
     /// </summary>
     public void Awake()
     {
+        Avatar = GetComponentInChildren<AvatarScript>(true);
+        Avatar.gameObject.layer = this.gameObject.layer;
     }
 
     /// <summary>

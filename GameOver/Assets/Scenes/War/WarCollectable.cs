@@ -58,12 +58,20 @@ public class WarCollectable : MonoBehaviour
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         this.transform.position = dropPos;
         GetComponent<SpriteRenderer>().enabled = true;
+    }
 
-        // Fake it - todo - remove this
-        this.Delay(6, () =>
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Bomb")
         {
-            Collect();
-        });
+            DestroyedByBomb();
+        }
+    }
+
+    public void DestroyedByBomb()
+    {
+        // todo - fail sound and/or graphic
+        Destroy(gameObject);
     }
 
     public void Collect()
