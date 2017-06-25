@@ -1,18 +1,20 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class InstructionsMenu : BaseMenu
+public class InstructionsMenu : BaseGameScene
 {
-    public GameObject Background;
-
     [Header("Instructions")]
-    public TextMeshProUGUI HeadingText;
+    public TextMeshPro InstructionText;
     public float TypingSeconds = 0.05f;
 
+    [Header("Transition To")]
+    public VideoPlaylists VideoPlaylist;
+    public string GameSceneName = "WarScene";
+
     [Header("Countdown")]
-    public TextMeshProUGUI CountdownText;
+    private TextMeshProUGUI CountdownText;
+    public float PreCountdownSeconds = 4;
     public int CountdownSeconds = 3;
     private int SecondsRemaining;
 
@@ -23,12 +25,34 @@ public class InstructionsMenu : BaseMenu
     // Menu sounds
     private AudioSource AudioSource;
 
+    public new void Awake()
+    {
+        base.Awake();
+        AudioSource = this.GetComponent<AudioSource>();
+        this.CountdownText = GameObject.Find("CountDownText").GetComponent<TextMeshProUGUI>();
+    }
+
     /// <summary>
     /// Start the pause menu
     /// </summary>
-    public void Start()
+    public new void Start()
     {
-        AudioSource = this.GetComponent<AudioSource>();
+        Debug.Log("Instructions Start");
+
+        this.Delay(.01f, () =>
+        {
+            if (VideoPlaylist != VideoPlaylists.None)
+            {
+                PlayNextPlyalistVideo(VideoPlaylist).Then(() =>
+                {
+                    ShowInstructions();
+                });
+            }
+            else
+            {
+                ShowInstructions();
+            }
+        });
     }
 
     /// <summary>
@@ -36,9 +60,19 @@ public class InstructionsMenu : BaseMenu
     /// </summary>
     public void ShowInstructions()
     {
+        Debug.Log("Instructions Show");
+
+        FadeCameraIn();
+        PlayerScript.Instance.ScoreVisible = true;
         this.CountdownText.text = "";
         GameManager.Instance.GameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
         GameManager.Instance.GameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
+
+        InstructionText.Type(this, TypingSeconds, true, () =>
+        {
+            AudioManager.Instance.PlayTypeCharacter();
+        });
+
         StartCountdown();
     }
 
@@ -59,8 +93,7 @@ public class InstructionsMenu : BaseMenu
             {
                 SecondsRemaining = -1;
                 AudioSource.PlayOneShot(CountdownGoSound);
-                GameManager.Instance.HideInstructions();
-                GameManager.Instance.ActiveGameScene.InstructionsComplete();
+                GameManager.Instance.FadeToScene(GameSceneName, FadeSeconds);
             }
         }
     }
@@ -68,11 +101,11 @@ public class InstructionsMenu : BaseMenu
     /// <summary>
     /// Show the instructions
     /// </summary>
-    public override void ShowMenu()
+    public void ShowMenu()
     {
-        Debug.Log("Show Instructions");
-        base.ShowMenu();
+        Debug.Log("ShowMenu()");
 
+        /*
         // todo - fade in
         //var backgroundImage = Background.GetComponent<Image>();
         //backgroundImage.GetComponent<CanvasRenderer>().FadeAlpha(this, 0, 1, 1);
@@ -101,6 +134,7 @@ public class InstructionsMenu : BaseMenu
         {
             AudioManager.Instance.PlayTypeCharacter();
         });
+        */
     }
 
     /// <summary>
@@ -108,27 +142,23 @@ public class InstructionsMenu : BaseMenu
     /// </summary>
     public void StartCountdown()
     {
+        Debug.Log("Instructions StartCountdown");
+
+        GameManager.Instance.PreloadScene("WarScene", false);
+
         this.CountdownText.text = "";
         SecondsRemaining = CountdownSeconds;
 
-        string activeSceneName = GameManager.Instance.ActiveGameScene.name;
-        if (activeSceneName == "MainMenu")
-        {
-            // Instructions complete
-            this.Delay(2f, () =>
-            {
-                GameManager.Instance.HideInstructions();
-                GameManager.Instance.ActiveGameScene.InstructionsComplete();
-            });
-            return;
-        }
-
         // Pre-countdown delay
-        this.Delay(3f, () =>
+        this.Delay(PreCountdownSeconds, () =>
         {
+            Debug.Log("Pre-Countdown complete");
+
             // Number of seconds
             this.Repeat(1f, this.CountdownSeconds + 1, () =>
             {
+                Debug.Log("Countdown seconds remaining: " + SecondsRemaining);
+
                 if (SecondsRemaining < 0)
                 {
                     // Aborted
@@ -143,8 +173,8 @@ public class InstructionsMenu : BaseMenu
                     // Instructions complete
                     this.Delay(1f, () =>
                     {
-                        GameManager.Instance.HideInstructions();
-                        GameManager.Instance.ActiveGameScene.InstructionsComplete();
+                        this.CountdownText.text = "";
+                        GameManager.Instance.FadeToScene(GameSceneName, FadeSeconds);
                     });
                 }
                 else

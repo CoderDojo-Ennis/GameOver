@@ -28,6 +28,9 @@ public class WarScene : BaseGameScene
         // Find Collectables
         CollectablesDroppedCount = 0;
         Collectables = GameObject.Find("WarCollectables").GetComponentsInChildren<WarCollectable>();
+
+        BombEmitter.GetComponent<BombEmitter>().StartBombing();
+        DropCollectable();
     }
 
     // Update is called once per frame
@@ -35,7 +38,7 @@ public class WarScene : BaseGameScene
     {
         base.Update();
 
-        if (!IsShowingInstructions)
+        if (!GameManager.Instance.Paused)
         {
             if (Input.GetKeyUp(KeyCode.Space))
             {
@@ -45,16 +48,6 @@ public class WarScene : BaseGameScene
                 //GameManager.Instance.ShowScene(seaScene);
             }
         }
-    }
-
-    /// <summary>
-    /// Instructions complete - begin gameplay
-    /// </summary>
-    public override void InstructionsComplete()
-    {
-        base.InstructionsComplete();
-        BombEmitter.GetComponent<BombEmitter>().StartBombing();
-        DropCollectable();
     }
 
     /// <summary>

@@ -43,9 +43,10 @@ public static class GeekyMonkeyMonoBehaviourExtensions
                 try
                 {
                     callback();
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
-                    Debug.Log("Callback Error: " + ex.Message);
+                    Debug.LogError("Callback Error: " + ex.Message);
                 }
             }
         }
@@ -56,7 +57,7 @@ public static class GeekyMonkeyMonoBehaviourExtensions
     {
         var childTransforms = mb.GetComponentsInChildren<Transform>(includeInactive);
         List<GameObject> taggedChildren = new List<GameObject>();
-        for(var i = 0; i < childTransforms.Length; i++)
+        for (var i = 0; i < childTransforms.Length; i++)
         {
             if (childTransforms[i].CompareTag(tag))
             {
@@ -86,6 +87,7 @@ public class GmDelayPromise
     internal Coroutine coroutine;
     internal MonoBehaviour monobehaviour;
     private Action then;
+    bool done;
 
     // Protected constructor
     internal GmDelayPromise()
@@ -99,11 +101,19 @@ public class GmDelayPromise
 
     public void Then(Action thenCallback)
     {
-        this.then += thenCallback;
+        if (done)
+        {
+            thenCallback();
+        }
+        else
+        {
+            this.then += thenCallback;
+        }
     }
 
     internal void Done()
     {
+        done = true;
         if (this.then != null)
         {
             this.then();
