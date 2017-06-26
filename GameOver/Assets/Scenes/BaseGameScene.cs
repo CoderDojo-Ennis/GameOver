@@ -35,6 +35,10 @@ public class BaseGameScene : MonoBehaviour
         {
             GameManager.Instance.InviteGame();
         }
+        else
+        {
+            FadeCameraIn();
+        }
     }
 
     // Update is called once per frame

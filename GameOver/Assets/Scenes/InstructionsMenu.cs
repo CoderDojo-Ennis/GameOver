@@ -37,7 +37,9 @@ public class InstructionsMenu : BaseGameScene
     /// </summary>
     public new void Start()
     {
+        // Don't call base
         Debug.Log("Instructions Start");
+        GameManager.Instance.ActiveGameScene = this;
 
         this.Delay(.01f, () =>
         {
@@ -45,14 +47,26 @@ public class InstructionsMenu : BaseGameScene
             {
                 PlayNextPlyalistVideo(VideoPlaylist).Then(() =>
                 {
-                    ShowInstructions();
+                    InviteAndShowinstructions();
                 });
             }
             else
             {
-                ShowInstructions();
+                InviteAndShowinstructions();
             }
         });
+    }
+
+    public void InviteAndShowinstructions()
+    {
+        if (!GameManager.Instance.GameGestureListener.IsPlayerDetected)
+        {
+            GameManager.Instance.InviteGame().Then(ShowInstructions);
+        }
+        else
+        {
+            ShowInstructions();
+        }
     }
 
     /// <summary>

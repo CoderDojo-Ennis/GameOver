@@ -5,7 +5,6 @@ public static class GeekyMonkeySpriteRendererExtensions
 {
     public static void SetAlpha(this SpriteRenderer sr, float alpha)
     {
-        Debug.Log(sr.gameObject.name + " alpha = " + alpha);
         sr.color = sr.color.WithAlpha(alpha);
     }
 

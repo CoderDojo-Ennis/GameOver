@@ -12,8 +12,6 @@ public class PauseMenu : BaseMenu
     public AudioClip PlayerFoundSound;
     public AudioClip ResumeSound;
 
-    private GameGestureListener GameGestureListener;
-
     private AvatarScript Avatar;
 
     /// <summary>
@@ -30,15 +28,14 @@ public class PauseMenu : BaseMenu
     /// </summary>
     public void Start()
     {
-        GameGestureListener = gameObject.GetComponent<GameGestureListener>();
-        GameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
-        GameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
-        GameGestureListener.OnOneHandUp += OneHandUp;
-
-        GameManager.Instance.FadeCameraIn(1f, gameObject.GetComponentInChildren<Camera>());
+        GameGestureListener gameGestureListener = GameManager.Instance.GameGestureListener;
+        gameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
+        gameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
+        gameGestureListener.OnSwipeUp += Resume;
+        gameGestureListener.OnOneHandUp += Resume;
     }
 
-    private void OneHandUp(object sender, EventArgs e)
+    private void Resume(object sender, EventArgs e)
     {
         if (GameManager.Instance.Paused)
         {

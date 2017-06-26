@@ -48,7 +48,7 @@ public class InviteMenu : BaseMenu
         });
 
         Avatar.SetSprite(GlideSprite);
-        Avatar.GlideX(-7, 0, 1).Then(() =>
+        Avatar.GlideX(-7, 0, 1.2f).Then(() =>
         {
             Avatar.SetSprite(IdleSprite);
         });
