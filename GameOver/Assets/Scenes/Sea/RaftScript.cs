@@ -17,7 +17,7 @@ public class RaftScript : MonoBehaviour
         if (Physics.Raycast(r, out hit))
         {
             transform.position = hit.point;
-            transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+            //transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + YOffset, transform.localPosition.z);
         }
     }
