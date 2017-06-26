@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Kinect")]
     public GameObject KinectController;
-    public GameObject KinectCamera;
     //private KinectManager KinectManager;
     [HideInInspector]
     public GameGestureListener GameGestureListener;
@@ -37,6 +36,7 @@ public class GameManager : MonoBehaviour
     internal BaseMenu ActiveInstructions;
 
     private AudioSource BackgroundMusicSource;
+    private GmDelayPromise PlayerReadyPromise;
 
     private string ActiveCameraName
     {
@@ -93,8 +93,7 @@ public class GameManager : MonoBehaviour
 
         // Start Kinect
         KinectController.SetActive(true);
-        KinectCamera = GameObject.Find("KinectCamera");
-        //KinectManager = KinectController.GetComponent<KinectManager>();
+        gameObject.GetComponentInChildren<KinectManager>(true).enabled = true;
         GameGestureListener = KinectController.GetComponent<GameGestureListener>();
         GameGestureListener.OnUserDetected += GameGestureListener_OnUserDetected;
         GameGestureListener.OnUserLost += GameGestureListener_OnUserLost;
@@ -117,7 +116,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            PauseGame();
+            //PauseGame();
         }
     }
 
@@ -203,16 +202,18 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Invite the player
     /// </summary>
-    public void InviteGame()
+    public GmDelayPromise InviteGame()
     {
         Paused = true;
         Time.timeScale = 0;
-        ShowMenu("Invite", 1);
-        PauseBackroundMusic();
         if (ActiveGameScene)
         {
             ActiveGameScene.OnPause();
         }
+        ShowMenu("Invite", 1);
+        PauseBackroundMusic();
+        PlayerReadyPromise = new GmDelayPromise();
+        return PlayerReadyPromise;
     }
 
     /// <summary>
@@ -220,14 +221,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PauseGame()
     {
-        Paused = true;
+        if (!Paused)
+        {
+            if (ActiveGameScene)
+            {
+                ActiveGameScene.OnPause();
+            }
+            Paused = true;
+        }
         Time.timeScale = 0;
         ShowMenu("Pause", 1);
         PauseBackroundMusic();
-        if (ActiveGameScene)
-        {
-            ActiveGameScene.OnPause();
-        }
     }
 
     /// <summary>
@@ -251,6 +255,11 @@ public class GameManager : MonoBehaviour
                 Time.timeScale += .1f;
             }, true);
         }, true);
+
+        if (PlayerReadyPromise != null)
+        {
+            PlayerReadyPromise.Done();
+        }
     }
 
     public void HideMenu(bool deactivate = true)
@@ -492,10 +501,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ShowKinect()
     {
-        if (KinectCamera)
-        {
-            KinectCamera.SetActive(true);
-        }
+        //todo
     }
 
     /// <summary>
@@ -503,10 +509,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void HideKinect()
     {
-        if (KinectCamera)
-        {
-            KinectCamera.SetActive(false);
-        }
+        //todo
     }
 
     public GmDelayPromise FadeCameraOut(float seconds)
@@ -568,7 +571,7 @@ public class GameManager : MonoBehaviour
         var activeCameras = GameObject.FindObjectsOfType<Camera>();
         foreach (var camera in activeCameras)
         {
-            if (camera.name != "KinectCamera" && camera != exceptCamera)
+            if (camera != exceptCamera)
             {
                 if (camera.enabled)
                 {

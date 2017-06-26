@@ -443,51 +443,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 33059922171901282, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114663816548676306, guid: 9840335aba276f54f8329e250ab96a5f,
+    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114663816548676306, guid: 9840335aba276f54f8329e250ab96a5f,
+    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114482948494354040, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114482948494354040, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 33428567696585320, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 33715032245731966, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -496,31 +466,6 @@ Prefab:
     - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_text
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_textInfo.characterCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_textInfo.wordCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -789,12 +734,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1467770464}
   m_Mesh: {fileID: 0}
---- !u!114 &1647257714 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1109913694}
-  m_Script: {fileID: 1453722849, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
 --- !u!1 &1721373151
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,7 +757,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1721373151}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.2, z: 0}
+  m_LocalPosition: {x: 0.56, y: -3.15, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 1973017730}
@@ -856,12 +795,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c06ebeca140f7a342bac031a599848d5, type: 3}
+  m_Sprite: {fileID: 21300014, guid: af047bce09e333b45a339fb68999718b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.5799999, y: 3.19}
+  m_Size: {x: 0.28, y: 0.37}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
 --- !u!1 &1973017729
@@ -919,7 +858,6 @@ MonoBehaviour:
   TypingSeconds: 0.04
   VideoPlaylist: 2
   GameSceneName: WarScene
-  CountdownText: {fileID: 1647257714}
   PreCountdownSeconds: 4
   CountdownSeconds: 3
   CountdownSecondSound: {fileID: 8300000, guid: 03bff9b1d7e3409478747c16541fcfc1,
