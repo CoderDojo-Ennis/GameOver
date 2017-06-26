@@ -23,6 +23,8 @@ public class PlayerJoints : MonoBehaviour
     public Transform spineBase;
     public Transform rightElbow;
     public Transform leftElbow;
+    public Transform rightKnee;
+    public Transform leftKnee;
 
     //public float smoothFactor = 10f;
 
@@ -78,6 +80,8 @@ public class PlayerJoints : MonoBehaviour
                 OverlayJoint(userId, (int)KinectInterop.JointType.FootRight, rightFoot, backgroundRect);
                 OverlayJoint(userId, (int)KinectInterop.JointType.ElbowLeft, leftElbow, backgroundRect);
                 OverlayJoint(userId, (int)KinectInterop.JointType.ElbowRight, rightElbow, backgroundRect);
+                OverlayJoint(userId, (int)KinectInterop.JointType.KneeLeft, leftKnee, backgroundRect);
+                OverlayJoint(userId, (int)KinectInterop.JointType.KneeRight, rightKnee, backgroundRect);
                 OverlayJoint(userId, (int)KinectInterop.JointType.SpineBase, spineBase, backgroundRect);
             }
 
