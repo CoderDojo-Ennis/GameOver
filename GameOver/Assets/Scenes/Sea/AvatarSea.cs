@@ -4,21 +4,37 @@ using UnityEngine;
 
 public class AvatarSea : MonoBehaviour
 {
-    public float speed = 1;
-	// Use this for initialization
-	void Start () {
-		
+    //public float speed = 30;
+    public float LeanTorque;
+    public Sprite Left;
+    public Sprite Right;
+    public Sprite Idle;
+    SpriteRenderer sp;
+    RaftScript raft;
+
+	void Start ()
+    {
+        raft = GetComponentInParent<RaftScript>();
+        sp = GetComponent<SpriteRenderer>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (Input.GetKey("left"))
         {
-            transform.Rotate(0, 0, Time.deltaTime * speed);
+            raft.rb.AddTorque(new Vector3(0, 0, LeanTorque), ForceMode.Acceleration);
+            sp.sprite = Left;
+            //transform.Rotate(0, 0, Time.deltaTime * speed);
         }
-        if (Input.GetKey("right"))
+        else if (Input.GetKey("right"))
         {
-            transform.Rotate(0, 0, Time.deltaTime * speed * -1);
+            raft.rb.AddTorque(new Vector3(0, 0, -LeanTorque), ForceMode.Acceleration);
+            sp.sprite = Right;
+            //transform.Rotate(0, 0, Time.deltaTime * speed * -1);
+        }
+        else
+        {
+            sp.sprite = Idle;
         }
     }
 }

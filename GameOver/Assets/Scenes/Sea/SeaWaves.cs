@@ -30,7 +30,7 @@ public class SeaWaves : MonoBehaviour
         for (var i = 0; i < vertices.Length; i++)
         {
             Vector3 vertex = baseHeight[i];
-            vertex.y += Mathf.Sin(Time.time * speed + baseHeight[i].x * freq /*+ baseHeight[i].y/* + baseHeight[i].z*/) * scale;
+            vertex.y += Mathf.Sin(Time.time * speed + baseHeight[i].x * freq /*+ baseHeight[i].y/* + baseHeight[i].z*/) * scale * (baseHeight[i].z + 0.5f);
             //vertex.y += Mathf.PerlinNoise(baseHeight[i].x + noiseWalk, baseHeight[i].y + Mathf.Sin(Time.time * 0.1f)) * noiseStrength;
             vertices[i] = vertex;
         }
