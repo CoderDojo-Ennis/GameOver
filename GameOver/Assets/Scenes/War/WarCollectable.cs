@@ -68,6 +68,14 @@ public class WarCollectable : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Collect();
+        }
+    }
+
     public void DestroyedByBomb()
     {
         // todo - fail sound and/or graphic

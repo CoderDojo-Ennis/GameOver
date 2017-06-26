@@ -13,6 +13,9 @@ public class WarScene : BaseGameScene
     [Header("Bombs")]
     public GameObject BombEmitter;
 
+    [Header("Player")]
+    public Transform SpineBase;
+
     private BombEmitter BombEmitterScript;
     private WarCollectable[] Collectables;
     private int CollectablesDroppedCount;
@@ -60,8 +63,8 @@ public class WarScene : BaseGameScene
         // Where to do the first one
         if (CollectablesDroppedCount == 0)
         {
-            // todo - check player position
-            CollectableDropRight = false;
+            // Make it a challenge for the player
+            CollectableDropRight = (SpineBase.localPosition.x < 0);
         }
 
         // Don't bomb our collectable
