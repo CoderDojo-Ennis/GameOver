@@ -5,6 +5,8 @@ public class PlayerScript : MonoBehaviour
 {
     public int InitialHealth = 60;
     public int Health = 60;
+    public float ImageScale = 1;
+    public float MoveScale = 1;
 
     public Image[] Hearts;
     public Sprite HeartFull;
@@ -12,11 +14,13 @@ public class PlayerScript : MonoBehaviour
     public Sprite HeartEmpty;
 
     public static PlayerScript Instance;
+    public PlayerImageScript PlayerImage;
 
     private Canvas ScoreCanvasCanvas;
 
     public void Awake()
     {
+        PlayerImage = GetComponentInChildren<PlayerImageScript>();
         ScoreCanvasCanvas = GameObject.Find("ScoreCanvas").GetComponent<Canvas>();
         if (Instance == null)
         {
@@ -34,6 +38,12 @@ public class PlayerScript : MonoBehaviour
     public void Start()
     {
         SetInitialHealth();
+
+        this.transform.localScale = new Vector3(ImageScale, ImageScale);
+        if (MoveScale == 1)
+        {
+            MoveScale = 1 / ImageScale;
+        }
     }
 
     /// <summary>
