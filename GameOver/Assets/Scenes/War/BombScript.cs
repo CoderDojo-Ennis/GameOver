@@ -29,6 +29,14 @@ public class BombScript : MonoBehaviour
         PlayerScript.Instance.Damage(10);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Explode();
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Explode();
