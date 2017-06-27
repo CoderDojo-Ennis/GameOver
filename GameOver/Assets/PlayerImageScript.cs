@@ -4,14 +4,19 @@ public class PlayerImageScript : MonoBehaviour
 {
     private MeshRenderer MeshRenderer;
 
-    public void Awake()
+    private PlayerScript Player;
+
+    private void Awake()
     {
+        Player = gameObject.transform.parent.GetComponent<PlayerScript>();
         this.MeshRenderer = GetComponent<MeshRenderer>();
     }
 
-
     void Update()
     {
+        transform.localPosition = Player.JointOffset;
+        transform.localScale = new Vector3(Player.JointScale, -Player.JointScale, Player.JointScale);
+
         // Render the kinect color image onto a quad
         BackgroundRemovalManager backManager = BackgroundRemovalManager.Instance;
 

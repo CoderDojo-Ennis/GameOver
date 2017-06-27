@@ -5,8 +5,12 @@ public class PlayerScript : MonoBehaviour
 {
     public int InitialHealth = 60;
     public int Health = 60;
-    public float ImageScale = 1;
-    public float MoveScale = 1;
+    //public float ImageScale = 1;
+    //public float MoveScale = 1;
+    public float JointScale = 10f;
+    public Vector3 JointOffset;
+    public float TravelScaleX = 1;
+    public bool NaturalX = true;
 
     public Image[] Hearts;
     public Sprite HeartFull;
@@ -39,11 +43,13 @@ public class PlayerScript : MonoBehaviour
     {
         SetInitialHealth();
 
+        /*
         this.transform.localScale = new Vector3(ImageScale, ImageScale);
         if (MoveScale == 1)
         {
             MoveScale = 1 / ImageScale;
         }
+        */
     }
 
     /// <summary>
@@ -93,5 +99,10 @@ public class PlayerScript : MonoBehaviour
             Hearts[h].sprite = heartSprite;
             hp -= 20;
         }
+    }
+
+    public void SetX(float x)
+    {
+        transform.localPosition = new Vector3(x, transform.localPosition.y, transform.localPosition.z);
     }
 }
