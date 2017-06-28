@@ -10,11 +10,11 @@ public class AvatarSea : MonoBehaviour
     public Sprite Right;
     public Sprite Idle;
     SpriteRenderer sp;
-    RaftScript raft;
+    Rigidbody raft;
 
 	void Start ()
     {
-        raft = GetComponentInParent<RaftScript>();
+        raft = GetComponentInParent<Rigidbody>();
         sp = GetComponent<SpriteRenderer>();
 	}
 	
@@ -22,13 +22,13 @@ public class AvatarSea : MonoBehaviour
     {
         if (Input.GetKey("left"))
         {
-            raft.rb.AddTorque(new Vector3(0, 0, LeanTorque), ForceMode.Acceleration);
+            raft.AddTorque(new Vector3(0, 0, LeanTorque), ForceMode.Acceleration);
             sp.sprite = Left;
             //transform.Rotate(0, 0, Time.deltaTime * speed);
         }
         else if (Input.GetKey("right"))
         {
-            raft.rb.AddTorque(new Vector3(0, 0, -LeanTorque), ForceMode.Acceleration);
+            raft.AddTorque(new Vector3(0, 0, -LeanTorque), ForceMode.Acceleration);
             sp.sprite = Right;
             //transform.Rotate(0, 0, Time.deltaTime * speed * -1);
         }

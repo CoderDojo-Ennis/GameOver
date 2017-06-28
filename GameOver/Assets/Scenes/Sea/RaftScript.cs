@@ -4,29 +4,25 @@ using UnityEngine;
 
 public class RaftScript : MonoBehaviour
 {
-    public float YOffset;
-    public Vector3 RaftPosition;
-    public float rotSpeed;
-    public Rigidbody rb;
+    public float drownAngle;
+    AudioSource splashSound;
 
     void Start ()
     {
-        rb = GetComponent<Rigidbody>();
+        splashSound = GetComponent<AudioSource>();
 	}
 
-	void Update () {
-        transform.position = RaftPosition;
-        RaycastHit hit;
-        Ray ray = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(ray, out hit))
+	void Update ()
+    {
+        if (transform.eulerAngles.z < -drownAngle || transform.eulerAngles.z > drownAngle)
         {
-            transform.position = hit.point;
-            //transform.localRotation = Quaternion.FromToRotation(Vector3.up, new Vector3(hit.normal.x, hit.normal.y, hit.normal.z));
-            transform.position = new Vector3(transform.position.x, transform.position.y + YOffset, transform.position.z);
-            rb.AddTorque(new Vector3(0, 0, hit.normal.x * rotSpeed * -1), ForceMode.Acceleration);
-            Debug.Log(hit.normal.x * rotSpeed * -1);
-            //transform.Rotate(Vector3.forward, hit.normal.x * rotSpeed * -1);
-            //transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
+            Debug.Log(transform.eulerAngles.z);
+            Drown();
         }
+    }
+
+    void Drown()
+    {
+        splashSound.Play();
     }
 }
