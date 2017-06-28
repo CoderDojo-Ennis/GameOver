@@ -40,6 +40,7 @@ public class InstructionsMenu : BaseGameScene
         // Don't call base
         Debug.Log("Instructions Start");
         GameManager.Instance.ActiveGameScene = this;
+        PlayerScript.Instance.ShowKinect(1);
 
         this.Delay(.01f, () =>
         {

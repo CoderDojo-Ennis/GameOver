@@ -29,4 +29,13 @@ public class AvatarScript : MonoBehaviour
     {
         SpriteRenderer.sprite = sprite;
     }
+
+    internal void FadeIn(float fadeSeconds)
+    {
+        SpriteRenderer.FadeAlpha(this, 0, 1, fadeSeconds, true);
+    }
+    internal void FadeOut(float fadeSeconds)
+    {
+        SpriteRenderer.FadeAlpha(this, 1, 0, fadeSeconds, true);
+    }
 }

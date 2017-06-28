@@ -205,6 +205,12 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114921962571939234, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: AvatarPrefab
+      value: 
+      objectReference: {fileID: 1815774339501214, guid: 9817ad595490c8e4ea37a97ba0135af4,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
   m_IsPrefabParent: 0

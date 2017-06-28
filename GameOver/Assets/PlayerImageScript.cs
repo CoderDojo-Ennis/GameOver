@@ -26,4 +26,14 @@ public class PlayerImageScript : MonoBehaviour
             MeshRenderer.material.SetTexture("_MainTex", tex);
         }
     }
+
+    public GmDelayPromise FadeOut(float seconds)
+    {
+        return MeshRenderer.material.Fade(this, MeshRenderer.material.color, new Color(1, 1, 1, 0), seconds, true);
+    }
+
+    public GmDelayPromise FadeIn(float seconds)
+    {
+        return MeshRenderer.material.Fade(this, MeshRenderer.material.color, new Color(1, 1, 1, 1), seconds, true);
+    }
 }
