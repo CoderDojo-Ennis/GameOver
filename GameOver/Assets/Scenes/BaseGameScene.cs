@@ -5,6 +5,11 @@ public class BaseGameScene : MonoBehaviour
     [Header("Background")]
     public AudioClip BackgroundMusic;
 
+    [Header("Player")]
+    public bool NaturalX = true;
+    public float TravelScaleX = 10;
+    private PlayerScript Player;
+
     [Header("Transition")]
     public float FadeSeconds = 1f;
 
@@ -15,6 +20,7 @@ public class BaseGameScene : MonoBehaviour
 
     public void Awake()
     {
+        Player = GameObject.FindObjectOfType<PlayerScript>();
         SceneCamera = gameObject.GetComponentInChildren<Camera>(true);
     }
 
@@ -22,6 +28,9 @@ public class BaseGameScene : MonoBehaviour
     public void Start()
     {
         Debug.Log("Base Start");
+
+        Player.TravelScaleX = this.TravelScaleX;
+        Player.NaturalX = this.NaturalX;
 
         GameManager.Instance.ActiveGameScene = this;
 

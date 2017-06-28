@@ -15,7 +15,7 @@ public class PlayerImageScript : MonoBehaviour
     void Update()
     {
         transform.localPosition = Player.JointOffset;
-        transform.localScale = new Vector3(Player.JointScale, -Player.JointScale, Player.JointScale);
+        transform.localScale = new Vector3(Player.AspectScale.x * Player.JointScale, -Player.AspectScale.y * Player.JointScale, Player.AspectScale.z * Player.JointScale);
 
         // Render the kinect color image onto a quad
         BackgroundRemovalManager backManager = BackgroundRemovalManager.Instance;

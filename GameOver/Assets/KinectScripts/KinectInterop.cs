@@ -806,7 +806,7 @@ public class KinectInterop
     {
         bool bResult = false;
 
-        if (sensorData.sensorInterface != null)
+        if (sensorData != null && sensorData.sensorInterface != null)
         {
             bResult = sensorData.sensorInterface.UpdateSensorData(sensorData);
         }

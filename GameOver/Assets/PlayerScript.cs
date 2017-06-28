@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     public Sprite HeartFull;
     public Sprite HeartHalf;
     public Sprite HeartEmpty;
+    public Vector3 AspectScale = new Vector3(1, 1, 1);
 
     public static PlayerScript Instance;
     public PlayerImageScript PlayerImage;

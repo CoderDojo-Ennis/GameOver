@@ -74,10 +74,8 @@ public class PlayerJoints : MonoBehaviour
             if (colImageWidth == 0)
             {
                 colImageWidth = manager.GetColorImageWidth();
-            }
-            if (colImageHeight == 0)
-            {
                 colImageHeight = manager.GetColorImageHeight();
+                Player.AspectScale = new Vector3(colImageWidth / colImageHeight, 1, 1);
             }
 
             // overlay the joints
@@ -109,7 +107,9 @@ public class PlayerJoints : MonoBehaviour
                         }
                     }
                     Vector3 centerFootUnscaled = new Vector3(x, Mathf.Min(leftFootUnscaled.Value.y, rightFootUnscaled.Value.y), (leftFootUnscaled.Value.z + rightFootUnscaled.Value.z) / 2);
-                    Player.JointOffset = Vector3.Lerp(Player.JointOffset, -centerFootUnscaled * Player.JointScale, .1f);
+                    var centerFootScaled = centerFootUnscaled;
+                    centerFootScaled.Scale(Player.AspectScale);
+                    Player.JointOffset = Vector3.Lerp(Player.JointOffset, -centerFootScaled * Player.JointScale, .1f);
                 }
 
                 // Move the player sprite on X
@@ -179,7 +179,9 @@ public class PlayerJoints : MonoBehaviour
 
             if (jointPointUnscaled.HasValue)
             {
-                overlayObj.localPosition = jointPointUnscaled.Value * Player.JointScale + Player.JointOffset;
+                var jointPointScaled = jointPointUnscaled.Value;
+                jointPointScaled.Scale(Player.AspectScale);
+                overlayObj.localPosition = jointPointScaled * Player.JointScale + Player.JointOffset;
             }
         }
     }
