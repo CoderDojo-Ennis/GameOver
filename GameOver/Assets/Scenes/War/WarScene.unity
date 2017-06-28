@@ -428,11 +428,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4936515736008374, guid: b4829000f5290c84b99a241f871e9f81, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -5.4
+      value: -5.31
       objectReference: {fileID: 0}
     - target: {fileID: 4936515736008374, guid: b4829000f5290c84b99a241f871e9f81, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.4
+      value: 3.32
       objectReference: {fileID: 0}
     - target: {fileID: 4936515736008374, guid: b4829000f5290c84b99a241f871e9f81, type: 2}
       propertyPath: m_LocalPosition.z
@@ -457,30 +457,6 @@ Prefab:
     - target: {fileID: 4936515736008374, guid: b4829000f5290c84b99a241f871e9f81, type: 2}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 82190316939109924, guid: b4829000f5290c84b99a241f871e9f81,
-        type: 2}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 243002024279880602, guid: dcb475cdd240c394eadd717f11406a15,
-        type: 2}
-    - target: {fileID: 4936515736008374, guid: b4829000f5290c84b99a241f871e9f81, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4936515736008374, guid: b4829000f5290c84b99a241f871e9f81, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114986728952401446, guid: b4829000f5290c84b99a241f871e9f81,
-        type: 2}
-      propertyPath: InitialScale
-      value: 1.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114986728952401446, guid: b4829000f5290c84b99a241f871e9f81,
-        type: 2}
-      propertyPath: CollectedScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b4829000f5290c84b99a241f871e9f81, type: 2}
