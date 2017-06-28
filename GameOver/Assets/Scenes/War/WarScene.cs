@@ -71,11 +71,13 @@ public class WarScene : BaseGameScene
         if (CollectableDropRight)
         {
             BombEmitterScript.AvoidRight = true;
+            BombEmitterScript.AvoidLeft = false;
             dropFrom = RightDropPosition.position;
         }
         else
         {
             BombEmitterScript.AvoidLeft = true;
+            BombEmitterScript.AvoidRight = false;
             dropFrom = LeftDropPosition.position;
         }
 
@@ -88,8 +90,6 @@ public class WarScene : BaseGameScene
             // Allow bombs
             this.Delay(CollectableLifeSeconds, () =>
             {
-                BombEmitterScript.AvoidLeft = false;
-                BombEmitterScript.AvoidRight = false;
                 BombEmitterScript.DropNextBombFrom(dropFrom);
             });
 
