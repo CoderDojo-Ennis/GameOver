@@ -23,6 +23,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Avatar")]
     public GameObject AvatarPrefab;
+    public GameObject TransformEffect;
 
     internal void HideKinect(float fadeSeconds)
     {
@@ -70,6 +71,11 @@ public class PlayerScript : MonoBehaviour
 
     public AvatarScript ChangeToAvatar()
     {
+        if (TransformEffect != null)
+        {
+            // It auto disables
+            TransformEffect.SetActive(true);
+        }
         float fadeSeconds = 0.5f;
         HideKinect(fadeSeconds);
         var avatar = GameObject.Instantiate(AvatarPrefab).GetComponent<AvatarScript>();

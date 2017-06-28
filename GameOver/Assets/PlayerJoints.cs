@@ -109,7 +109,11 @@ public class PlayerJoints : MonoBehaviour
                     Vector3 centerFootUnscaled = new Vector3(x, Mathf.Min(leftFootUnscaled.Value.y, rightFootUnscaled.Value.y), (leftFootUnscaled.Value.z + rightFootUnscaled.Value.z) / 2);
                     var centerFootScaled = centerFootUnscaled;
                     centerFootScaled.Scale(Player.AspectScale);
-                    Player.JointOffset = Vector3.Lerp(Player.JointOffset, -centerFootScaled * Player.JointScale, .1f);
+                    var newOffset = Vector3.Lerp(Player.JointOffset, -centerFootScaled * Player.JointScale, .1f);
+                    if (!newOffset.IsInfinity())
+                    {
+                        Player.JointOffset = newOffset;
+                    }
                 }
 
                 // Move the player sprite on X
@@ -181,7 +185,11 @@ public class PlayerJoints : MonoBehaviour
             {
                 var jointPointScaled = jointPointUnscaled.Value;
                 jointPointScaled.Scale(Player.AspectScale);
-                overlayObj.localPosition = jointPointScaled * Player.JointScale + Player.JointOffset;
+                jointPointScaled = jointPointScaled * Player.JointScale + Player.JointOffset;
+                if (!jointPointScaled.IsInfinity())
+                {
+                    overlayObj.localPosition = jointPointScaled;
+                }
             }
         }
     }
