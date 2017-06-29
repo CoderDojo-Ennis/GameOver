@@ -892,6 +892,7 @@ GameObject:
   - component: {fileID: 198374468865516548}
   - component: {fileID: 199544341689043670}
   - component: {fileID: 82275185874173780}
+  - component: {fileID: 114997795225179598}
   m_Layer: 0
   m_Name: PlayerTransformEffect
   m_TagString: Untagged
@@ -1156,7 +1157,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1637718962093006}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0, z: -7.8}
   m_LocalScale: {x: 8, y: 6, z: 1}
   m_Children: []
   m_Father: {fileID: 4910050273686372}
@@ -1494,7 +1495,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1831343008500768}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 2.5, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
@@ -4346,6 +4347,18 @@ MonoBehaviour:
     type: 2}
   TransformEffect: {fileID: 1831343008500768}
   PlayerImage: {fileID: 114349949222720930}
+--- !u!114 &114997795225179598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1831343008500768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242546e9256c08347b41955c53086cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetimeSeconds: 1.8
 --- !u!124 &124071896611478960
 Behaviour:
   m_ObjectHideFlags: 1
@@ -4489,7 +4502,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2

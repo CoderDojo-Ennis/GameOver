@@ -29,10 +29,13 @@ public class BaseGameScene : MonoBehaviour
     {
         Debug.Log("Base Start");
 
-        Player.TravelScaleX = this.TravelScaleX;
-        Player.NaturalX = this.NaturalX;
-
         GameManager.Instance.ActiveGameScene = this;
+
+        this.Delay(0.1f, () =>
+        {
+            Player.TravelScaleX = this.TravelScaleX;
+            Player.NaturalX = this.NaturalX;
+        });
 
         if (BackgroundMusic != null)
         {

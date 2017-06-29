@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 48ad181f71ad35e498094328cf0c45e2
-timeCreated: 1498676723
+guid: a7758a80f928a924ca7dadbd9d3361bd
+timeCreated: 1498767280
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cube
+    4300000: Passport
   materials:
     importMaterials: 1
     materialName: 0

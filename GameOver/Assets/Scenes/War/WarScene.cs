@@ -36,7 +36,7 @@ public class WarScene : BaseGameScene
         LastCollectable = Collectables[Collectables.Length - 1];
 
         // todo: delete this
-        LastCollectable = Collectables[0];
+        //LastCollectable = Collectables[0];
 
         // Watch for last collectable collected or destroyed
         LastCollectable.OnCollected += CollectablesDone;

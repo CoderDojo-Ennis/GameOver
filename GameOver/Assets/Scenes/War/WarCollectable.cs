@@ -44,12 +44,19 @@ public class WarCollectable : MonoBehaviour
         this.transform.localScale = new Vector3(InitialScale, InitialScale, InitialScale);
 
         // Disable physics
-        this.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        PhysicsEnable(false);
+
+        // Notify mesh to hide
         if (OnHide != null)
         {
             OnHide(this, null);
         }
+    }
+
+    private void PhysicsEnable(bool enable)
+    {
+        this.gameObject.GetComponent<Rigidbody2D>().bodyType = enable ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = enable;
     }
 
     public void Update()
@@ -71,8 +78,7 @@ public class WarCollectable : MonoBehaviour
         this.GetComponent<AudioSource>().PlayOneShot(DropSound);
 
         // Enable physics
-        this.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        PhysicsEnable(true);
         this.transform.position = dropPos;
         if (Sprite != null)
         {
@@ -123,8 +129,7 @@ public class WarCollectable : MonoBehaviour
         PlayerPrefs.SetInt(PlayerPrefKey, 0);
 
         // Disable physics
-        this.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        PhysicsEnable(false);
 
         // Play sound
         this.GetComponent<AudioSource>().PlayOneShot(CollectedSound);
