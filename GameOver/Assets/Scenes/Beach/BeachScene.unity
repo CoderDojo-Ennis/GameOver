@@ -773,6 +773,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1973017730}
   - component: {fileID: 1973017733}
+  - component: {fileID: 1973017731}
   m_Layer: 15
   m_Name: BeachScene
   m_TagString: Untagged
@@ -799,6 +800,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1973017731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1973017729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3458f5368c4e50a4ebc16e3b1acd7fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackgroundMusic: {fileID: 8300000, guid: 96f509669455f844c8dccff5c168af17, type: 3}
+  NaturalX: 1
+  TravelScaleX: 10
+  FadeSeconds: 1
+  SceneCamera: {fileID: 0}
+  WelcomeSound: {fileID: 0}
+  RejectedSound: {fileID: 0}
 --- !u!82 &1973017733
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,7 +30,7 @@ public static class GeekyMonkeyVector3Extensions
         Vector3 sum = Vector3.zero;
         for (int i = 0; i < vectorCount; i++)
         {
-            sum += positions[i]; 
+            sum += positions[i];
         }
         return sum / vectorCount;
     }
@@ -64,7 +63,7 @@ public static class GeekyMonkeyVector3Extensions
     public static ulong Hash(this Vector3 v, float accuracy = 0.5f)
     {
         ulong hash;
-        unchecked       
+        unchecked
         {
             int x2 = Mathf.RoundToInt(v.x / accuracy);
             int y2 = Mathf.RoundToInt(v.y / accuracy);
@@ -107,5 +106,10 @@ public static class GeekyMonkeyVector3Extensions
         dir = angles * dir; // rotate it
         point = dir + pivot; // calculate rotated point
         return point; // return it
+    }
+
+    public static bool IsInfinity(this Vector3 point)
+    {
+        return (float.IsInfinity(point.x) || float.IsInfinity(point.y) || float.IsInfinity(point.z));
     }
 }

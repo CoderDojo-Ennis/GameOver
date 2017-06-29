@@ -18,6 +18,7 @@ public class WarScene : BaseGameScene
 
     private BombEmitter BombEmitterScript;
     private WarCollectable[] Collectables;
+    private WarCollectable LastCollectable;
     private int CollectablesDroppedCount;
 
     // Use this for initialization
@@ -27,13 +28,54 @@ public class WarScene : BaseGameScene
         base.Start();
 
         BombEmitterScript = BombEmitter.GetComponent<BombEmitter>();
+        PlayerScript.Instance.ShowKinect(1);
 
         // Find Collectables
         CollectablesDroppedCount = 0;
         Collectables = GameObject.Find("WarCollectables").GetComponentsInChildren<WarCollectable>();
+        LastCollectable = Collectables[Collectables.Length - 1];
 
+        // todo: delete this
+        LastCollectable = Collectables[0];
+
+        // Watch for last collectable collected or destroyed
+        LastCollectable.OnCollected += CollectablesDone;
+        LastCollectable.OnDestroyed += CollectablesDone;
+
+        // Start dropping stuff
         BombEmitter.GetComponent<BombEmitter>().StartBombing();
         DropCollectable();
+    }
+
+    /// <summary>
+    /// The last collectable was either collected or destroyed
+    /// </summary>
+    /// <param name="sender">The collectable</param>
+    /// <param name="e">Nothin</param>
+    private void CollectablesDone(object sender, System.EventArgs e)
+    {
+        // No more bombs
+        BombEmitterScript.enabled = false;
+        foreach (var bomb in GameObject.FindGameObjectsWithTag("Bomb"))
+        {
+            Destroy(bomb);
+        }
+
+        var avatar = PlayerScript.Instance.ChangeToAvatar();
+
+        this.Delay(4, () =>
+        {
+            FadeToBeach();
+        });
+    }
+
+    // Fade to beach
+    private void FadeToBeach()
+    {
+        this.Delay(2, () =>
+        {
+            GameManager.Instance.FadeToScene("BeachScene", this.FadeSeconds);
+        });
     }
 
     // Update is called once per frame
@@ -71,11 +113,13 @@ public class WarScene : BaseGameScene
         if (CollectableDropRight)
         {
             BombEmitterScript.AvoidRight = true;
+            BombEmitterScript.AvoidLeft = false;
             dropFrom = RightDropPosition.position;
         }
         else
         {
             BombEmitterScript.AvoidLeft = true;
+            BombEmitterScript.AvoidRight = false;
             dropFrom = LeftDropPosition.position;
         }
 
@@ -88,8 +132,6 @@ public class WarScene : BaseGameScene
             // Allow bombs
             this.Delay(CollectableLifeSeconds, () =>
             {
-                BombEmitterScript.AvoidLeft = false;
-                BombEmitterScript.AvoidRight = false;
                 BombEmitterScript.DropNextBombFrom(dropFrom);
             });
 

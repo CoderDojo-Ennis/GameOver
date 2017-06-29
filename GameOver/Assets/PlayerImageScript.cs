@@ -15,7 +15,7 @@ public class PlayerImageScript : MonoBehaviour
     void Update()
     {
         transform.localPosition = Player.JointOffset;
-        transform.localScale = new Vector3(Player.JointScale, -Player.JointScale, Player.JointScale);
+        transform.localScale = new Vector3(Player.AspectScale.x * Player.JointScale, -Player.AspectScale.y * Player.JointScale, Player.AspectScale.z * Player.JointScale);
 
         // Render the kinect color image onto a quad
         BackgroundRemovalManager backManager = BackgroundRemovalManager.Instance;
@@ -25,5 +25,15 @@ public class PlayerImageScript : MonoBehaviour
             var tex = backManager.GetForegroundTex();
             MeshRenderer.material.SetTexture("_MainTex", tex);
         }
+    }
+
+    public GmDelayPromise FadeOut(float seconds)
+    {
+        return MeshRenderer.material.Fade(this, MeshRenderer.material.color, new Color(1, 1, 1, 0), seconds, true);
+    }
+
+    public GmDelayPromise FadeIn(float seconds)
+    {
+        return MeshRenderer.material.Fade(this, MeshRenderer.material.color, new Color(1, 1, 1, 1), seconds, true);
     }
 }

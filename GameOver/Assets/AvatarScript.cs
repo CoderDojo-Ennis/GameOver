@@ -29,4 +29,13 @@ public class AvatarScript : MonoBehaviour
     {
         SpriteRenderer.sprite = sprite;
     }
+
+    internal GmDelayPromise FadeIn(float fadeSeconds)
+    {
+        return SpriteRenderer.FadeAlpha(this, 0, 1, fadeSeconds, true);
+    }
+    internal GmDelayPromise FadeOut(float fadeSeconds)
+    {
+        return SpriteRenderer.FadeAlpha(this, 1, 0, fadeSeconds, true);
+    }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class WarCollectable : MonoBehaviour
 {
@@ -11,6 +12,14 @@ public class WarCollectable : MonoBehaviour
     public float CollectedScale = 0.5f;
     public float CollectAnimationSeconds = 0.5f;
     public AudioClip CollectedSound;
+
+    // Events
+    public event EventHandler OnCollected;
+    public event EventHandler OnDestroyed;
+    public event EventHandler OnHide;
+    public event EventHandler OnShow;
+
+    private SpriteRenderer Sprite;
 
     // Has it been collected
     private Vector3 InitialPosition;
@@ -26,13 +35,21 @@ public class WarCollectable : MonoBehaviour
         PlayerPrefs.SetInt(PlayerPrefKey, 0);
 
         // Start hidden
-        GetComponent<SpriteRenderer>().enabled = false;
+        Sprite = GetComponent<SpriteRenderer>();
+        if (Sprite != null)
+        {
+            Sprite.enabled = false;
+        }
         CollectedPosition = this.transform.position;
         this.transform.localScale = new Vector3(InitialScale, InitialScale, InitialScale);
 
         // Disable physics
         this.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        if (OnHide != null)
+        {
+            OnHide(this, null);
+        }
     }
 
     public void Update()
@@ -57,7 +74,14 @@ public class WarCollectable : MonoBehaviour
         this.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         this.transform.position = dropPos;
-        GetComponent<SpriteRenderer>().enabled = true;
+        if (Sprite != null)
+        {
+            Sprite.enabled = true;
+        }
+        if (OnShow != null)
+        {
+            OnShow(this, null);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -78,6 +102,12 @@ public class WarCollectable : MonoBehaviour
 
     public void DestroyedByBomb()
     {
+        // Notify
+        if (OnDestroyed != null)
+        {
+            OnDestroyed(this, null);
+        }
+
         // todo - fail sound and/or graphic
         Destroy(gameObject);
     }
@@ -98,5 +128,11 @@ public class WarCollectable : MonoBehaviour
 
         // Play sound
         this.GetComponent<AudioSource>().PlayOneShot(CollectedSound);
+
+        // Notify
+        if (OnCollected != null)
+        {
+            OnCollected(this, null);
+        }
     }
 }
