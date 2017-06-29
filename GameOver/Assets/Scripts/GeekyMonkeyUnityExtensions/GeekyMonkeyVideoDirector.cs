@@ -4,7 +4,6 @@ using UnityEngine.Video;
 
 public class GeekyMonkeyVideoDirector : MonoBehaviour
 {
-
     private VideoPlayer videoPlayer;
     private bool fadingOutAudio;
     private bool fadingOutVideo;

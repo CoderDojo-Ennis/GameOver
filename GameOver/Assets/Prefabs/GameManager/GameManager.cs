@@ -250,9 +250,11 @@ public class GameManager : MonoBehaviour
         }
         this.Delay(0.25f, () =>
         {
+            float timeScale = 0;
             this.Repeat(0.2f, 10, () =>
             {
-                Time.timeScale += .1f;
+                timeScale += .1f;
+                Time.timeScale = timeScale;
             }, true);
         }, true);
 

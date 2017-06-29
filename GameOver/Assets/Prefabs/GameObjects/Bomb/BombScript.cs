@@ -22,7 +22,8 @@ public class BombScript : MonoBehaviour
     public void Explode()
     {
         Destroy(shadowOject);
-        Instantiate(Explosion, this.transform.position, this.transform.rotation);
+        var explosion = Instantiate(Explosion, this.transform.position, this.transform.rotation);
+        explosion.layer = this.gameObject.layer;
         Destroy(gameObject);
 
         // todo - calculate damage

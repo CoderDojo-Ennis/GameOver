@@ -44,6 +44,7 @@ public class InstructionsMenu : BaseGameScene
 
         this.Delay(.01f, () =>
         {
+            Time.timeScale = 0;
             if (VideoPlaylist != VideoPlaylists.None)
             {
                 PlayNextPlyalistVideo(VideoPlaylist).Then(() =>
@@ -76,6 +77,7 @@ public class InstructionsMenu : BaseGameScene
     public void ShowInstructions()
     {
         Debug.Log("Instructions Show");
+        Time.timeScale = 1;
 
         FadeCameraIn();
         PlayerScript.Instance.ScoreVisible = true;
