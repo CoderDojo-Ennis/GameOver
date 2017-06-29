@@ -2,7 +2,6 @@
 
 public class BombEmitter : MonoBehaviour
 {
-
     [Header("The Bomb")]
     public GameObject BombPrefab;
 

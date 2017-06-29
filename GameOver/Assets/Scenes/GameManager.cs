@@ -377,6 +377,7 @@ public class GameManager : MonoBehaviour
     public void FadeToScene(string sceneName, float fadeSeconds)
     {
         PreloadScene(sceneName, false);
+        StopBackroundMusic();
         FadeCameraOut(fadeSeconds).Then(() =>
         {
             ShowScene(sceneName);
@@ -501,7 +502,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ShowKinect()
     {
-        //todo
+        PlayerScript.Instance.ShowKinect(1);
     }
 
     /// <summary>
@@ -509,7 +510,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void HideKinect()
     {
-        //todo
+        PlayerScript.Instance.HideKinect(1);
     }
 
     public GmDelayPromise FadeCameraOut(float seconds)

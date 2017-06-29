@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
+    public static PlayerScript Instance;
+
     public int InitialHealth = 60;
     public int Health = 60;
     //public float ImageScale = 1;
@@ -11,13 +13,28 @@ public class PlayerScript : MonoBehaviour
     public Vector3 JointOffset;
     public float TravelScaleX = 1;
     public bool NaturalX = true;
+    public Vector3 AspectScale = new Vector3(1, 1, 1);
 
+    [Header("Health")]
     public Image[] Hearts;
     public Sprite HeartFull;
     public Sprite HeartHalf;
     public Sprite HeartEmpty;
 
-    public static PlayerScript Instance;
+    [Header("Avatar")]
+    public GameObject AvatarPrefab;
+    public GameObject TransformEffect;
+
+    internal void HideKinect(float fadeSeconds)
+    {
+        PlayerImage.FadeOut(fadeSeconds);
+    }
+
+    internal void ShowKinect(float fadeSeconds)
+    {
+        PlayerImage.FadeIn(fadeSeconds);
+    }
+
     public PlayerImageScript PlayerImage;
 
     private Canvas ScoreCanvasCanvas;
@@ -50,6 +67,38 @@ public class PlayerScript : MonoBehaviour
             MoveScale = 1 / ImageScale;
         }
         */
+    }
+
+    public AvatarScript ChangeToAvatar()
+    {
+        if (TransformEffect != null)
+        {
+            // It auto disables
+            TransformEffect.SetActive(true);
+        }
+        float fadeSeconds = 0.5f;
+        HideKinect(fadeSeconds);
+        var avatar = GameObject.Instantiate(AvatarPrefab).GetComponent<AvatarScript>();
+        avatar.gameObject.layer = LayerMask.NameToLayer("Default");
+        avatar.transform.position = this.transform.position;
+        avatar.FadeIn(fadeSeconds);
+        return avatar;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Alpha0))
+        {
+            HideKinect(1);
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha1))
+        {
+            ShowKinect(1);
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha2))
+        {
+            ChangeToAvatar();
+        }
     }
 
     /// <summary>
