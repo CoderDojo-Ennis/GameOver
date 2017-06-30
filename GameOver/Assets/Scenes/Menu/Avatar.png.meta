@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: af047bce09e333b45a339fb68999718b
-timeCreated: 1498842848
+timeCreated: 1498863885
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -180,7 +180,7 @@ TextureImporter:
       name: Avatar_Walk2
       rect:
         serializedVersion: 2
-        x: 176
+        x: 175
         y: 37
         width: 15
         height: 37
