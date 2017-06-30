@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     public float TravelScaleX = 1;
     public bool NaturalX = true;
     public Vector3 AspectScale = new Vector3(1, 1, 1);
+    public bool Invincible = false;
 
     [Header("Health")]
     public Image[] Hearts;
@@ -134,20 +135,29 @@ public class PlayerScript : MonoBehaviour
     /// <param name="damage"></param>
     public void Damage(int damage)
     {
-        Health -= damage;
-        DisplayHealth();
-        PlayerImage.ShowDamaged();
-        if (Health > 0)
+        if (!Invincible)
         {
-            AudioSource.PlayOneShot(InjureSound);
-        }
-        else
-        {
-            AudioSource.PlayOneShot(DeathSound);
-            if (OnDeath != null)
+            Health -= damage;
+            DisplayHealth();
+            PlayerImage.ShowDamaged();
+            if (Health > 0)
             {
-                OnDeath(this, null);
+                AudioSource.PlayOneShot(InjureSound);
             }
+            else
+            {
+                AudioSource.PlayOneShot(DeathSound);
+                if (OnDeath != null)
+                {
+                    OnDeath(this, null);
+                }
+            }
+
+            Invincible = true;
+            this.Delay(1, () =>
+            {
+                Invincible = false;
+            });
         }
     }
 

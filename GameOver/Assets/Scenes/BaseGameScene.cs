@@ -20,7 +20,7 @@ public class BaseGameScene : MonoBehaviour
 
     public void Awake()
     {
-        Player = GameObject.FindObjectOfType<PlayerScript>();
+        Player = PlayerScript.Instance; //  GameObject.FindObjectOfType<PlayerScript>();
         SceneCamera = gameObject.GetComponentInChildren<Camera>(true);
     }
 
@@ -31,7 +31,7 @@ public class BaseGameScene : MonoBehaviour
 
         GameManager.Instance.ActiveGameScene = this;
 
-        this.Delay(0.1f, () =>
+        this.Delay(0.2f, () =>
         {
             Player.TravelScaleX = this.TravelScaleX;
             Player.NaturalX = this.NaturalX;
