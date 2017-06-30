@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
@@ -20,10 +21,15 @@ public class PlayerScript : MonoBehaviour
     public Sprite HeartFull;
     public Sprite HeartHalf;
     public Sprite HeartEmpty;
+    public AudioClip InjureSound;
+    public AudioClip DeathSound;
+    public event EventHandler OnDeath;
 
     [Header("Avatar")]
     public GameObject AvatarPrefab;
     public GameObject TransformEffect;
+
+    private AudioSource AudioSource;
 
     internal void HideKinect(float fadeSeconds)
     {
@@ -41,6 +47,7 @@ public class PlayerScript : MonoBehaviour
 
     public void Awake()
     {
+        AudioSource = GetComponent<AudioSource>();
         PlayerImage = GetComponentInChildren<PlayerImageScript>();
         ScoreCanvasCanvas = GameObject.Find("ScoreCanvas").GetComponent<Canvas>();
         if (Instance == null)
@@ -130,6 +137,18 @@ public class PlayerScript : MonoBehaviour
         Health -= damage;
         DisplayHealth();
         PlayerImage.ShowDamaged();
+        if (Health > 0)
+        {
+            AudioSource.PlayOneShot(InjureSound);
+        }
+        else
+        {
+            AudioSource.PlayOneShot(DeathSound);
+            if (OnDeath != null)
+            {
+                OnDeath(this, null);
+            }
+        }
     }
 
     private void DisplayHealth()

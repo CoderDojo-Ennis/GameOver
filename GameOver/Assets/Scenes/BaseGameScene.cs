@@ -51,6 +51,13 @@ public class BaseGameScene : MonoBehaviour
         {
             FadeCameraIn();
         }
+
+        // When the player dies
+        PlayerScript.Instance.OnDeath += (sender, args) =>
+        {
+            GameManager.Instance.HideKinect();
+            FadeToScene("GameOverScene");
+        };
     }
 
     // Update is called once per frame

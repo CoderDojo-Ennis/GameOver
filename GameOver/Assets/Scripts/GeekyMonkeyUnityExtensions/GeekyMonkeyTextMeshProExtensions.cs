@@ -64,11 +64,17 @@ public static class GeekyMonkeyTextMeshProExtensions
 
         finishPromise = mb.Repeat(characterSeconds, charCount, () =>
         {
+            char lastChar = tmp.text[tmp.maxVisibleCharacters];
+
             //Debug.Log("Typing character");
             tmp.maxVisibleCharacters += 1;
-            if (characterShown != null)
+
+            if (lastChar != ' ' && lastChar != '\r' && lastChar != '\n')
             {
-                characterShown();
+                if (characterShown != null)
+                {
+                    characterShown();
+                }
             }
         }, realtime);
 

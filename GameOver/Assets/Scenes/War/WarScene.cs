@@ -45,6 +45,25 @@ public class WarScene : BaseGameScene
         // Start dropping stuff
         BombEmitter.GetComponent<BombEmitter>().StartBombing();
         DropCollectable();
+
+        // When the player dies
+        PlayerScript.Instance.OnDeath += (sender, args) =>
+        {
+            RemoveBombs();
+        };
+    }
+
+    /// <summary>
+    /// Delete all the bombs, and stop the emitter
+    /// </summary>
+    private void RemoveBombs()
+    {
+        // No more bombs
+        BombEmitterScript.enabled = false;
+        foreach (var bomb in GameObject.FindGameObjectsWithTag("Bomb"))
+        {
+            Destroy(bomb);
+        }
     }
 
     /// <summary>
@@ -54,13 +73,6 @@ public class WarScene : BaseGameScene
     /// <param name="e">Nothin</param>
     private void CollectablesDone(object sender, System.EventArgs e)
     {
-        // No more bombs
-        BombEmitterScript.enabled = false;
-        foreach (var bomb in GameObject.FindGameObjectsWithTag("Bomb"))
-        {
-            Destroy(bomb);
-        }
-
         var avatar = PlayerScript.Instance.ChangeToAvatar();
 
         this.Delay(4, () =>
