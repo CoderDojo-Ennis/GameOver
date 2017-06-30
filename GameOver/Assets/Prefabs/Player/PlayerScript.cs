@@ -129,6 +129,7 @@ public class PlayerScript : MonoBehaviour
     {
         Health -= damage;
         DisplayHealth();
+        PlayerImage.ShowDamaged();
     }
 
     private void DisplayHealth()
