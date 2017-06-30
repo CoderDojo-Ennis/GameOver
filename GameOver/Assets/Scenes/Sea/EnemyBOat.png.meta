@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 2f9cc411c397dd042850ee097c5ddb8c
-timeCreated: 1498834390
+timeCreated: 1498834945
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -91,12 +91,12 @@ TextureImporter:
       name: EnemyBoat
       rect:
         serializedVersion: 2
-        x: 16
-        y: 46
-        width: 42
-        height: 30
+        x: 18
+        y: 21
+        width: 75
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -104,12 +104,12 @@ TextureImporter:
       name: Bullet
       rect:
         serializedVersion: 2
-        x: 4
-        y: 65
+        x: 12
+        y: 56
         width: 4
         height: 3
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
