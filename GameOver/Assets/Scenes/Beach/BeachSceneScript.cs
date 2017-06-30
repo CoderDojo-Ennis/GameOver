@@ -30,5 +30,11 @@ public class BeachSceneScript : BaseGameScene
         {
             GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
         }
+
+        // todo - change to proper scene
+        this.Delay(5, () =>
+        {
+            FadeToScene("SeaScene");
+        });
     }
 }
