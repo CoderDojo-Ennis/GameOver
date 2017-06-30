@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,6 +38,15 @@ public class GameManager : MonoBehaviour
 
     private AudioSource BackgroundMusicSource;
     private GmDelayPromise PlayerReadyPromise;
+
+    [Header("Timer")]
+    public TextMeshProUGUI Timer;
+    public int TimerValue;
+    internal int MidTimerEventTime;
+    public delegate void TimerEndedHandler();
+    public event TimerEndedHandler TimerEnded;
+    public delegate void TimerEventHandler();
+    public event TimerEventHandler TimerEvent;
 
     private string ActiveCameraName
     {
@@ -582,6 +592,31 @@ public class GameManager : MonoBehaviour
                     camera.enabled = false;
                 }
             }
+        }
+    }
+
+    public void StartTimer(int Duration, int EventTime)
+    {
+        TimerValue = Duration;
+        MidTimerEventTime = EventTime;
+        this.Delay(1, TimerTick);
+    }
+
+    void TimerTick()
+    {
+        TimerValue -= 1;
+        Timer.text = TimerValue.ToString();
+        if (TimerValue == MidTimerEventTime)
+        {
+            TimerEvent();
+        }
+        if (TimerValue > 0)
+        {
+            this.Delay(1, TimerTick);
+        }
+        else
+        {
+            TimerEnded();
         }
     }
 }
