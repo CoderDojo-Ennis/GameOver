@@ -2,7 +2,6 @@
 
 public class AvatarWarInstructions : MonoBehaviour
 {
-    private Animator Anim;
     private AvatarScript Avatar;
     public GameObject Coin;
     private AudioSource AudioSource;
@@ -16,16 +15,12 @@ public class AvatarWarInstructions : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        int idleTrigger = Animator.StringToHash("IdleTrigger");
-        int walkRightTrigger = Animator.StringToHash("WalkRightTrigger");
-        this.Anim = GetComponent<Animator>();
-
         this.Delay(1f, () =>
         {
-            Anim.SetTrigger(walkRightTrigger);
+            Avatar.SetAnimation("WalkRight");
             Avatar.GlideX(-1.5f, 1.5f, 2).Then(() =>
             {
-                Anim.SetTrigger(idleTrigger);
+                Avatar.SetAnimation("Idle");
             });
             this.Delay(1.8f, () =>
             {

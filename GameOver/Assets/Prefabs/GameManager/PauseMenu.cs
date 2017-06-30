@@ -33,6 +33,8 @@ public class PauseMenu : BaseMenu
         gameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
         gameGestureListener.OnSwipeUp += Resume;
         gameGestureListener.OnOneHandUp += Resume;
+
+        Avatar.SetAnimation("RightHandUp");
     }
 
     private void Resume(object sender, EventArgs e)
