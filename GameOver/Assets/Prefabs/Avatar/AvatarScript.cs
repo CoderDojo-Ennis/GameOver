@@ -3,9 +3,11 @@
 public class AvatarScript : MonoBehaviour
 {
     private SpriteRenderer SpriteRenderer;
+    private Animator Anim;
 
     public void Awake()
     {
+        Anim = GetComponent<Animator>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -28,6 +30,11 @@ public class AvatarScript : MonoBehaviour
     public void SetSprite(Sprite sprite)
     {
         SpriteRenderer.sprite = sprite;
+    }
+
+    public void SetAnimation(string animation)
+    {
+        Anim.SetTrigger(Animator.StringToHash(animation + "Trigger"));
     }
 
     internal GmDelayPromise FadeIn(float fadeSeconds)

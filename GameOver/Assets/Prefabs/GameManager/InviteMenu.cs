@@ -11,9 +11,6 @@ public class InviteMenu : BaseMenu
     public AudioClip PlayerLostSound;
 
     [Header("Avatar")]
-    public Sprite GlideSprite;
-    public Sprite IdleSprite;
-
     private AvatarScript Avatar;
 
     /// <summary>
@@ -47,10 +44,10 @@ public class InviteMenu : BaseMenu
             AudioManager.Instance.PlayTypeCharacter();
         });
 
-        Avatar.SetSprite(GlideSprite);
+        Avatar.SetAnimation("WalkRight");
         Avatar.GlideX(-7, 0, 1.2f).Then(() =>
         {
-            Avatar.SetSprite(IdleSprite);
+            Avatar.SetAnimation("Idle");
         });
     }
 }

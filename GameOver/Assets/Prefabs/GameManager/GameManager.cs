@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -388,8 +388,8 @@ public class GameManager : MonoBehaviour
     /// <param name="fadeSeconds">Fade seconds</param>
     public void FadeToScene(string sceneName, float fadeSeconds)
     {
+        PauseBackroundMusic();
         PreloadScene(sceneName, false);
-        StopBackroundMusic();
         FadeCameraOut(fadeSeconds).Then(() =>
         {
             ShowScene(sceneName);
@@ -425,12 +425,11 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Fade out and stop the background music
     /// </summary>
-    public void PauseBackroundMusic()
+    public void PauseBackroundMusic(float fadeSeconds = 0.5f)
     {
         Debug.Log("Pause background music");
         if (BackgroundMusicSource.clip != null)
         {
-            float fadeSeconds = 0.5f;
             BackgroundMusicSource.Fade(this, BackgroundMusicSource.volume, 0, fadeSeconds, true);
             //BackgroundMusicSource.pitch = 1;
             //this.Repeat(.2f, 10, () =>

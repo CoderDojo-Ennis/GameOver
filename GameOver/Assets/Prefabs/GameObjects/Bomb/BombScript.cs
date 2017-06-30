@@ -25,9 +25,6 @@ public class BombScript : MonoBehaviour
         var explosion = Instantiate(Explosion, this.transform.position, this.transform.rotation);
         explosion.layer = this.gameObject.layer;
         Destroy(gameObject);
-
-        // todo - calculate damage
-        PlayerScript.Instance.Damage(10);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,6 +32,7 @@ public class BombScript : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Explode();
+            PlayerScript.Instance.Damage(10);
         }
     }
 
