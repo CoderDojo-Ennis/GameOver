@@ -5,9 +5,11 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     public float BulletSpeed;
+    public int LiveTime;
 
-	void Start () {
-
+	void Start ()
+    {
+        this.Delay(LiveTime, () => { Destroy(this); });
 	}
 	
 	void Update ()
