@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 2f9cc411c397dd042850ee097c5ddb8c
-timeCreated: 1498834390
+guid: 7a0f1391f11ba44449c9c3fe11011a2b
+timeCreated: 1498833642
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: EnemyBoat
-    21300002: Bullet
+    21300000: BoatBack
+    21300002: BoatFront
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -88,28 +88,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EnemyBoat
+      name: BoatBack
       rect:
         serializedVersion: 2
-        x: 16
-        y: 46
+        x: 34
+        y: 55
         width: 42
-        height: 30
+        height: 7
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Bullet
+      name: BoatFront
       rect:
         serializedVersion: 2
-        x: 4
-        y: 65
-        width: 4
-        height: 3
+        x: 18
+        y: 25
+        width: 77
+        height: 30
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
