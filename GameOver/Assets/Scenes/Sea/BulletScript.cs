@@ -9,7 +9,7 @@ public class BulletScript : MonoBehaviour
 
 	void Start ()
     {
-        this.Delay(LiveTime, () => { Destroy(this); });
+        this.Delay(LiveTime, () => { Destroy(gameObject); });
 	}
 	
 	void Update ()
