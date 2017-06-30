@@ -9,6 +9,7 @@ public class BaseGameScene : MonoBehaviour
     public bool NaturalX = true;
     public float TravelScaleX = 10;
     private PlayerScript Player;
+    public float PlayerScale = 1;
 
     [Header("Transition")]
     public float FadeSeconds = 1f;
@@ -35,6 +36,7 @@ public class BaseGameScene : MonoBehaviour
         {
             Player.TravelScaleX = this.TravelScaleX;
             Player.NaturalX = this.NaturalX;
+            Player.transform.localScale = Vector3.one * PlayerScale;
         });
 
         if (BackgroundMusic != null)

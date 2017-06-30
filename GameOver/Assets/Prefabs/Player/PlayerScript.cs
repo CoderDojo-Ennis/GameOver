@@ -32,14 +32,14 @@ public class PlayerScript : MonoBehaviour
 
     private AudioSource AudioSource;
 
-    internal void HideKinect(float fadeSeconds)
+    internal GmDelayPromise HideKinect(float fadeSeconds)
     {
-        PlayerImage.FadeOut(fadeSeconds);
+        return PlayerImage.FadeOut(fadeSeconds);
     }
 
-    internal void ShowKinect(float fadeSeconds)
+    internal GmDelayPromise ShowKinect(float fadeSeconds)
     {
-        PlayerImage.FadeIn(fadeSeconds);
+        return PlayerImage.FadeIn(fadeSeconds);
     }
 
     public PlayerImageScript PlayerImage;

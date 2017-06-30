@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 7a0f1391f11ba44449c9c3fe11011a2b
-timeCreated: 1498862124
+guid: 4093799fe6605ff45b04ab8dad4f6537
+timeCreated: 1498862276
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BoatBack
-    21300002: BoatFront
+    21300000: DingyBoat-Back_0
+    21300002: DingyBoat-Back
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -30,7 +30,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: 0
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -88,7 +88,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BoatFront
+      name: DingyBoat-Back
       rect:
         serializedVersion: 2
         x: 18

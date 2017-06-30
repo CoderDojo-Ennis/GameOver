@@ -501,6 +501,7 @@ MonoBehaviour:
   BackgroundMusic: {fileID: 8300000, guid: 1c707ce1a70e1a04195a135106f33188, type: 3}
   NaturalX: 0
   TravelScaleX: 20
+  PlayerScale: 0.4
   FadeSeconds: 1
   SceneCamera: {fileID: 0}
   CollectableDelaySeconds: 8

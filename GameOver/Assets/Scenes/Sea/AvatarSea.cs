@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AvatarSea : MonoBehaviour
 {
@@ -11,15 +9,23 @@ public class AvatarSea : MonoBehaviour
     public Sprite Idle;
     SpriteRenderer sp;
     Rigidbody raft;
+    private PlayerJoints Joints;
+    public float KinectTorqueScale = 1;
 
-	void Start ()
+    void Start()
     {
         raft = GetComponentInParent<Rigidbody>();
         sp = GetComponent<SpriteRenderer>();
-	}
-	
-	void Update ()
+        Joints = PlayerScript.Instance.GetComponent<PlayerJoints>();
+    }
+
+    void Update()
     {
+        float KinectLeanTorque = (Joints.head.transform.localPosition.x - Joints.spineBase.transform.localPosition.x) * KinectTorqueScale;
+        sp.enabled = (KinectLeanTorque == 0);
+
+        raft.AddTorque(new Vector3(0, 0, -KinectLeanTorque), ForceMode.Acceleration);
+
         if (Input.GetKey("left"))
         {
             raft.AddTorque(new Vector3(0, 0, LeanTorque), ForceMode.Acceleration);
@@ -36,5 +42,9 @@ public class AvatarSea : MonoBehaviour
         {
             sp.sprite = Idle;
         }
+
+        // Move/rotate kinect image
+        PlayerScript.Instance.transform.position = transform.position;
+        PlayerScript.Instance.transform.rotation = transform.rotation;
     }
 }
