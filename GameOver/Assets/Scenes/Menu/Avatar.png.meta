@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: af047bce09e333b45a339fb68999718b
-timeCreated: 1498417467
+timeCreated: 1498842848
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -14,6 +14,9 @@ TextureImporter:
     21300014: Avatar_Walk2
     21300016: Avatar_Walk3
     21300018: Avatar_Squat
+    21300020: Avatar_T_Blink
+    21300022: Avatar_Idle_Blink
+    21300024: Avatar_RightHandUp_Blink
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -100,7 +103,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 37
         width: 28
         height: 37
       alignment: 7
@@ -113,7 +116,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 28
-        y: 0
+        y: 37
         width: 28
         height: 37
       alignment: 7
@@ -126,7 +129,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 56
-        y: 0
+        y: 37
         width: 28
         height: 37
       alignment: 7
@@ -139,7 +142,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 84
-        y: 0
+        y: 37
         width: 28
         height: 37
       alignment: 9
@@ -152,7 +155,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 112
-        y: 0
+        y: 37
         width: 28
         height: 37
       alignment: 9
@@ -165,7 +168,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 147
-        y: 0
+        y: 37
         width: 15
         height: 37
       alignment: 7
@@ -177,8 +180,8 @@ TextureImporter:
       name: Avatar_Walk2
       rect:
         serializedVersion: 2
-        x: 175
-        y: 0
+        x: 176
+        y: 37
         width: 15
         height: 37
       alignment: 7
@@ -191,7 +194,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 202
-        y: 0
+        y: 37
         width: 15
         height: 37
       alignment: 7
@@ -204,12 +207,51 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 224
-        y: 0
+        y: 37
         width: 27
         height: 37
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Avatar_T_Blink
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 28
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Avatar_Idle_Blink
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 28
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 8, y: 0, z: 8, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Avatar_RightHandUp_Blink
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 0
+        width: 28
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 8, y: 0, z: 4, w: 0}
       outline: []
       tessellationDetail: 0
     outline: []
