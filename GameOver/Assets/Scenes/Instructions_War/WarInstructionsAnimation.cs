@@ -11,6 +11,10 @@ public class WarInstructionsAnimation : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        // Full health
+        PlayerScript.Instance.SetInitialHealth();
+
+        // Start animation
         this.Delay(BombStartDelay - BombInterval, () =>
         {
             int bombIndex = 0;

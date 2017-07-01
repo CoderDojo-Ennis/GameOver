@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         BackgroundMusicSource = GameObject.Find("BackgroundMusicSource").GetComponent<AudioSource>();
+        GameGestureListener = KinectController.GetComponent<GameGestureListener>();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -99,12 +100,13 @@ public class GameManager : MonoBehaviour
 
         HideMenu();
 
+        // Warm up
         GetComponentInChildren<EventSystem>().enabled = true;
+        Timer.text = "";
 
         // Start Kinect
         KinectController.SetActive(true);
         gameObject.GetComponentInChildren<KinectManager>(true).enabled = true;
-        GameGestureListener = KinectController.GetComponent<GameGestureListener>();
         GameGestureListener.OnUserDetected += GameGestureListener_OnUserDetected;
         GameGestureListener.OnUserLost += GameGestureListener_OnUserLost;
         GameGestureListener.OnSwipeLeft += GameGestureListener_SwipeHorizontal;
@@ -597,6 +599,7 @@ public class GameManager : MonoBehaviour
     public void StartTimer(int Duration, int EventTime)
     {
         TimerValue = Duration;
+        Timer.text = TimerValue.ToString();
         MidTimerEventTime = EventTime;
         this.Delay(1, TimerTick);
     }
@@ -616,6 +619,7 @@ public class GameManager : MonoBehaviour
         else
         {
             TimerEnded();
+            Timer.enabled = false;
         }
     }
 }

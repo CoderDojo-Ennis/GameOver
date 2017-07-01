@@ -47,10 +47,19 @@ public class WarScene : BaseGameScene
         DropCollectable();
 
         // When the player dies
-        PlayerScript.Instance.OnDeath += (sender, args) =>
-        {
-            RemoveBombs();
-        };
+        PlayerScript.Instance.OnDeath += WarScene_OnDeath;
+    }
+
+    private void WarScene_OnDeath(object sender, System.EventArgs e)
+    {
+        RemoveBombs();
+    }
+
+    // un-hook any events
+    internal new void OnDestroy()
+    {
+        base.OnDestroy();
+        PlayerScript.Instance.OnDeath -= WarScene_OnDeath;
     }
 
     /// <summary>

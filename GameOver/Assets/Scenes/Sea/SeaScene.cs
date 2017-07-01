@@ -23,6 +23,18 @@ public class SeaScene : BaseGameScene
         GameManager.Instance.StartTimer(TimerDuration, EnemyIntroductionTime);
         GameManager.Instance.TimerEnded += TimerEnded;
         GameManager.Instance.TimerEvent += EnemyIntro;
+
+        PlayerScript.Instance.ShowKinect(0);
+    }
+
+    /// <summary>
+    /// Un-hook any events
+    /// </summary>
+    internal new void OnDestroy()
+    {
+        base.OnDestroy();
+        GameManager.Instance.TimerEnded -= TimerEnded;
+        GameManager.Instance.TimerEvent -= EnemyIntro;
     }
 
     new void Update()

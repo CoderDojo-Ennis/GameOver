@@ -166,7 +166,7 @@ MonoBehaviour:
   BackgroundMusic: {fileID: 8300000, guid: da994a3f9963bbd4cb768a0d41e6f366, type: 3}
   NaturalX: 1
   TravelScaleX: 10
-  PlayerScale: 0.2
+  PlayerScale: 0.25
   FadeSeconds: 1
   SceneCamera: {fileID: 0}
   sea: {fileID: 513335934}
@@ -987,6 +987,16 @@ Prefab:
         type: 2}
       propertyPath: m_textInfo.spaceCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224348664442097158, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 224348664442097158, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}

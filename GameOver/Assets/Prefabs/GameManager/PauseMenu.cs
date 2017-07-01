@@ -37,6 +37,18 @@ public class PauseMenu : BaseMenu
         Avatar.SetAnimation("RightHandUp");
     }
 
+    /// <summary>
+    /// Un-hook events
+    /// </summary>
+    private void OnDestroy()
+    {
+        GameGestureListener gameGestureListener = GameManager.Instance.GameGestureListener;
+        gameGestureListener.OnSwipeLeft -= KinectSwipeHorizontal;
+        gameGestureListener.OnSwipeRight -= KinectSwipeHorizontal;
+        gameGestureListener.OnSwipeUp -= Resume;
+        gameGestureListener.OnOneHandUp -= Resume;
+    }
+
     private void Resume(object sender, EventArgs e)
     {
         if (GameManager.Instance.Paused)

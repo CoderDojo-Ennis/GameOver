@@ -55,11 +55,21 @@ public class BaseGameScene : MonoBehaviour
         }
 
         // When the player dies
-        PlayerScript.Instance.OnDeath += (sender, args) =>
-        {
-            GameManager.Instance.HideKinect();
-            FadeToScene("GameOverScene");
-        };
+        PlayerScript.Instance.OnDeath += BaseGameScene_OnDeath;
+    }
+
+    /// <summary>
+    /// Un-hook any events
+    /// </summary>
+    internal void OnDestroy()
+    {
+        PlayerScript.Instance.OnDeath -= BaseGameScene_OnDeath;
+    }
+
+    private void BaseGameScene_OnDeath(object sender, System.EventArgs e)
+    {
+        GameManager.Instance.HideKinect();
+        FadeToScene("GameOverScene");
     }
 
     // Update is called once per frame

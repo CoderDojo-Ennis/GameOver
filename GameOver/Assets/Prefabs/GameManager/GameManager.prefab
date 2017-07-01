@@ -3879,8 +3879,9 @@ MonoBehaviour:
   Instructions: {fileID: 0}
   CameraMask: {fileID: 212041183437480786}
   ActiveCamera: {fileID: 0}
-  Timer: {fileID: 0}
+  Timer: {fileID: 114591412418778544}
   TimerValue: 0
+  TargetFrameRate: 25
   Paused: 0
 --- !u!114 &114349949222720930
 MonoBehaviour:
@@ -4677,6 +4678,7 @@ MonoBehaviour:
   TravelScaleX: 10
   NaturalX: 0
   AspectScale: {x: 1, y: 1, z: 1}
+  Invincible: 0
   Hearts:
   - {fileID: 114294378114439058}
   - {fileID: 114113908783157168}
@@ -8498,8 +8500,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 678, y: -179}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: -750, y: 400}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224349957420800264
 RectTransform:

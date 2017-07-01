@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -79,6 +80,32 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
             FadeInAudio();
             videoPlayer.Play();
         };
+
+        // ControlEvents
+        GameGestureListener gameGestureListener = GameManager.Instance.GameGestureListener;
+        gameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
+        gameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
+    }
+
+    /// <summary>
+    /// un-hook events
+    /// </summary>
+    private void OnDestroy()
+    {
+        GameGestureListener gameGestureListener = GameManager.Instance.GameGestureListener;
+        gameGestureListener.OnSwipeLeft -= KinectSwipeHorizontal;
+        gameGestureListener.OnSwipeRight -= KinectSwipeHorizontal;
+    }
+
+    /// <summary>
+    /// Kinect swipe left or right
+    /// </summary>
+    private void KinectSwipeHorizontal(object sender, EventArgs e)
+    {
+        if (isPlaying)
+        {
+            Abort();
+        }
     }
 
     /// <summary>
