@@ -48,6 +48,9 @@ public class GameManager : MonoBehaviour
     public delegate void TimerEventHandler();
     public event TimerEventHandler TimerEvent;
 
+    [Header("Quality")]
+    public int TargetFrameRate = 25;
+
     private string ActiveCameraName
     {
         get
@@ -103,6 +106,11 @@ public class GameManager : MonoBehaviour
         // Warm up
         GetComponentInChildren<EventSystem>().enabled = true;
         Timer.text = "";
+
+        // Sync game engine with videos
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = TargetFrameRate;
+        //Application.targetFrameRate = (int)GetComponent<UnityEngine.Video.VideoPlayer>().frameRate;
 
         // Start Kinect
         KinectController.SetActive(true);
