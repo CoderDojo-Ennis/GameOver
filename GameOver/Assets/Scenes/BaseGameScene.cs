@@ -68,6 +68,7 @@ public class BaseGameScene : MonoBehaviour
 
     private void BaseGameScene_OnDeath(object sender, System.EventArgs e)
     {
+        GameManager.Instance.StopTimer();
         GameManager.Instance.HideKinect();
         FadeToScene("GameOverScene");
     }
