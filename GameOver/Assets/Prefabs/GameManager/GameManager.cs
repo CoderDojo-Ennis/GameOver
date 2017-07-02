@@ -523,6 +523,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ShowKinect()
     {
+        PlayerScript.Instance.transform.position = Vector3.zero;
+        PlayerScript.Instance.transform.rotation = Quaternion.identity;
         PlayerScript.Instance.ShowKinect(1);
     }
 
