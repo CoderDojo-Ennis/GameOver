@@ -66,7 +66,9 @@ public class SeaScene : BaseGameScene
 
     void TimerEnded()
     {
-        Debug.Log("End");
+        GameManager.Instance.HideTimer();
+        //todo - coming soon scene
+        FadeToScene("Instructions_WarScene");
     }
 
     void EnemyIntro()
