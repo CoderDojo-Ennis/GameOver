@@ -499,6 +499,31 @@ Prefab:
       propertyPath: TargetFrameRate
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_text
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_textInfo.characterCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
   m_IsPrefabParent: 0

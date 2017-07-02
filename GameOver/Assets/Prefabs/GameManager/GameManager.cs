@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     public event TimerEndedHandler TimerEnded;
     public delegate void TimerEventHandler();
     public event TimerEventHandler TimerEvent;
+    private GmDelayPromise TimerPromise;
 
     [Header("Quality")]
     public int TargetFrameRate = 25;
@@ -354,6 +355,7 @@ public class GameManager : MonoBehaviour
     /// <param name="showImmediately">Show immediately, or else it will be shown when ShowScene is called</param>
     public void PreloadScene(string sceneName, bool showImmediately)
     {
+        /*
         if (PreloadedSceneName != sceneName)
         {
             Debug.Log("Preloading " + sceneName + " Show Immediately = " + showImmediately);
@@ -364,6 +366,7 @@ public class GameManager : MonoBehaviour
                 PreloadedSceneName = sceneName;
             }
         }
+        */
     }
 
     /// <summary>
@@ -377,17 +380,21 @@ public class GameManager : MonoBehaviour
         FadeCameraOut(fadeSeconds).Then(() =>
         {
             // Is it pre-loaded
-            if (PreloadedSceneName == sceneName)
+            //if (PreloadedSceneName == sceneName)
+            //{
+            //    Debug.Log("Showing After Preloading " + sceneName);
+            //    NextSceneAsync.allowSceneActivation = true;
+            //}
+            //else
+            //{
+            //Debug.Log("Showing Non Preloaded  " + sceneName);
+            //NextSceneAsync = SceneManager.LoadSceneAsync(sceneName);
+            //NextSceneAsync.allowSceneActivation = true;
+            //}
+            this.Delay(0.5f, () =>
             {
-                Debug.Log("Showing After Preloading " + sceneName);
-                NextSceneAsync.allowSceneActivation = true;
-            }
-            else
-            {
-                Debug.Log("Showing Non Preloaded  " + sceneName);
-                NextSceneAsync = SceneManager.LoadSceneAsync(sceneName);
-                NextSceneAsync.allowSceneActivation = true;
-            }
+                SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            });
         });
     }
 
@@ -606,12 +613,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void HideTimer()
+    {
+        Timer.text = "";
+    }
+
+    public void StopTimer()
+    {
+        HideTimer();
+        if (TimerPromise != null)
+        {
+            TimerPromise.Abort();
+        }
+    }
+
     public void StartTimer(int Duration, int EventTime)
     {
         TimerValue = Duration;
         Timer.text = TimerValue.ToString();
         MidTimerEventTime = EventTime;
-        this.Delay(1, TimerTick);
+        TimerPromise = this.Delay(1, TimerTick);
     }
 
     void TimerTick()
@@ -624,7 +645,7 @@ public class GameManager : MonoBehaviour
         }
         if (TimerValue > 0)
         {
-            this.Delay(1, TimerTick);
+            TimerPromise = this.Delay(1, TimerTick);
         }
         else
         {

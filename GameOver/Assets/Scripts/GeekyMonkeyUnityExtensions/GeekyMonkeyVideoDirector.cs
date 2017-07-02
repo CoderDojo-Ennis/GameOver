@@ -83,8 +83,11 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
 
         // ControlEvents
         GameGestureListener gameGestureListener = GameManager.Instance.GameGestureListener;
-        gameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
-        gameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
+        if (gameGestureListener != null)
+        {
+            gameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
+            gameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
+        }
     }
 
     /// <summary>
@@ -93,8 +96,11 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
     private void OnDestroy()
     {
         GameGestureListener gameGestureListener = GameManager.Instance.GameGestureListener;
-        gameGestureListener.OnSwipeLeft -= KinectSwipeHorizontal;
-        gameGestureListener.OnSwipeRight -= KinectSwipeHorizontal;
+        if (gameGestureListener != null)
+        {
+            gameGestureListener.OnSwipeLeft -= KinectSwipeHorizontal;
+            gameGestureListener.OnSwipeRight -= KinectSwipeHorizontal;
+        }
     }
 
     /// <summary>
