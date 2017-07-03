@@ -36,4 +36,13 @@ public class PlayerImageScript : MonoBehaviour
     {
         return MeshRenderer.material.Fade(this, MeshRenderer.material.color, new Color(1, 1, 1, 1), seconds, true);
     }
+
+    public void ShowDamaged()
+    {
+        float damageTime = 0.2f;
+        MeshRenderer.material.Fade(this, MeshRenderer.material.color, new Color(1, 0, 0, 1), damageTime, true).Then(() =>
+        {
+            MeshRenderer.material.Fade(this, new Color(1, 0, 0, 1), new Color(1, 1, 1, 1), damageTime, true);
+        });
+    }
 }

@@ -180,12 +180,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
+    - target: {fileID: 198374468865516548, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 446102523}
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -195,21 +200,16 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 198374468865516548, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: LightsModule.light
-      value: 
-      objectReference: {fileID: 446102523}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
   m_IsPrefabParent: 0
@@ -501,6 +501,7 @@ MonoBehaviour:
   BackgroundMusic: {fileID: 8300000, guid: 1c707ce1a70e1a04195a135106f33188, type: 3}
   NaturalX: 0
   TravelScaleX: 20
+  PlayerScale: 0.4
   FadeSeconds: 1
   SceneCamera: {fileID: 0}
   CollectableDelaySeconds: 8

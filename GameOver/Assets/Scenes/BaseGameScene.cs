@@ -9,6 +9,7 @@ public class BaseGameScene : MonoBehaviour
     public bool NaturalX = true;
     public float TravelScaleX = 10;
     private PlayerScript Player;
+    public float PlayerScale = 1;
 
     [Header("Transition")]
     public float FadeSeconds = 1f;
@@ -20,7 +21,7 @@ public class BaseGameScene : MonoBehaviour
 
     public void Awake()
     {
-        Player = GameObject.FindObjectOfType<PlayerScript>();
+        Player = PlayerScript.Instance; //  GameObject.FindObjectOfType<PlayerScript>();
         SceneCamera = gameObject.GetComponentInChildren<Camera>(true);
     }
 
@@ -31,10 +32,11 @@ public class BaseGameScene : MonoBehaviour
 
         GameManager.Instance.ActiveGameScene = this;
 
-        this.Delay(0.1f, () =>
+        this.Delay(0.2f, () =>
         {
             Player.TravelScaleX = this.TravelScaleX;
             Player.NaturalX = this.NaturalX;
+            Player.transform.localScale = Vector3.one * PlayerScale;
         });
 
         if (BackgroundMusic != null)
@@ -51,6 +53,24 @@ public class BaseGameScene : MonoBehaviour
         {
             FadeCameraIn();
         }
+
+        // When the player dies
+        PlayerScript.Instance.OnDeath += BaseGameScene_OnDeath;
+    }
+
+    /// <summary>
+    /// Un-hook any events
+    /// </summary>
+    internal void OnDestroy()
+    {
+        PlayerScript.Instance.OnDeath -= BaseGameScene_OnDeath;
+    }
+
+    private void BaseGameScene_OnDeath(object sender, System.EventArgs e)
+    {
+        GameManager.Instance.StopTimer();
+        GameManager.Instance.HideKinect();
+        FadeToScene("GameOverScene");
     }
 
     // Update is called once per frame

@@ -42,6 +42,9 @@ public class InstructionsMenu : BaseGameScene
         GameManager.Instance.ActiveGameScene = this;
         PlayerScript.Instance.ShowKinect(1);
 
+        GameManager.Instance.GameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
+        GameManager.Instance.GameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
+
         this.Delay(.01f, () =>
         {
             Time.timeScale = 0;
@@ -57,6 +60,15 @@ public class InstructionsMenu : BaseGameScene
                 InviteAndShowinstructions();
             }
         });
+    }
+
+    // un-hook events
+    internal new void OnDestroy()
+    {
+        // don't call base
+        // base.OnDestroy();
+        GameManager.Instance.GameGestureListener.OnSwipeLeft -= KinectSwipeHorizontal;
+        GameManager.Instance.GameGestureListener.OnSwipeRight -= KinectSwipeHorizontal;
     }
 
     public void InviteAndShowinstructions()
@@ -82,8 +94,6 @@ public class InstructionsMenu : BaseGameScene
         FadeCameraIn();
         PlayerScript.Instance.ScoreVisible = true;
         this.CountdownText.text = "";
-        GameManager.Instance.GameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
-        GameManager.Instance.GameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
 
         InstructionText.Type(this, TypingSeconds, true, () =>
         {

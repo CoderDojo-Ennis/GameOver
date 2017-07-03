@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
@@ -14,25 +15,31 @@ public class PlayerScript : MonoBehaviour
     public float TravelScaleX = 1;
     public bool NaturalX = true;
     public Vector3 AspectScale = new Vector3(1, 1, 1);
+    public bool Invincible = false;
 
     [Header("Health")]
     public Image[] Hearts;
     public Sprite HeartFull;
     public Sprite HeartHalf;
     public Sprite HeartEmpty;
+    public AudioClip InjureSound;
+    public AudioClip DeathSound;
+    public event EventHandler OnDeath;
 
     [Header("Avatar")]
     public GameObject AvatarPrefab;
     public GameObject TransformEffect;
 
-    internal void HideKinect(float fadeSeconds)
+    private AudioSource AudioSource;
+
+    internal GmDelayPromise HideKinect(float fadeSeconds)
     {
-        PlayerImage.FadeOut(fadeSeconds);
+        return PlayerImage.FadeOut(fadeSeconds);
     }
 
-    internal void ShowKinect(float fadeSeconds)
+    internal GmDelayPromise ShowKinect(float fadeSeconds)
     {
-        PlayerImage.FadeIn(fadeSeconds);
+        return PlayerImage.FadeIn(fadeSeconds);
     }
 
     public PlayerImageScript PlayerImage;
@@ -41,6 +48,7 @@ public class PlayerScript : MonoBehaviour
 
     public void Awake()
     {
+        AudioSource = GetComponent<AudioSource>();
         PlayerImage = GetComponentInChildren<PlayerImageScript>();
         ScoreCanvasCanvas = GameObject.Find("ScoreCanvas").GetComponent<Canvas>();
         if (Instance == null)
@@ -127,8 +135,30 @@ public class PlayerScript : MonoBehaviour
     /// <param name="damage"></param>
     public void Damage(int damage)
     {
-        Health -= damage;
-        DisplayHealth();
+        if (!Invincible)
+        {
+            Health -= damage;
+            DisplayHealth();
+            PlayerImage.ShowDamaged();
+            if (Health > 0)
+            {
+                AudioSource.PlayOneShot(InjureSound);
+            }
+            else
+            {
+                AudioSource.PlayOneShot(DeathSound);
+                if (OnDeath != null)
+                {
+                    OnDeath(this, null);
+                }
+            }
+
+            Invincible = true;
+            this.Delay(1, () =>
+            {
+                Invincible = false;
+            });
+        }
     }
 
     private void DisplayHealth()

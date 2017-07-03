@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RaftScript : MonoBehaviour
@@ -9,23 +8,34 @@ public class RaftScript : MonoBehaviour
     GameObject Player;
     SpriteRenderer PlayerRenderer;
     bool CanDie = true;
+    bool RespawnWithAvatar;
     Rigidbody r;
+    public float WaveTorqueScale = .1f;
 
-    void Start ()
+    void Start()
     {
         Player = GetComponentInChildren<AvatarSea>().gameObject;
         PlayerRenderer = Player.GetComponent<SpriteRenderer>();
         splashSound = GetComponent<AudioSource>();
         r = GetComponent<Rigidbody>();
-	}
+    }
 
-	void Update ()
+    void Update()
     {
         float angle = AngleConvert(transform.eulerAngles.z);
         if ((angle < -drownAngle || angle > drownAngle) && CanDie)
         {
             Drown();
         }
+
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            this.Respawn();
+        }
+
+        float waveTilt = AngleConvert(transform.parent.transform.rotation.eulerAngles.z);
+        Debug.Log(waveTilt);
+        r.AddTorque(new Vector3(0, 0, waveTilt * WaveTorqueScale), ForceMode.Acceleration);
     }
 
     float AngleConvert(float f)
@@ -49,8 +59,16 @@ public class RaftScript : MonoBehaviour
             Respawn();
         });
         splashSound.Play();
-        PlayerScript.Instance.Damage(1);
-        PlayerRenderer.enabled = false;
+        PlayerScript.Instance.Damage(10);
+        RespawnWithAvatar = PlayerRenderer.enabled;
+        if (RespawnWithAvatar)
+        {
+            PlayerRenderer.enabled = false;
+        }
+        else
+        {
+            PlayerScript.Instance.HideKinect(0.5f);
+        }
     }
 
     void Respawn()
@@ -58,7 +76,23 @@ public class RaftScript : MonoBehaviour
         CanDie = true;
         transform.localRotation = Quaternion.identity;
         r.angularVelocity = Vector3.zero;
-        BlinkPlayer(10);
+        if (RespawnWithAvatar)
+        {
+            BlinkPlayer(10);
+        }
+        else
+        {
+            this.Repeat(0.15f, 8, () =>
+            {
+                PlayerScript.Instance.HideKinect(0).Then(() =>
+                {
+                    this.Delay(0.07f, () =>
+                    {
+                        PlayerScript.Instance.ShowKinect(0);
+                    });
+                });
+            });
+        }
     }
 
     void BlinkPlayer(int numBlinks)

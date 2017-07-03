@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Intro/IntroScene.unity
     guid: cead9c820aa9b0548af0c45098cfc6aa
   - enabled: 1
-    path: Assets/Scenes/Instructions_War/Instructions_WarScene.unity
+    path: Assets/Scenes/Instructions_Land/Instructions_LandScene.unity
     guid: 75ea7d0aea9893441a7f4af56575d72c
   - enabled: 1
     path: Assets/Scenes/War/WarScene.unity
@@ -18,5 +18,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Beach/BeachScene.unity
     guid: c12a331929c83a34a974b2f520b5904f
   - enabled: 1
+    path: Assets/Scenes/Instructions_Sea/Instructions_SeaScene.unity
+    guid: 725d38d33be5efd4697cfbe89bf66a15
+  - enabled: 1
     path: Assets/Scenes/Sea/SeaScene.unity
     guid: 3d0dfe0082ef5be449a399600e39f625
+  - enabled: 1
+    path: Assets/Scenes/Instructions_War/Instructions_LandScene.unity
+    guid: b06a763220ff9c4479604384bc003f24
+  - enabled: 1
+    path: Assets/Scenes/GameOver/GameOverScene.unity
+    guid: b172ca7670916394b919b9b04adbf6b7

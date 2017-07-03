@@ -152,56 +152,6 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 33059922171901282, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114663816548676306, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114663816548676306, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114482948494354040, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114482948494354040, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 33428567696585320, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
   m_IsPrefabParent: 0
@@ -233,6 +183,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackgroundMusic: {fileID: 0}
+  NaturalX: 1
+  TravelScaleX: 10
+  PlayerScale: 1
   FadeSeconds: 2
   SceneCamera: {fileID: 0}
 --- !u!4 &1427903601

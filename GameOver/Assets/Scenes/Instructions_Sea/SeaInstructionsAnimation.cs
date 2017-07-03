@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class WarInstructionsAnimation : MonoBehaviour
+public class SeaInstructionsAnimation : MonoBehaviour
 {
     [Header("Bombs")]
     public Transform[] BombSpawnPoints;
@@ -11,6 +11,10 @@ public class WarInstructionsAnimation : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        // Full health
+        PlayerScript.Instance.SetInitialHealth();
+
+        // Start animation
         this.Delay(BombStartDelay - BombInterval, () =>
         {
             int bombIndex = 0;
