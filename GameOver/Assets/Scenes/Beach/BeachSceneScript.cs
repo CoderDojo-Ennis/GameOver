@@ -60,7 +60,7 @@ public class BeachSceneScript : BaseGameScene
         // todo - change to proper scene
         this.Delay(8, () =>
         {
-            FadeToScene("SeaScene");
+            FadeToScene("Instructions_SeaScene");
         });
     }
 }
