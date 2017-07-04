@@ -3,10 +3,7 @@
 public class SeaInstructionsAnimation : MonoBehaviour
 {
     [Header("Bombs")]
-    public Transform[] BombSpawnPoints;
-    public GameObject BombPrefab;
-    public float BombStartDelay = 1f;
-    public float BombInterval = 0.5f;
+    public float SceneStartDelay = 1f;
 
     // Use this for initialization
     void Start()
@@ -15,16 +12,8 @@ public class SeaInstructionsAnimation : MonoBehaviour
         PlayerScript.Instance.SetInitialHealth();
 
         // Start animation
-        this.Delay(BombStartDelay - BombInterval, () =>
+        this.Delay(SceneStartDelay, () =>
         {
-            int bombIndex = 0;
-            this.Repeat(BombInterval, BombSpawnPoints.Length, () =>
-            {
-                var spawnPoint = BombSpawnPoints[bombIndex];
-                var bomb = GameObject.Instantiate(BombPrefab, spawnPoint);
-                bomb.layer = spawnPoint.gameObject.layer;
-                bombIndex++;
-            });
         });
     }
 
