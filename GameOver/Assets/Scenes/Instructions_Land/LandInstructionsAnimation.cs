@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class SeaInstructionsAnimation : MonoBehaviour
+public class LandInstructionsAnimation : MonoBehaviour
 {
-    [Header("Bombs")]
     public float SceneStartDelay = 1f;
+    public SpriteRenderer LightColumn;
 
     // Use this for initialization
     void Start()
@@ -14,12 +14,7 @@ public class SeaInstructionsAnimation : MonoBehaviour
         // Start animation
         this.Delay(SceneStartDelay, () =>
         {
+            LightColumn.FadeAlpha(this, LightColumn.color.a, 0, 2f, true);
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

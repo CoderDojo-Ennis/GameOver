@@ -7,6 +7,7 @@ public class InstructionsMenu : BaseGameScene
     [Header("Instructions")]
     public TextMeshPro InstructionText;
     public float TypingSeconds = 0.05f;
+    public bool InvitePlayer = true;
 
     [Header("Transition To")]
     public VideoPlaylists VideoPlaylist;
@@ -73,7 +74,7 @@ public class InstructionsMenu : BaseGameScene
 
     public void InviteAndShowinstructions()
     {
-        if (!GameManager.Instance.GameGestureListener.IsPlayerDetected)
+        if (InvitePlayer && !GameManager.Instance.GameGestureListener.IsPlayerDetected)
         {
             GameManager.Instance.InviteGame().Then(ShowInstructions);
         }
@@ -170,8 +171,12 @@ public class InstructionsMenu : BaseGameScene
     public void StartCountdown()
     {
         Debug.Log("Instructions StartCountdown");
+        if (CountdownSeconds < 0)
+        {
+            return;
+        }
 
-        GameManager.Instance.PreloadScene("WarScene", false);
+        GameManager.Instance.PreloadScene(GameSceneName, false);
 
         this.CountdownText.text = "";
         SecondsRemaining = CountdownSeconds;

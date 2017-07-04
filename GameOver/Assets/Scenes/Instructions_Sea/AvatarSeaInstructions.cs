@@ -3,7 +3,6 @@
 public class AvatarSeaInstructions : MonoBehaviour
 {
     private AvatarScript Avatar;
-    public GameObject Coin;
     private AudioSource AudioSource;
 
     private void Awake()
@@ -20,12 +19,7 @@ public class AvatarSeaInstructions : MonoBehaviour
             Avatar.SetAnimation("WalkRight");
             Avatar.GlideX(-1.5f, 1.5f, 2).Then(() =>
             {
-                Avatar.SetAnimation("Idle");
-            });
-            this.Delay(1.8f, () =>
-            {
-                Coin.SetActive(false);
-                AudioSource.Play();
+                Avatar.SetAnimation("Crouch");
             });
         });
     }

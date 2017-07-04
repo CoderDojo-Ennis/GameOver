@@ -3,8 +3,8 @@
 public class AvatarLandInstructions : MonoBehaviour
 {
     private AvatarScript Avatar;
-    public GameObject Coin;
     private AudioSource AudioSource;
+    public InstructionsMenu InstructionsMenu;
 
     private void Awake()
     {
@@ -15,17 +15,13 @@ public class AvatarLandInstructions : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        this.Delay(1f, () =>
+        Avatar.SetAnimation("Idle");
+        this.Delay(4f, () =>
         {
-            Avatar.SetAnimation("WalkRight");
-            Avatar.GlideX(-1.5f, 1.5f, 2).Then(() =>
+            Avatar.SetAnimation("WalkLeft");
+            Avatar.GlideX(0, -8, 2).Then(() =>
             {
-                Avatar.SetAnimation("Idle");
-            });
-            this.Delay(1.8f, () =>
-            {
-                Coin.SetActive(false);
-                AudioSource.Play();
+                InstructionsMenu.FadeToScene("GameOverScene");
             });
         });
     }
