@@ -6,9 +6,12 @@ public class BulletScript : MonoBehaviour
 {
     public float BulletSpeed;
     public int LiveTime;
+    SpriteRenderer s;
 
 	void Start ()
     {
+        s = GetComponent<SpriteRenderer>();
+        SeaCameraScript.instance.LerpToNewBullet(gameObject);
         this.Delay(LiveTime, () => { Destroy(gameObject); });
 	}
 	
@@ -16,4 +19,13 @@ public class BulletScript : MonoBehaviour
     {
         transform.Translate(-BulletSpeed * Time.deltaTime, 0, 0, Space.Self);
 	}
+
+    void OnTriggerEnter2D(Collider2D c)
+    {
+        if (c.gameObject.CompareTag("Player"))
+        {
+            s.enabled = false;
+            RaftScript.instance.Drown();
+        }
+    } 
 }
