@@ -79,7 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletSpeed: 15
-  LiveTime: 5
+  ZoomTime: 0.3
+  LiveTime: 0.6
 --- !u!212 &212241693023566630
 SpriteRenderer:
   m_ObjectHideFlags: 1

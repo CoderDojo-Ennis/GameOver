@@ -5,13 +5,15 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     public float BulletSpeed;
-    public int LiveTime;
+    public float ZoomTime;
+    public float LiveTime;
     SpriteRenderer s;
 
 	void Start ()
     {
         s = GetComponent<SpriteRenderer>();
-        SeaCameraScript.instance.LerpToNewBullet(gameObject);
+        this.Delay(ZoomTime, () => { SeaCameraScript.instance.LerpToNewBullet(gameObject); });
+        //SeaCameraScript.instance.LerpToNewBullet(gameObject);
         this.Delay(LiveTime, () => { Destroy(gameObject); });
 	}
 	
