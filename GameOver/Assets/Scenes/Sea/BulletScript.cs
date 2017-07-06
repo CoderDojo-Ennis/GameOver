@@ -41,10 +41,10 @@ public class BulletScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject.CompareTag("Player"))
+        if (c.gameObject.tag == "Player")
         {
             s.enabled = false;
-            RaftScript.instance.Drown();
+            PlayerScript.Instance.Damage(10);
         }
     }
 }

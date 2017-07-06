@@ -8,6 +8,7 @@ public class AvatarSea : MonoBehaviour
     public Sprite Right;
     public Sprite Idle;
     SpriteRenderer sp;
+    BoxCollider2D boxColider;
     Rigidbody raft;
     private PlayerJoints Joints;
     public float KinectTorqueScale = 1;
@@ -16,13 +17,14 @@ public class AvatarSea : MonoBehaviour
     {
         raft = GetComponentInParent<Rigidbody>();
         sp = GetComponent<SpriteRenderer>();
+        boxColider = GetComponent<BoxCollider2D>();
         Joints = PlayerScript.Instance.GetComponent<PlayerJoints>();
     }
 
     void FixedUpdate()
     {
         float KinectLeanTorque = (Joints.head.transform.localPosition.x - Joints.spineBase.transform.localPosition.x) * KinectTorqueScale;
-        sp.enabled = (KinectLeanTorque == 0);
+        boxColider.enabled = sp.enabled = (KinectLeanTorque == 0);
 
         raft.AddTorque(new Vector3(0, 0, -KinectLeanTorque), ForceMode.Acceleration);
 

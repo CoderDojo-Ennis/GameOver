@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114797871948143368}
   - component: {fileID: 114514621048404224}
   - component: {fileID: 114403330959351976}
+  - component: {fileID: 114258506871199788}
   m_Layer: 0
   m_Name: KinectController
   m_TagString: Untagged
@@ -1194,7 +1195,7 @@ Transform:
   m_GameObject: {fileID: 1196506739452952}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
   m_RootOrder: 4
@@ -1246,7 +1247,7 @@ Transform:
   m_GameObject: {fileID: 1958016795282872}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
   m_RootOrder: 11
@@ -1259,7 +1260,7 @@ Transform:
   m_GameObject: {fileID: 1657693940734754}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
   m_RootOrder: 6
@@ -1344,7 +1345,7 @@ Transform:
   m_GameObject: {fileID: 1034294261404494}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
   m_RootOrder: 7
@@ -1383,7 +1384,7 @@ Transform:
   m_GameObject: {fileID: 1127211435880748}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
   m_RootOrder: 9
@@ -1480,7 +1481,7 @@ Transform:
   m_GameObject: {fileID: 1933284883558876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
   m_RootOrder: 3
@@ -1571,7 +1572,7 @@ Transform:
   m_GameObject: {fileID: 1365833749599598}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
   m_RootOrder: 10
@@ -1597,7 +1598,7 @@ Transform:
   m_GameObject: {fileID: 1523315387874166}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
   m_RootOrder: 2
@@ -1610,7 +1611,7 @@ Transform:
   m_GameObject: {fileID: 1516512662130980}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
   m_RootOrder: 8
@@ -1636,7 +1637,7 @@ Transform:
   m_GameObject: {fileID: 1423691467810202}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4094549300602380}
   m_RootOrder: 5
@@ -2613,7 +2614,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!58 &58013032965087710
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2628,7 +2629,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!58 &58180621232862960
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2643,7 +2644,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!58 &58215665121619694
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2658,7 +2659,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!58 &58244865295813278
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2673,7 +2674,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!58 &58285627856074192
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2688,7 +2689,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!58 &58355826657480160
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2703,7 +2704,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!58 &58596915055805424
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2716,9 +2717,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.2}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.4
 --- !u!58 &58607639582335512
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2733,7 +2734,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!58 &58945964478278642
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2748,7 +2749,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!64 &64775301609105686
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -3821,6 +3822,23 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114258506871199788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1006059252881904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0269bc02f81454bb8fbc41688637a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerIndex: 0
+  estimateBodyHeight: 1
+  estimateBodyWidth: 0
+  estimateBodySlices: 0
+  continuousSlicing: 0
+  displayBodySlices: 0
 --- !u!114 &114294378114439058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3879,6 +3897,7 @@ MonoBehaviour:
   Instructions: {fileID: 0}
   CameraMask: {fileID: 212041183437480786}
   ActiveCamera: {fileID: 0}
+  MusicTimeScale: 0.05
   Timer: {fileID: 114591412418778544}
   TimerValue: 0
   TargetFrameRate: 25
@@ -3905,6 +3924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ea4b7d37fdaad48873f698cf36006b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentAnimation: 
 --- !u!114 &114394974671849228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4620,6 +4640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ea4b7d37fdaad48873f698cf36006b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentAnimation: 
 --- !u!114 &114894251416160026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7971,7 +7992,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 3183e3ac5e3a6bd498a94d3600ebbb8b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
