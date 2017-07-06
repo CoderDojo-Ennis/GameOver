@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
@@ -9,18 +7,32 @@ public class BulletScript : MonoBehaviour
     public float LiveTime;
     SpriteRenderer s;
 
-	void Start ()
+    void Start()
     {
         s = GetComponent<SpriteRenderer>();
-        this.Delay(ZoomTime, () => { SeaCameraScript.instance.LerpToNewBullet(gameObject); });
+        this.Delay(ZoomTime, () =>
+        {
+            if (SeaCameraScript.instance != null)
+            {
+                SeaCameraScript.instance.LerpToNewBullet(gameObject);
+            }
+            else if (SeaInstructionsCameraScript.instance != null)
+            {
+                SeaInstructionsCameraScript.instance.LerpToNewBullet(gameObject);
+            }
+        });
         //SeaCameraScript.instance.LerpToNewBullet(gameObject);
-        this.Delay(LiveTime, () => { Destroy(gameObject); });
-	}
-	
-	void Update ()
+        this.Delay(LiveTime, () =>
+        {
+            Time.timeScale = 1;
+            Destroy(gameObject);
+        });
+    }
+
+    void Update()
     {
         transform.Translate(-BulletSpeed * Time.deltaTime, 0, 0, Space.Self);
-	}
+    }
 
     void OnTriggerEnter2D(Collider2D c)
     {
@@ -29,5 +41,5 @@ public class BulletScript : MonoBehaviour
             s.enabled = false;
             RaftScript.instance.Drown();
         }
-    } 
+    }
 }

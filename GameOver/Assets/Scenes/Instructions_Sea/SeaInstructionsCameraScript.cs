@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class SeaCameraScript : MonoBehaviour
+public class SeaInstructionsCameraScript : MonoBehaviour
 {
     Vector3 NormalPosition;
-    public static SeaCameraScript instance;
+    public static SeaInstructionsCameraScript instance;
     GameObject FollowBullet;
     float LerpTime = 0;
     public float LerpSpeed = 7;
@@ -26,6 +26,7 @@ public class SeaCameraScript : MonoBehaviour
         }
         else
         {
+            //Time.timeScale = 1;
             transform.position = NormalPosition;
         }
     }

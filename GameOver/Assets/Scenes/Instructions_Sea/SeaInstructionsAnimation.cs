@@ -8,9 +8,23 @@ public class SeaInstructionsAnimation : MonoBehaviour
     [Header("Boat")]
     public GameObject Boat;
 
+    [Header("Enemy")]
+    public GameObject EnemyBoat;
+    public float EnemyInitialX = -5;
+    public float EnemySpeed = 2;
+    public Sprite BoatSprite;
+    public Sprite BoatShootSprite;
+    public GameObject Bullet;
+    public float ShootTime = 5;
+    private SpriteRenderer BoatRenderer;
+    public Transform BulletStart;
+    public GameObject BulletInstance;
+    private BulletScript BulletScript;
+
     [Header("Avatar")]
     public AvatarScript Avatar;
     public float LeanAtAngle = 25;
+    public float DuckDistance = 0.5f;
 
     [Header("Waves")]
     public float WaveMaxAngle = 45;
@@ -18,17 +32,30 @@ public class SeaInstructionsAnimation : MonoBehaviour
     public float WaveHeight = 2;
 
     private float BoatStartY;
+    private float EnemyBoatStartX;
+    private float EnemyBoatStartY;
     public float BoatAngle;
     private float SceneTime = 0;
 
     // Use this for initialization
     void Start()
     {
+        // Designed positions
         BoatStartY = Boat.transform.localPosition.y;
+        EnemyBoatStartX = EnemyBoat.transform.localPosition.x;
+        EnemyBoatStartY = EnemyBoat.transform.localPosition.y;
+        EnemyBoat.transform.localPosition = new Vector3(EnemyInitialX, EnemyBoat.transform.localPosition.y, EnemyBoat.transform.localPosition.z);
+
+        BoatRenderer = EnemyBoat.GetComponent<SpriteRenderer>();
 
         // Start animation
         this.Delay(SceneStartDelay, () =>
         {
+        });
+
+        this.Delay(ShootTime, () =>
+        {
+            Shoot();
         });
     }
 
@@ -45,19 +72,48 @@ public class SeaInstructionsAnimation : MonoBehaviour
         }
     }
 
+    private void Shoot()
+    {
+        BoatRenderer.sprite = BoatShootSprite;
+        this.Delay(0.1f, () =>
+        {
+            BoatRenderer.sprite = BoatSprite;
+        }, true);
+
+        BulletInstance = Instantiate(Bullet, BulletStart.position, BulletStart.rotation, this.transform);
+        BulletInstance.layer = this.gameObject.layer;
+        Time.timeScale = 0.05f;
+
+        BulletScript = BulletInstance.GetComponent<BulletScript>();
+        BulletScript.ZoomTime = 0.1f;
+        BulletScript.LiveTime = 0.6f;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        SceneTime += Time.unscaledDeltaTime;
+        SceneTime += Time.deltaTime;
 
         // Move the boat
         BoatAngle = WaveMaxAngle * Mathf.Sin(SceneTime * WaveSpeed);
         Boat.transform.localEulerAngles = new Vector3(0, 0, BoatAngle);
         Boat.transform.localPosition = new Vector3(Boat.transform.localPosition.x, BoatStartY - WaveHeight * Mathf.Sin(SceneTime * WaveSpeed + Mathf.PI * .25f), Boat.transform.position.z);
 
+        // Enemy boat - up & down
+        EnemyBoat.transform.localPosition = new Vector3(EnemyBoat.transform.localPosition.x, EnemyBoatStartY - WaveHeight * Mathf.Sin(SceneTime * WaveSpeed), EnemyBoat.transform.position.z);
+        // Enemy boat - slide left
+        if (EnemyBoat.transform.localPosition.x > EnemyBoatStartX)
+        {
+            EnemyBoat.transform.localPosition = new Vector3(EnemyBoat.transform.localPosition.x - EnemySpeed * Time.deltaTime, EnemyBoat.transform.localPosition.y, EnemyBoat.transform.localPosition.z);
+        }
+
         // Avatar lean
         string animation = "Idle";
-        if (BoatAngle >= LeanAtAngle)
+        if (BulletInstance != null && Mathf.Abs(BulletInstance.transform.position.x - Avatar.transform.position.x) < DuckDistance)
+        {
+            animation = "Crouch";
+        }
+        else if (BoatAngle >= LeanAtAngle)
         {
             animation = "LeanRight";
         }

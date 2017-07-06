@@ -108,6 +108,34 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &141693863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 141693864}
+  m_Layer: 13
+  m_Name: BulletStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 7240890024493199768, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &141693864
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 141693863}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.27, y: 0.122, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1898565360}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &481672272
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,6 +148,7 @@ GameObject:
   - component: {fileID: 481672276}
   - component: {fileID: 481672275}
   - component: {fileID: 481672274}
+  - component: {fileID: 481672278}
   m_Layer: 13
   m_Name: InstructionsCamera
   m_TagString: Untagged
@@ -197,6 +226,20 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &481672278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 481672272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db709364f4b45fb42bf1b5994c240cf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LerpSpeed: 7
+  BulletZoom: -4
+  BulletSlowdown: 0.1
 --- !u!1 &584091845
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,6 +566,11 @@ Prefab:
         type: 2}
       propertyPath: m_textInfo.pageCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212041183437480786, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
@@ -1004,6 +1052,76 @@ Transform:
   m_PrefabParentObject: {fileID: 4536417461374494, guid: 904e503a83a788e4099ab8441c3442d2,
     type: 2}
   m_PrefabInternal: {fileID: 2057174121}
+--- !u!1 &1898565358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1898565360}
+  - component: {fileID: 1898565359}
+  m_Layer: 13
+  m_Name: EnemyBoat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1898565359
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1898565358}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 2f9cc411c397dd042850ee097c5ddb8c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.75, y: 0.48}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+--- !u!4 &1898565360
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1898565358}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.13, y: -1.9, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_Children:
+  - {fileID: 141693864}
+  m_Father: {fileID: 1973017730}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1973017729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,6 +1158,7 @@ Transform:
   - {fileID: 481672273}
   - {fileID: 584091846}
   - {fileID: 1175618085}
+  - {fileID: 1898565360}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1056,8 +1175,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneStartDelay: 1
   Boat: {fileID: 1175618083}
+  EnemyBoat: {fileID: 1898565358}
+  EnemyInitialX: 15
+  EnemySpeed: 2
+  BoatSprite: {fileID: 21300000, guid: 2f9cc411c397dd042850ee097c5ddb8c, type: 3}
+  BoatShootSprite: {fileID: 21300000, guid: fe3ab2834917c3841877facc6b4414dc, type: 3}
+  Bullet: {fileID: 1487986491082104, guid: ba82bb8c5c848a242a483514b3b7998c, type: 2}
+  ShootTime: 5
+  BulletStart: {fileID: 141693864}
+  BulletInstance: {fileID: 0}
   Avatar: {fileID: 2057174125}
   LeanAtAngle: 15
+  DuckDistance: 1.5
   WaveMaxAngle: 40
   WaveSpeed: 1
   WaveHeight: 0.5
@@ -1084,7 +1213,7 @@ MonoBehaviour:
   InvitePlayer: 1
   VideoPlaylist: 3
   GameSceneName: SeaScene
-  PreCountdownSeconds: 4
+  PreCountdownSeconds: 7
   CountdownSeconds: 3
   CountdownSecondSound: {fileID: 8300000, guid: 03bff9b1d7e3409478747c16541fcfc1,
     type: 3}
