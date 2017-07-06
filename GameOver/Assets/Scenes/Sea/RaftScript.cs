@@ -12,6 +12,7 @@ public class RaftScript : MonoBehaviour
     bool RespawnWithAvatar;
     Rigidbody r;
     public float WaveTorqueScale = .1f;
+    public EnemyGun EnemyGun;
 
     void Start()
     {
@@ -58,6 +59,11 @@ public class RaftScript : MonoBehaviour
 
     public void Drown()
     {
+        if (EnemyGun.gameObject.activeInHierarchy)
+        {
+            EnemyGun.ShootTime = 0;
+        }
+
         CanDie = false;
         //Do some kind of death animation here later
         this.Delay(2, () =>

@@ -50,6 +50,12 @@ public class SeaScene : BaseGameScene
                 //GameManager.Instance.ShowScene(warScene);
             }
         }
+
+        if (GameManager.Instance.TimerValue <= 3)
+        {
+            EnemyTargetPos = EnemyStartingXPosition;
+        }
+
         //Use this for waves that get bigger up until the enemy arrives
         //sea.scale = Mathf.Lerp(EndingWaveStrength, StartingWaveStrength, ((float)GameManager.Instance.TimerValue - EnemyIntroductionTime) / ((float)TimerDuration - EnemyIntroductionTime));
         sea.scale = Mathf.Lerp(EndingWaveStrength, StartingWaveStrength, (float)GameManager.Instance.TimerValue / TimerDuration);
