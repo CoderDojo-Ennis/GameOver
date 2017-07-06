@@ -67,6 +67,8 @@ public class WarScene : BaseGameScene
     /// </summary>
     private void RemoveBombs()
     {
+        Debug.Log("Remove Bombs");
+
         // No more bombs
         BombEmitterScript.enabled = false;
         foreach (var bomb in GameObject.FindGameObjectsWithTag("Bomb"))
@@ -82,6 +84,7 @@ public class WarScene : BaseGameScene
     /// <param name="e">Nothin</param>
     private void CollectablesDone(object sender, System.EventArgs e)
     {
+        RemoveBombs();
         var avatar = PlayerScript.Instance.ChangeToAvatar();
 
         this.Delay(4, () =>
