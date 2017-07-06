@@ -4,6 +4,7 @@ public class BulletScript : MonoBehaviour
 {
     public float BulletSpeed;
     public float ZoomTime;
+    public float SlowTime = .6f;
     public float LiveTime;
     SpriteRenderer s;
 
@@ -22,9 +23,13 @@ public class BulletScript : MonoBehaviour
             }
         });
         //SeaCameraScript.instance.LerpToNewBullet(gameObject);
-        this.Delay(LiveTime, () =>
+        this.Delay(SlowTime, () =>
         {
             Time.timeScale = 1;
+            GameManager.Instance.SetSoundTimeScale();
+        });
+        this.Delay(LiveTime, () =>
+        {
             Destroy(gameObject);
         });
     }

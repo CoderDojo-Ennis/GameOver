@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     internal BaseMenu ActiveMenu;
     internal BaseMenu ActiveInstructions;
 
+    [Header("Sound")]
+    public float MusicTimeScale = .05f;
+
     private AudioSource BackgroundMusicSource;
     private GmDelayPromise PlayerReadyPromise;
 
@@ -119,6 +122,12 @@ public class GameManager : MonoBehaviour
         GameGestureListener.OnUserDetected += GameGestureListener_OnUserDetected;
         GameGestureListener.OnUserLost += GameGestureListener_OnUserLost;
         GameGestureListener.OnSwipeLeft += GameGestureListener_SwipeHorizontal;
+    }
+
+    internal void SetSoundTimeScale()
+    {
+        float newPitch = 1 - ((1 - Time.timeScale) * MusicTimeScale);
+        this.BackgroundMusicSource.FadePitch(this, this.BackgroundMusicSource.pitch, newPitch, 0.5f, true);
     }
 
     /// <summary>
