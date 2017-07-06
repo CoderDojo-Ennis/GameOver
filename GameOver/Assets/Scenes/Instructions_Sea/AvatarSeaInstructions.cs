@@ -16,11 +16,11 @@ public class AvatarSeaInstructions : MonoBehaviour
     {
         this.Delay(1f, () =>
         {
-            Avatar.SetAnimation("WalkRight");
-            Avatar.GlideX(-1.5f, 1.5f, 2).Then(() =>
-            {
-                Avatar.SetAnimation("Crouch");
-            });
+            //Avatar.SetAnimation("WalkRight");
+            //Avatar.GlideX(-1.5f, 1.5f, 2).Then(() =>
+            //{
+            //    Avatar.SetAnimation("Crouch");
+            //});
         });
     }
 }

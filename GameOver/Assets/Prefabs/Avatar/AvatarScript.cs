@@ -5,6 +5,9 @@ public class AvatarScript : MonoBehaviour
     private SpriteRenderer SpriteRenderer;
     private Animator Anim;
 
+    [HideInInspector]
+    public string CurrentAnimation;
+
     public void Awake()
     {
         Anim = GetComponent<Animator>();
@@ -34,6 +37,7 @@ public class AvatarScript : MonoBehaviour
 
     public void SetAnimation(string animation)
     {
+        CurrentAnimation = animation;
         Anim.SetTrigger(Animator.StringToHash(animation + "Trigger"));
     }
 
