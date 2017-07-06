@@ -8,9 +8,20 @@ public class BeachSceneScript : BaseGameScene
 
     [Header("Guard")]
     public SpriteRenderer BoatGuard;
+    public Transform BoatGuardHand;
     public GameObject CoinThought;
     public Sprite BoatGuyIdle;
     public Sprite BoatGuyGimme;
+    public Sprite BoatGuyReject;
+    public Sprite BoatGuyWelcome;
+
+    [Header("Collectables")]
+    public GameObject Coin;
+    public GameObject Passport;
+    public GameObject Suitcase;
+    public bool HaveCoin;
+    public bool HavePassport;
+    public bool HaveSuitcase;
 
     private AvatarScript Avatar;
 
@@ -43,24 +54,85 @@ public class BeachSceneScript : BaseGameScene
             GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
         }
 
+        ShowCollectables();
+
         Avatar.SetAnimation("WalkRight");
         Avatar.GlideX(-6.8f, 1.4f, 2f).Then(() =>
         {
-            Avatar.SetAnimation("Idle");
+            Avatar.SetAnimation("IdleRight");
 
-            // todo - accept or reject
+            // accept or reject
+            this.Delay(1, () =>
+            {
+                if (HaveCoin)
+                {
+                    GiveCoin();
+                }
+                else
+                {
+                    Rejected();
+                }
+            });
         });
 
-        this.Delay(1.9f, () =>
+        this.Delay(2f, () =>
         {
             BoatGuard.sprite = BoatGuyGimme;
             CoinThought.SetActive(true);
         });
+    }
 
-        // todo - change to proper scene
-        this.Delay(8, () =>
+    void GiveCoin()
+    {
+        CoinThought.SetActive(false);
+        Coin.gameObject.transform.GlidePosition(this, Coin.transform.position, BoatGuardHand.position, 1f, false).Then(() =>
         {
-            FadeToScene("Instructions_SeaScene");
+            Coin.SetActive(false);
+
+            BoatGuard.sprite = BoatGuyWelcome;
+            this.Delay(1.5f, () =>
+            {
+                var AvatarInBoat = new Vector3(5f, Avatar.transform.localPosition.y, Avatar.transform.localPosition.z);
+                Avatar.transform.GlideLocalPosition(this, Avatar.transform.localPosition, AvatarInBoat, 1f, false).Then(() =>
+                {
+                    Avatar.SetAnimation("Idle");
+                    FadeToScene("Instructions_SeaScene");
+                });
+            });
         });
+    }
+
+    void Rejected()
+    {
+        BoatGuard.sprite = BoatGuyReject;
+        this.Delay(2.5f, () =>
+        {
+            BoatGuard.sprite = BoatGuyIdle;
+            CoinThought.SetActive(false);
+        });
+        this.Delay(1.5f, () =>
+        {
+            Avatar.SetAnimation("WalkLeft");
+            Avatar.GlideX(1.4f, -7.2f, 2f).Then(() =>
+            {
+                FadeToScene("WarScene");
+            });
+        });
+    }
+
+    void ShowCollectables()
+    {
+        HavePassport = ShowCollectable(Passport);
+        HaveCoin = ShowCollectable(Coin);
+        HaveSuitcase = ShowCollectable(Suitcase);
+    }
+
+    bool ShowCollectable(GameObject collectable)
+    {
+        string PlayerPrefKey = "Collectable_" + this.gameObject.name;
+        bool haveIt = PlayerPrefs.GetInt(PlayerPrefKey) == 1;
+        haveIt = true;
+        collectable.SetActive(haveIt);
+        return haveIt;
     }
 }

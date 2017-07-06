@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public static class GeekyMonkeyGameobjectExtensions
@@ -82,6 +80,34 @@ public static class GeekyMonkeyGameobjectExtensions
         }
 
         return mask;
+    }
+
+    public static GmDelayPromise GlidePosition(this Transform transform, MonoBehaviour mb, Vector3 startPos, Vector3 targetPos, float seconds, bool realtime)
+    {
+        int steps = 40;
+        float step = 0;
+
+        transform.position = startPos;
+
+        return mb.Repeat(seconds / steps, steps, () =>
+        {
+            step++;
+            transform.position = Vector3.Lerp(startPos, targetPos, step / steps);
+        }, realtime);
+    }
+
+    public static GmDelayPromise GlideLocalPosition(this Transform transform, MonoBehaviour mb, Vector3 startPos, Vector3 targetPos, float seconds, bool realtime)
+    {
+        int steps = 40;
+        float step = 0;
+
+        transform.localPosition = startPos;
+
+        return mb.Repeat(seconds / steps, steps, () =>
+        {
+            step++;
+            transform.localPosition = Vector3.Lerp(startPos, targetPos, step / steps);
+        }, realtime);
     }
 
     /*

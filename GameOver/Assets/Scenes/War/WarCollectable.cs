@@ -126,7 +126,7 @@ public class WarCollectable : MonoBehaviour
         InitialPosition = transform.position;
 
         // Keep track of it being collected in player prefs
-        PlayerPrefs.SetInt(PlayerPrefKey, 0);
+        PlayerPrefs.SetInt(PlayerPrefKey, 1);
 
         // Disable physics
         PhysicsEnable(false);
