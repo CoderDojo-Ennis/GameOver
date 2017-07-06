@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
+using UnityEngine;
 //using Windows.Kinect;
 
 public class StartGestureListener : MonoBehaviour, KinectGestures.GestureListenerInterface
@@ -89,7 +88,7 @@ public class StartGestureListener : MonoBehaviour, KinectGestures.GestureListene
     /// <param name="userIndex">User index</param>
     public void UserDetected(long userId, int userIndex)
     {
-        Debug.Log("User Detected: " + userId + " - " + userIndex);
+        //Debug.Log("User Detected: " + userId + " - " + userIndex);
 
         // the gestures are allowed for the primary user only
         KinectManager manager = KinectManager.Instance;
@@ -114,7 +113,7 @@ public class StartGestureListener : MonoBehaviour, KinectGestures.GestureListene
     /// <param name="userIndex">User index</param>
     public void UserLost(long userId, int userIndex)
     {
-        Debug.Log("User Lost: " + userId + " - " + userIndex);
+        //Debug.Log("User Lost: " + userId + " - " + userIndex);
 
         // the gestures are allowed for the primary user only
         if (userIndex != playerIndex)
@@ -191,7 +190,7 @@ public class StartGestureListener : MonoBehaviour, KinectGestures.GestureListene
     public bool GestureCompleted(long userId, int userIndex, KinectGestures.Gestures gesture,
                                   KinectInterop.JointType joint, Vector3 screenPos)
     {
-        Debug.Log("Gesture: " + gesture);
+        //Debug.Log("Gesture: " + gesture);
 
         // the gestures are allowed for the primary user only
         if (userIndex != playerIndex)
@@ -255,7 +254,7 @@ public class StartGestureListener : MonoBehaviour, KinectGestures.GestureListene
             progressDisplayed = false;
             gestureInfo.text = String.Empty;
 
-            Debug.Log("Forced progress to end.");
+            //Debug.Log("Forced progress to end.");
         }
     }
 

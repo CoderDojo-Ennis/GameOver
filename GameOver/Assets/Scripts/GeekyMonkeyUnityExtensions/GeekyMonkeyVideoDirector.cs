@@ -57,7 +57,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
     /// </summary>
     void Start()
     {
-        Debug.Log("VideoDirector Start");
+        //Debug.Log("VideoDirector Start");
 
         audioSource = this.GetComponent<AudioSource>();
         videoPlayer = this.GetComponent<VideoPlayer>();
@@ -74,7 +74,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
         // Video prepare completed event
         videoPlayer.prepareCompleted += (sender) =>
         {
-            Debug.Log("Prepare completed");
+            //Debug.Log("Prepare completed");
             isPlaying = true;
             FadeInVideo();
             FadeInAudio();
@@ -175,7 +175,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
     /// </summary>
     public void Abort()
     {
-        Debug.Log("Video abort request. isPlaying=" + isPlaying);
+        //Debug.Log("Video abort request. isPlaying=" + isPlaying);
 
         // Is a video playing
         if (isPlaying)
@@ -212,7 +212,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
 
     private void ClipComplete()
     {
-        Debug.Log("Video End");
+        //Debug.Log("Video End");
         isPlaying = false;
         videoMaterial.SetColor("_Color", visibleColor.WithAlpha(0));
         headingText.SetAlpha(0);
@@ -321,7 +321,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
             videoPlayer.clip = clip;
         }
 
-        Debug.Log("Prepare");
+        //Debug.Log("Prepare");
         videoPlayer.Prepare();
         isPlaying = true;
 

@@ -58,7 +58,7 @@ public static class GeekyMonkeyTextMeshProExtensions
         // Get # of Visible Character in text object
         tmp.maxVisibleCharacters = 999999;
         int charCount = tmp.text.Length; //  textInfo.characterCount; 
-        Debug.Log("Typing " + charCount + " characters:" + tmp.text);
+        //Debug.Log("Typing " + charCount + " characters:" + tmp.text);
 
         tmp.maxVisibleCharacters = 0;
 
@@ -103,7 +103,7 @@ public static class GeekyMonkeyTextMeshProExtensions
         // Get # of Visible Character in text object
         tmp.maxVisibleCharacters = 999999;
         int charCount = tmp.text.Length; //  textInfo.characterCount; 
-        Debug.Log("Typing " + charCount + " characters:" + tmp.text);
+        //Debug.Log("Typing " + charCount + " characters:" + tmp.text);
 
         tmp.maxVisibleCharacters = 0;
 

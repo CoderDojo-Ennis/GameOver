@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : MonoBehaviour
+{
 
     public static AudioManager Instance;
 
@@ -17,12 +16,12 @@ public class AudioManager : MonoBehaviour {
         // Singleton that survives scene changes
         if (Instance != null)
         {
-            Debug.Log("Audio manager 2nd instance abort");
+            //Debug.Log("Audio manager 2nd instance abort");
             Destroy(gameObject);
             return;
         }
 
-        Debug.Log("Audio manager awake");
+        //Debug.Log("Audio manager awake");
 
         Instance = this;
     }
@@ -30,11 +29,11 @@ public class AudioManager : MonoBehaviour {
     /// <summary>
     /// After Awake
     /// </summary>
-    void Start ()
+    void Start()
     {
         this.TypingSound = GameObject.Find("Sound_Typing").GetComponents<AudioSource>();
-	}
-	
+    }
+
     /// <summary>
     /// Play the sound of typing one character
     /// </summary>

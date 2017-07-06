@@ -28,7 +28,7 @@ public class BaseGameScene : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
-        Debug.Log("Base Start");
+        //Debug.Log("Base Start");
 
         GameManager.Instance.ActiveGameScene = this;
 

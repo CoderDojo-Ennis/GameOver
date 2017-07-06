@@ -82,12 +82,12 @@ public class GameManager : MonoBehaviour
         // Singleton that survives scene changes
         if (Instance != null)
         {
-            Debug.Log("Game manager 2nd instance abort");
+            //Debug.Log("Game manager 2nd instance abort");
             Destroy(gameObject);
             return;
         }
 
-        Debug.Log("Game manager awake");
+        //Debug.Log("Game manager awake");
 
         Instance = this;
         BackgroundMusicSource = GameObject.Find("BackgroundMusicSource").GetComponent<AudioSource>();
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        Debug.Log("Game manager start");
+        //Debug.Log("Game manager start");
 
         HideMenu();
 
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
         //todo - show user resume menu - move this to invite script
         if (Paused)
         {
-            Debug.Log("User Detected");
+            //Debug.Log("User Detected");
             Time.timeScale = 0;
             ShowMenu("Pause", 0);
         }
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
     /// <param name="e"></param>
     private void GameGestureListener_OnUserLost(object sender, System.EventArgs e)
     {
-        Debug.Log("User Lost");
+        //Debug.Log("User Lost");
         InviteGame();
     }
 
@@ -293,7 +293,7 @@ public class GameManager : MonoBehaviour
             // Only immediate children
             if (menuTransform.parent == menus.transform && menuTransform.gameObject.activeInHierarchy)
             {
-                Debug.Log("Deactivate " + menuTransform.gameObject.name);
+                //Debug.Log("Deactivate " + menuTransform.gameObject.name);
                 menuTransform.gameObject.SetActive(false);
             }
         }
@@ -444,7 +444,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PauseBackroundMusic(float fadeSeconds = 0.5f)
     {
-        Debug.Log("Pause background music");
+        //Debug.Log("Pause background music");
         if (BackgroundMusicSource.clip != null)
         {
             BackgroundMusicSource.Fade(this, BackgroundMusicSource.volume, 0, fadeSeconds, true);
@@ -455,7 +455,7 @@ public class GameManager : MonoBehaviour
             //}, true);
             this.Delay(fadeSeconds, () =>
             {
-                Debug.Log("Pause background music now");
+                //Debug.Log("Pause background music now");
                 BackgroundMusicSource.Pause();
             }, true);
         }
@@ -466,7 +466,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResumeBackroundMusic()
     {
-        Debug.Log("Resume background music");
+        //Debug.Log("Resume background music");
         if (BackgroundMusicSource.clip != null)
         {
             float fadeSeconds = 0.5f;
@@ -588,7 +588,7 @@ public class GameManager : MonoBehaviour
 
     public void ShowCamera(Camera camera)
     {
-        Debug.Log("ShowCamera " + camera.name);
+        //Debug.Log("ShowCamera " + camera.name);
         if (camera != null)
         {
             HideAllCameras(camera);
@@ -606,7 +606,7 @@ public class GameManager : MonoBehaviour
             {
                 if (camera.enabled)
                 {
-                    Debug.Log("Disble camera: " + camera.name);
+                    //Debug.Log("Disble camera: " + camera.name);
                     camera.enabled = false;
                 }
             }

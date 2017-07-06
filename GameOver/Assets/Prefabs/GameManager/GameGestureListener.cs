@@ -44,7 +44,7 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
     /// <param name="userIndex">User index</param>
     public void UserDetected(long userId, int userIndex)
     {
-        Debug.Log("User Detected " + userIndex);
+        //Debug.Log("User Detected " + userIndex);
 
         // the gestures are allowed for the primary user only
         KinectManager manager = KinectManager.Instance;
@@ -76,7 +76,7 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
     /// <param name="userIndex">User index</param>
     public void UserLost(long userId, int userIndex)
     {
-        Debug.Log("UserLost " + userIndex);
+        //Debug.Log("UserLost " + userIndex);
 
         // the gestures are allowed for the primary user only
         if (userIndex != playerIndex)
@@ -161,7 +161,7 @@ public class GameGestureListener : MonoBehaviour, KinectGestures.GestureListener
     public bool GestureCompleted(long userId, int userIndex, KinectGestures.Gestures gesture,
                                   KinectInterop.JointType joint, Vector3 screenPos)
     {
-        Debug.Log("Gesture " + gesture + " for user " + userIndex);
+        //Debug.Log("Gesture " + gesture + " for user " + userIndex);
 
         // the gestures are allowed for the primary user only
         if (userIndex != playerIndex)

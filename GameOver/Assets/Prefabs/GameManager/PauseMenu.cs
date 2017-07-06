@@ -77,7 +77,7 @@ public class PauseMenu : BaseMenu
     /// </summary>
     public override void ShowMenu(float fadeSeconds)
     {
-        Debug.Log("Show Pause Menu");
+        //Debug.Log("Show Pause Menu");
         base.ShowMenu(fadeSeconds);
 
         PlayMenuSound(PlayerFoundSound);

@@ -39,7 +39,7 @@ public class InstructionsMenu : BaseGameScene
     public new void Start()
     {
         // Don't call base
-        Debug.Log("Instructions Start");
+        //Debug.Log("Instructions Start");
         GameManager.Instance.ActiveGameScene = this;
         PlayerScript.Instance.ShowKinect(1);
 
@@ -89,7 +89,7 @@ public class InstructionsMenu : BaseGameScene
     /// </summary>
     public void ShowInstructions()
     {
-        Debug.Log("Instructions Show");
+        //Debug.Log("Instructions Show");
         Time.timeScale = 1;
 
         FadeCameraIn();
@@ -111,7 +111,7 @@ public class InstructionsMenu : BaseGameScene
     /// <param name="e"></param>
     private void KinectSwipeHorizontal(object sender, EventArgs e)
     {
-        Debug.Log("Instructions Swipe");
+        //Debug.Log("Instructions Swipe");
 
         // Is counting down
         if (this.CountdownText.text != "")
@@ -131,7 +131,7 @@ public class InstructionsMenu : BaseGameScene
     /// </summary>
     public void ShowMenu()
     {
-        Debug.Log("ShowMenu()");
+        //Debug.Log("ShowMenu()");
 
         /*
         // todo - fade in
@@ -170,7 +170,7 @@ public class InstructionsMenu : BaseGameScene
     /// </summary>
     public void StartCountdown()
     {
-        Debug.Log("Instructions StartCountdown");
+        //Debug.Log("Instructions StartCountdown");
         if (CountdownSeconds < 0)
         {
             return;
@@ -184,12 +184,12 @@ public class InstructionsMenu : BaseGameScene
         // Pre-countdown delay
         this.Delay(PreCountdownSeconds, () =>
         {
-            Debug.Log("Pre-Countdown complete");
+            //Debug.Log("Pre-Countdown complete");
 
             // Number of seconds
             this.Repeat(1f, this.CountdownSeconds + 1, () =>
             {
-                Debug.Log("Countdown seconds remaining: " + SecondsRemaining);
+                //Debug.Log("Countdown seconds remaining: " + SecondsRemaining);
 
                 if (SecondsRemaining < 0)
                 {

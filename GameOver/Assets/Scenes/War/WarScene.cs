@@ -24,7 +24,7 @@ public class WarScene : BaseGameScene
     // Use this for initialization
     new void Start()
     {
-        Debug.Log("War Start");
+        //Debug.Log("War Start");
         base.Start();
 
         BombEmitterScript = BombEmitter.GetComponent<BombEmitter>();
@@ -67,7 +67,7 @@ public class WarScene : BaseGameScene
     /// </summary>
     private void RemoveBombs()
     {
-        Debug.Log("Remove Bombs");
+        //Debug.Log("Remove Bombs");
 
         // No more bombs
         BombEmitterScript.enabled = false;

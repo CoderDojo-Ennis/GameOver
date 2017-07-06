@@ -1,6 +1,4 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine;
 
 public class TitlePresentationScript : MonoBehaviour
 {
@@ -85,7 +83,7 @@ public class TitlePresentationScript : MonoBehaviour
 
     void StartLevel()
     {
-        Debug.Log("ToDo - Start");
+        //Debug.Log("ToDo - Start");
         LevelCarouselTarget = LevelCarouselDown;
     }
 

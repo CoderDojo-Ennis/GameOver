@@ -34,7 +34,7 @@ public class InviteMenu : BaseMenu
     /// </summary>
     public override void ShowMenu(float fadeSeconds)
     {
-        Debug.Log("Show Invite Menu");
+        //Debug.Log("Show Invite Menu");
         base.ShowMenu(fadeSeconds);
 
         PlayMenuSound(PlayerLostSound);
