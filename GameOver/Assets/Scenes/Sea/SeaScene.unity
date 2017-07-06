@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 158452046}
   - component: {fileID: 158452045}
   - component: {fileID: 158452044}
+  - component: {fileID: 158452048}
   m_Layer: 0
   m_Name: SeaCamera
   m_TagString: Untagged
@@ -352,6 +353,20 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &158452048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 158452042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc848dff24bf4d646b3fb40ceb4bea5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LerpSpeed: 7
+  BulletZoom: -4
+  BulletSlowdown: 0.1
 --- !u!1 &495831367
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +393,7 @@ Transform:
   m_GameObject: {fileID: 495831367}
   m_LocalRotation: {x: 0.00000002980233, y: 0.7071068, z: -0.7071068, w: 0.00000002980233}
   m_LocalPosition: {x: 0, y: 1.65, z: 3.26}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 13088536}
   m_RootOrder: 3
@@ -734,7 +749,7 @@ MonoBehaviour:
   firing: {fileID: 21300008, guid: f1d5d160ff8290c44b9c512b7f59718c, type: 3}
   LookTowards: {fileID: 1705445092}
   Arm: {fileID: 1378982563}
-  ShootDelay: 1
+  ShootDelay: 3
   SprayAngle: 2
   FireSpriteTime: 0.15
   RecoilDistance: 0.06

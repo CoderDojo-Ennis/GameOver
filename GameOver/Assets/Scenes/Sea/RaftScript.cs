@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class RaftScript : MonoBehaviour
 {
+    public static RaftScript instance;
     public float drownAngle;
     AudioSource splashSound;
     GameObject Player;
@@ -14,6 +15,7 @@ public class RaftScript : MonoBehaviour
 
     void Start()
     {
+        instance = this;
         Player = GetComponentInChildren<AvatarSea>().gameObject;
         PlayerRenderer = Player.GetComponent<SpriteRenderer>();
         splashSound = GetComponent<AudioSource>();
@@ -50,7 +52,7 @@ public class RaftScript : MonoBehaviour
         }
     }
 
-    void Drown()
+    public void Drown()
     {
         CanDie = false;
         //Do some kind of death animation here later
