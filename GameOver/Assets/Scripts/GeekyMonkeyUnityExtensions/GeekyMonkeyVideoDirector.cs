@@ -160,14 +160,14 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
     /// </summary>
     void ProcessKeyboardInput()
     {
-        if (isPlaying)
+        //if (isPlaying)
+        //{
+        // Abort
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            // Abort
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                Abort();
-            }
+            Abort();
         }
+        //}
     }
 
     /// <summary>
@@ -175,12 +175,15 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
     /// </summary>
     public void Abort()
     {
+        Debug.Log("Video abort request. isPlaying=" + isPlaying);
+
         // Is a video playing
         if (isPlaying)
         {
             if (fadingIn)
             {
-                this.Delay(FadeInSeconds * 2, Abort);
+                float secondsPlayed = (float)(this.videoPlayer.frameCount) / this.videoPlayer.frameRate;
+                this.Delay(FadeInSeconds - secondsPlayed + .1f, Abort, true);
                 return;
             }
 
@@ -320,6 +323,7 @@ public class GeekyMonkeyVideoDirector : MonoBehaviour
 
         Debug.Log("Prepare");
         videoPlayer.Prepare();
+        isPlaying = true;
 
         fadingIn = false;
         fadingOutAudio = false;
