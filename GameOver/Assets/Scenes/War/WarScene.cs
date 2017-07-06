@@ -85,11 +85,16 @@ public class WarScene : BaseGameScene
     private void CollectablesDone(object sender, System.EventArgs e)
     {
         RemoveBombs();
-        var avatar = PlayerScript.Instance.ChangeToAvatar();
 
-        this.Delay(4, () =>
+        AvatarScript avatar = PlayerScript.Instance.ChangeToAvatar();
+        avatar.SetAnimation("Idle");
+        this.Delay(1.5f, () =>
         {
-            FadeToBeach();
+            avatar.SetAnimation("WalkRight");
+            float screenRitghtX = 7;
+            float avatarX = avatar.transform.position.x;
+            float distanceToRight = screenRitghtX - avatarX;
+            avatar.GlideX(avatarX, screenRitghtX, distanceToRight * .4f).Then(FadeToBeach);
         });
     }
 
