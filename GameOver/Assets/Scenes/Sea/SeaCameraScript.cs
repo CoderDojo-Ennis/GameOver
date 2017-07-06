@@ -13,6 +13,7 @@ public class SeaCameraScript : MonoBehaviour
     public float ZoomInSeconds = .5f;
     public float ZoomOutSeconcs = .3f;
     private BulletScript BulletScript;
+    public Transform PlayerPosition;
 
     void Start()
     {
@@ -27,7 +28,8 @@ public class SeaCameraScript : MonoBehaviour
         //Debug.Log(LerpTime);
         if (FollowBullet != null)
         {
-            transform.position = Vector3.Lerp(NormalPosition, new Vector3(FollowBullet.transform.position.x, FollowBullet.transform.position.y, BulletZoom), LerpTime);
+            Vector3 BetweenBulletAndPlayer = Vector3.Lerp(FollowBullet.transform.position, PlayerPosition.position, 0.5f);
+            transform.position = Vector3.Lerp(NormalPosition, new Vector3(BetweenBulletAndPlayer.x, BetweenBulletAndPlayer.y, BulletZoom), LerpTime);
         }
     }
 

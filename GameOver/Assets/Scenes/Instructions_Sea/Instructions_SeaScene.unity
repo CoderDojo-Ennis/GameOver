@@ -240,6 +240,7 @@ MonoBehaviour:
   LerpSpeed: 7
   BulletZoom: -4
   BulletSlowdown: 0.1
+  PlayerPosition: {fileID: 1721373152}
 --- !u!1 &584091845
 GameObject:
   m_ObjectHideFlags: 0

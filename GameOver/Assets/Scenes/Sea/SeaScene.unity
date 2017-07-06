@@ -371,6 +371,7 @@ MonoBehaviour:
   BulletSlowdown: 0.1
   ZoomInSeconds: 0.6
   ZoomOutSeconcs: 0.2
+  PlayerPosition: {fileID: 1701910869}
 --- !u!1 &495831367
 GameObject:
   m_ObjectHideFlags: 0

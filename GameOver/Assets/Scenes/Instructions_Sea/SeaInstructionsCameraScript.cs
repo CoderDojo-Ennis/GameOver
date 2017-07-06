@@ -9,6 +9,7 @@ public class SeaInstructionsCameraScript : MonoBehaviour
     public float LerpSpeed = 7;
     public float BulletZoom = -4;
     public float BulletSlowdown = 0.1f;
+    public Transform PlayerPosition;
 
     void Start()
     {
@@ -22,7 +23,8 @@ public class SeaInstructionsCameraScript : MonoBehaviour
         if (FollowBullet != null)
         {
             Time.timeScale = BulletSlowdown;
-            transform.position = Vector3.Lerp(NormalPosition, new Vector3(FollowBullet.transform.position.x, FollowBullet.transform.position.y, BulletZoom), LerpTime);
+            Vector3 BetweenBulletAndPlayer = Vector3.Lerp(FollowBullet.transform.position, PlayerPosition.position, 0.5f);
+            transform.position = Vector3.Lerp(NormalPosition, new Vector3(BetweenBulletAndPlayer.x, BetweenBulletAndPlayer.y, BulletZoom), LerpTime);
         }
         else
         {
