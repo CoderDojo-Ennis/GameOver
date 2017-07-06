@@ -35,8 +35,12 @@ public class RaftScript : MonoBehaviour
             this.Respawn();
         }
 
+    }
+
+    private void FixedUpdate()
+    {
         float waveTilt = AngleConvert(transform.parent.transform.rotation.eulerAngles.z);
-        Debug.Log(waveTilt);
+        //Debug.Log(waveTilt);
         r.AddTorque(new Vector3(0, 0, waveTilt * WaveTorqueScale), ForceMode.Acceleration);
     }
 

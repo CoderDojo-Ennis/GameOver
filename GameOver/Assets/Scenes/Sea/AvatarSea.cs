@@ -19,7 +19,7 @@ public class AvatarSea : MonoBehaviour
         Joints = PlayerScript.Instance.GetComponent<PlayerJoints>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         float KinectLeanTorque = (Joints.head.transform.localPosition.x - Joints.spineBase.transform.localPosition.x) * KinectTorqueScale;
         sp.enabled = (KinectLeanTorque == 0);
@@ -42,7 +42,10 @@ public class AvatarSea : MonoBehaviour
         {
             sp.sprite = Idle;
         }
+    }
 
+    private void Update()
+    {
         // Move/rotate kinect image
         PlayerScript.Instance.transform.position = transform.position;
         PlayerScript.Instance.transform.rotation = transform.rotation;
