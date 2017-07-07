@@ -304,22 +304,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -437,8 +437,8 @@ MonoBehaviour:
   LerpDirection: 1
   BulletZoom: -4
   BulletSlowdown: 0.1
-  ZoomInSeconds: 0.4
-  ZoomOutSeconcs: 0.2
+  ZoomInSeconds: 0.7
+  ZoomOutSeconds: 0.2
   PlayerPosition: {fileID: 1701910869}
 --- !u!1 &495831367
 GameObject:
@@ -665,7 +665,7 @@ GameObject:
   - component: {fileID: 681637390}
   - component: {fileID: 681637391}
   m_Layer: 0
-  m_Name: FollowWaves
+  m_Name: PlayerBoat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1235,7 +1235,7 @@ Prefab:
     - target: {fileID: 212448691121617272, guid: 9817ad595490c8e4ea37a97ba0135af4,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1815774339501214, guid: 9817ad595490c8e4ea37a97ba0135af4, type: 2}
       propertyPath: m_TagString
@@ -1863,7 +1863,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1635695711}
   m_GameObject: {fileID: 1961962374}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_MotionVectors: 1
@@ -1912,7 +1912,9 @@ MonoBehaviour:
   Left: {fileID: 21300008, guid: af047bce09e333b45a339fb68999718b, type: 3}
   Right: {fileID: 21300010, guid: af047bce09e333b45a339fb68999718b, type: 3}
   Idle: {fileID: 21300000, guid: af047bce09e333b45a339fb68999718b, type: 3}
+  Duck: {fileID: 21300018, guid: af047bce09e333b45a339fb68999718b, type: 3}
   KinectTorqueScale: 1
+  KinectPositionTorqueScale: 0.5
 --- !u!61 &1961962378
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1949,7 +1951,7 @@ GameObject:
   - component: {fileID: 2142197058}
   - component: {fileID: 2142197057}
   m_Layer: 0
-  m_Name: Boat
+  m_Name: EnemyBoat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

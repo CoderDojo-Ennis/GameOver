@@ -16,9 +16,11 @@ public class SeaScene : BaseGameScene
     private float EnemyTargetPos;
     public int EnemyLerpSpeed;
 
-    new void Start()
+
+    public override void FirstUpdate()
     {
-        base.Start();
+        base.FirstUpdate();
+
         EnemyTargetPos = EnemyStartingXPosition;
         GameManager.Instance.StartTimer(TimerDuration, EnemyIntroductionTime);
         GameManager.Instance.TimerEnded += TimerEnded;

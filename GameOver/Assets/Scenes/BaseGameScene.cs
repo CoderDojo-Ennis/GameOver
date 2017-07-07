@@ -18,6 +18,7 @@ public class BaseGameScene : MonoBehaviour
     public Camera SceneCamera;
 
     internal bool Paused;
+    private bool FirstBaseUpdate = true;
 
     public void Awake()
     {
@@ -28,34 +29,7 @@ public class BaseGameScene : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
-        //Debug.Log("Base Start");
-
-        GameManager.Instance.ActiveGameScene = this;
-
-        //this.Delay(0.2f, () =>
-        //{
-        Player.TravelScaleX = this.TravelScaleX;
-        Player.NaturalX = this.NaturalX;
-        Player.transform.localScale = Vector3.one * PlayerScale;
-        //});
-
-        if (BackgroundMusic != null)
-        {
-            GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
-        }
-
-        // If no player found - start with invitation
-        if (!GameManager.Instance.GameGestureListener.IsPlayerDetected)
-        {
-            GameManager.Instance.InviteGame();
-        }
-        else
-        {
-            FadeCameraIn();
-        }
-
-        // When the player dies
-        PlayerScript.Instance.OnDeath += BaseGameScene_OnDeath;
+        // Careful to not use game manager instance here
     }
 
     /// <summary>
@@ -76,7 +50,41 @@ public class BaseGameScene : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        if (FirstBaseUpdate)
+        {
+            FirstBaseUpdate = false;
+            FirstUpdate();
+        }
+    }
 
+    public virtual void FirstUpdate()
+    {
+        Debug.Log("Base FirstUpdate");
+        GameManager.Instance.ActiveGameScene = this;
+
+        Player.TravelScaleX = this.TravelScaleX;
+        Player.NaturalX = this.NaturalX;
+        Player.transform.localScale = Vector3.one * PlayerScale;
+
+        if (BackgroundMusic != null)
+        {
+            GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
+        }
+
+        // If no player found - start with invitation
+        if (GameManager.Instance.GameGestureListener)
+        {
+            if (!GameManager.Instance.GameGestureListener.IsPlayerDetected)
+            {
+                GameManager.Instance.InviteGame();
+            }
+            else
+            {
+                FadeCameraIn();
+            }
+        }
+        // When the player dies
+        PlayerScript.Instance.OnDeath += BaseGameScene_OnDeath;
     }
 
     /// <summary>

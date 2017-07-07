@@ -7,6 +7,7 @@ public class AvatarSea : MonoBehaviour
     public Sprite Left;
     public Sprite Right;
     public Sprite Idle;
+    public Sprite Duck;
     SpriteRenderer sp;
     BoxCollider2D boxColider;
     Rigidbody raft;
@@ -31,21 +32,30 @@ public class AvatarSea : MonoBehaviour
         // If no kinect - disable avatar collider
         boxColider.enabled = sp.enabled = (KinectLeanTorque == 0);
 
-        if (Input.GetKey("left"))
+        if (Input.GetKey(KeyCode.DownArrow))
         {
-            raft.AddTorque(new Vector3(0, 0, LeanTorque), ForceMode.Acceleration);
-            sp.sprite = Left;
-            //transform.Rotate(0, 0, Time.deltaTime * speed);
-        }
-        else if (Input.GetKey("right"))
-        {
-            raft.AddTorque(new Vector3(0, 0, -LeanTorque), ForceMode.Acceleration);
-            sp.sprite = Right;
-            //transform.Rotate(0, 0, Time.deltaTime * speed * -1);
+            boxColider.size = new Vector2(boxColider.size.x, 0.2f);
+            sp.sprite = Duck;
         }
         else
         {
-            sp.sprite = Idle;
+            boxColider.size = new Vector2(boxColider.size.x, 0.37f);
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                raft.AddTorque(new Vector3(0, 0, LeanTorque), ForceMode.Acceleration);
+                sp.sprite = Left;
+                //transform.Rotate(0, 0, Time.deltaTime * speed);
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                raft.AddTorque(new Vector3(0, 0, -LeanTorque), ForceMode.Acceleration);
+                sp.sprite = Right;
+                //transform.Rotate(0, 0, Time.deltaTime * speed * -1);
+            }
+            else
+            {
+                sp.sprite = Idle;
+            }
         }
     }
 

@@ -507,7 +507,7 @@ MonoBehaviour:
   PlayerScale: 1
   FadeSeconds: 1
   SceneCamera: {fileID: 481672277}
-  NextScene: Instructions_WarScene
+  NextScene: CreditsScene
   Delay: 10
   GameOverSound: {fileID: 0}
 --- !u!82 &1973017733

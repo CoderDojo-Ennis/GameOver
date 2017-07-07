@@ -45,12 +45,16 @@ public class GameManager : MonoBehaviour
     [Header("Timer")]
     public TextMeshProUGUI Timer;
     public int TimerValue;
+    public int PulseTime;
     internal int MidTimerEventTime;
+    private AudioSource TimerPulseSound;
     public delegate void TimerEndedHandler();
     public event TimerEndedHandler TimerEnded;
     public delegate void TimerEventHandler();
     public event TimerEventHandler TimerEvent;
     private GmDelayPromise TimerPromise;
+    [Header("ScoreCanvas")]
+    public GameObject ScoreCanvas;
 
     [Header("Quality")]
     public int TargetFrameRate = 25;
@@ -94,6 +98,7 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         BackgroundMusicSource = GameObject.Find("BackgroundMusicSource").GetComponent<AudioSource>();
+        TimerPulseSound = GetComponent<AudioSource>();
         GameGestureListener = KinectController.GetComponent<GameGestureListener>();
         DontDestroyOnLoad(gameObject);
     }
@@ -106,6 +111,8 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Game manager start");
 
         HideMenu();
+        FadeCameraOut(0);
+        Cursor.visible = false;
 
         // Warm up
         GetComponentInChildren<EventSystem>().enabled = true;
@@ -119,6 +126,8 @@ public class GameManager : MonoBehaviour
         // Start Kinect
         KinectController.SetActive(true);
         gameObject.GetComponentInChildren<KinectManager>(true).enabled = true;
+        GameGestureListener = KinectController.GetComponent<GameGestureListener>();
+
         GameGestureListener.OnUserDetected += GameGestureListener_OnUserDetected;
         GameGestureListener.OnUserLost += GameGestureListener_OnUserLost;
         GameGestureListener.OnSwipeLeft += GameGestureListener_SwipeHorizontal;
@@ -140,8 +149,8 @@ public class GameManager : MonoBehaviour
         //todo - show user resume menu - move this to invite script
         if (Paused)
         {
-            //Debug.Log("User Detected");
-            Time.timeScale = 0;
+            Debug.Log("User Detected");
+            GameManager.Instance.SetTimeScale(0);
             ShowMenu("Pause", 0);
         }
         else
@@ -234,8 +243,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public GmDelayPromise InviteGame()
     {
+        Debug.Log("InviteGame");
         Paused = true;
-        Time.timeScale = 0;
+        GameManager.Instance.SetTimeScale(0);
         if (ActiveGameScene)
         {
             ActiveGameScene.OnPause();
@@ -259,7 +269,8 @@ public class GameManager : MonoBehaviour
             }
             Paused = true;
         }
-        Time.timeScale = 0;
+        Debug.Log("PauseGame");
+        GameManager.Instance.SetTimeScale(0);
         ShowMenu("Pause", 1);
         PauseBackroundMusic();
     }
@@ -269,6 +280,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResumeGame()
     {
+        Debug.Log("ResumeGame");
         // todo - could fade out
         Paused = false;
         HideMenu();
@@ -310,6 +322,12 @@ public class GameManager : MonoBehaviour
         {
             ActiveMenu = null;
         }
+    }
+
+    public void SetTimeScale(float newTimeScale)
+    {
+        Time.timeScale = newTimeScale;
+        Debug.Log("TimeScale=" + newTimeScale);
     }
 
     /// <summary>
@@ -652,6 +670,26 @@ public class GameManager : MonoBehaviour
         {
             TimerEvent();
         }
+        if (TimerValue <= PulseTime)
+        {
+            TimerPulseSound.PlayOneShot(TimerPulseSound.clip);
+            // Scale to designed size over one second
+            float scale2 = 1.6f;
+            float scale = scale2;
+            int scaleSteps = 4;
+            this.Timer.rectTransform.localScale = new Vector3(scale, scale);
+            this.Repeat(1 / (scaleSteps + 1), scaleSteps, () =>
+            {
+                // Aborted
+                //if (SecondsRemaining < 0)
+                //{
+                //    this.Timer.text = "";
+                //    return;
+                //}
+                scale -= (scale2 - 1) / (float)scaleSteps;
+                this.Timer.rectTransform.localScale = new Vector3(scale, scale);
+            });
+        }
         if (TimerValue > 0)
         {
             TimerPromise = this.Delay(1, TimerTick);
@@ -661,5 +699,15 @@ public class GameManager : MonoBehaviour
             TimerEnded();
             Timer.enabled = false;
         }
+    }
+
+    public void DisableScoreCanvas()
+    {
+        ScoreCanvas.SetActive(false);
+    }
+
+    public void EnableScoreCanvas()
+    {
+        ScoreCanvas.SetActive(true);
     }
 }

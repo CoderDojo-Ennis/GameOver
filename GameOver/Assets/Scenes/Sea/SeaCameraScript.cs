@@ -11,7 +11,7 @@ public class SeaCameraScript : MonoBehaviour
     public float BulletZoom = -4;
     public float BulletSlowdown = 0.1f;
     public float ZoomInSeconds = .5f;
-    public float ZoomOutSeconcs = .3f;
+    public float ZoomOutSeconds = .3f;
     //private BulletScript BulletScript;
     public Transform PlayerPosition;
 
@@ -40,14 +40,14 @@ public class SeaCameraScript : MonoBehaviour
 
     void ZoomOut()
     {
-        LerpDirection = -(ZoomInSeconds / ZoomOutSeconcs);
+        LerpDirection = -(ZoomInSeconds / ZoomOutSeconds);
     }
 
     public void LerpToNewBullet(GameObject bullet)
     {
         LerpTime = 0;
         FollowBullet = bullet;
-        Time.timeScale = BulletSlowdown;
+        GameManager.Instance.SetTimeScale(BulletSlowdown);
         GameManager.Instance.SetSoundTimeScale();
         LerpDirection = 1;
         //BulletScript = bullet.GetComponent<BulletScript>();
