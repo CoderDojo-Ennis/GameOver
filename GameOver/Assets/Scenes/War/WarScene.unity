@@ -835,7 +835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BombPrefab: {fileID: 1772767069592344, guid: 2d74cc3480eb6ca4fb44146190fa9007, type: 2}
-  BombIntervalSeconds: 2
+  BombIntervalSeconds: 1.75
   BombIntervalRandomSeconds: 1
   AvoidLeft: 0
   AvoidRight: 0
