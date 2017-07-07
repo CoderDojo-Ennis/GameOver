@@ -32,6 +32,10 @@ public class CollectableMesh : MonoBehaviour
     void Start()
     {
         InitaialRotation = this.transform.localRotation;
+        if (WarCollectable.Collected)
+        {
+            CoinCollected(null, null);
+        }
     }
 
     // Update is called once per frame

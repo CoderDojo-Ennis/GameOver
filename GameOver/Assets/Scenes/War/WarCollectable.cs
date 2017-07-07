@@ -23,33 +23,41 @@ public class WarCollectable : MonoBehaviour
 
     // Has it been collected
     private Vector3 InitialPosition;
-    public bool Collected = false;
     private string PlayerPrefKey;
     private Vector3 CollectedPosition;
     public float AnimationTime;
 
-    private void Start()
+    private void Awake()
     {
         // Keep track of it being collected in player prefs
         PlayerPrefKey = "Collectable_" + this.gameObject.name;
-        PlayerPrefs.SetInt(PlayerPrefKey, 0);
+    }
 
-        // Start hidden
-        Sprite = GetComponent<SpriteRenderer>();
-        if (Sprite != null)
-        {
-            Sprite.enabled = false;
-        }
-        CollectedPosition = this.transform.position;
-        this.transform.localScale = new Vector3(InitialScale, InitialScale, InitialScale);
-
+    private void Start()
+    {
         // Disable physics
         PhysicsEnable(false);
+        CollectedPosition = this.transform.position;
 
-        // Notify mesh to hide
-        if (OnHide != null)
+        if (Collected)
         {
-            OnHide(this, null);
+            transform.localScale = Vector3.one * CollectedScale;
+            AnimationTime = CollectAnimationSeconds;
+        }
+        else
+        {
+            // Start hidden
+            Sprite = GetComponent<SpriteRenderer>();
+            if (Sprite != null)
+            {
+                Sprite.enabled = false;
+            }
+
+            // Notify mesh to hide
+            if (OnHide != null)
+            {
+                OnHide(this, null);
+            }
         }
     }
 
@@ -74,6 +82,8 @@ public class WarCollectable : MonoBehaviour
 
     public void DropFrom(Vector3 dropPos)
     {
+        this.transform.localScale = new Vector3(InitialScale, InitialScale, InitialScale);
+
         // Drop sound
         this.GetComponent<AudioSource>().PlayOneShot(DropSound);
 
@@ -118,15 +128,26 @@ public class WarCollectable : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public bool Collected
+    {
+        get
+        {
+            return PlayerPrefs.GetInt(PlayerPrefKey) == 1;
+        }
+        set
+        {
+            PlayerPrefs.SetInt(PlayerPrefKey, value ? 1 : 0);
+        }
+    }
+
     public void Collect()
     {
+        // Keep track of it being collected in player prefs
         Collected = true;
+
         AnimationTime = 0;
         InitialScale = transform.localScale.x;
         InitialPosition = transform.position;
-
-        // Keep track of it being collected in player prefs
-        PlayerPrefs.SetInt(PlayerPrefKey, 1);
 
         // Disable physics
         PhysicsEnable(false);

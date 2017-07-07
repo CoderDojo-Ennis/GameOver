@@ -11,8 +11,9 @@ public class WarInstructionsAnimation : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // Full health
+        // Full health + Nothing collected
         PlayerScript.Instance.SetInitialHealth();
+        ResetCollectables();
 
         // Start animation
         this.Delay(BombStartDelay - BombInterval, () =>
@@ -28,9 +29,12 @@ public class WarInstructionsAnimation : MonoBehaviour
         });
     }
 
-    // Update is called once per frame
-    void Update()
+    void ResetCollectables()
     {
-
+        foreach (var collectableName in new string[] { "Coin", "Passport", "Suitcase" })
+        {
+            string PlayerPrefKey = "Collectable_" + collectableName;
+            PlayerPrefs.SetInt(PlayerPrefKey, 0);
+        }
     }
 }
