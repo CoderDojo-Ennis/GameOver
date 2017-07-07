@@ -474,7 +474,52 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 328127356090540010, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_AspectRatio
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 328127356090540010, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_AudioOutputMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 328127356090540010, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_EnabledAudioTracks.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4980910370920256, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 4980910370920256, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 108
+      objectReference: {fileID: 0}
+    - target: {fileID: 328127356090540010, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 328127356090540010, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 328127356090540010, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_TargetCameraAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 82176265158894910, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114810819518552322, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
+    - {fileID: 64775301609105686, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &927655569

@@ -26,12 +26,12 @@ public class BeachSceneScript : BaseGameScene
     private AvatarScript Avatar;
 
     // Cutscene sounds
-    private AudioSource AudioSource;
+    //private AudioSource AudioSource;
 
     public new void Awake()
     {
         base.Awake();
-        AudioSource = this.GetComponent<AudioSource>();
+        //AudioSource = this.GetComponent<AudioSource>();
         Avatar = GetComponentInChildren<AvatarScript>();
     }
 
