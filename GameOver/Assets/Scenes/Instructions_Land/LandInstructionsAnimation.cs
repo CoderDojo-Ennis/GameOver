@@ -14,7 +14,7 @@ public class LandInstructionsAnimation : MonoBehaviour
         // Start animation
         this.Delay(SceneStartDelay, () =>
         {
-            LightColumn.FadeAlpha(this, LightColumn.color.a, 0, 2f, true);
+            LightColumn.FadeAlpha(this, LightColumn.color.a, 0, 2f, false);
         });
     }
 }
