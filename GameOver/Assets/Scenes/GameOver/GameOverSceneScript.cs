@@ -30,7 +30,7 @@ public class GameOverSceneScript : BaseGameScene
 
         // Don't call base
         GameManager.Instance.ActiveGameScene = this;
-
+        GameManager.Instance.DisableScoreCanvas();
         PlayerScript.Instance.HideKinect(0);
 
         FadeCameraIn();
