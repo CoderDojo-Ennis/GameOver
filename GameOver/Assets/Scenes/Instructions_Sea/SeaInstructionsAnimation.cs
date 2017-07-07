@@ -74,6 +74,7 @@ public class SeaInstructionsAnimation : MonoBehaviour
 
     private void Shoot()
     {
+        Debug.Log("Shoot", this);
         BoatRenderer.sprite = BoatShootSprite;
         this.Delay(0.1f, () =>
         {
@@ -86,6 +87,7 @@ public class SeaInstructionsAnimation : MonoBehaviour
 
         BulletScript = BulletInstance.GetComponent<BulletScript>();
         BulletScript.ZoomTime = 0.1f;
+        BulletScript.SlowTime = 0.5f;
         BulletScript.LiveTime = 0.6f;
     }
 

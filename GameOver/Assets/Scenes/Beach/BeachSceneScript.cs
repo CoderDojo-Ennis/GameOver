@@ -131,7 +131,6 @@ public class BeachSceneScript : BaseGameScene
     {
         string PlayerPrefKey = "Collectable_" + this.gameObject.name;
         bool haveIt = PlayerPrefs.GetInt(PlayerPrefKey) == 1;
-        haveIt = true;
         collectable.SetActive(haveIt);
         return haveIt;
     }

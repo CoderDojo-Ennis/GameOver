@@ -22,13 +22,11 @@ public class SeaInstructionsCameraScript : MonoBehaviour
         LerpTime += Time.deltaTime * LerpSpeed;
         if (FollowBullet != null)
         {
-            Time.timeScale = BulletSlowdown;
             Vector3 BetweenBulletAndPlayer = Vector3.Lerp(FollowBullet.transform.position, PlayerPosition.position, 0.5f);
             transform.position = Vector3.Lerp(NormalPosition, new Vector3(BetweenBulletAndPlayer.x, BetweenBulletAndPlayer.y, BulletZoom), LerpTime);
         }
         else
         {
-            //Time.timeScale = 1;
             transform.position = NormalPosition;
         }
     }
