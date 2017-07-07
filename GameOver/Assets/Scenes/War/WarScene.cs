@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class WarScene : BaseGameScene
 {
@@ -32,9 +33,15 @@ public class WarScene : BaseGameScene
         BombEmitterScript = BombEmitter.GetComponent<BombEmitter>();
         PlayerScript.Instance.ShowKinect(1);
 
-        // Find Collectables
+        // Find Collectables not collected
         CollectablesDroppedCount = 0;
-        Collectables = GameObject.Find("WarCollectables").GetComponentsInChildren<WarCollectable>();
+        var allCollectables = GameObject.Find("WarCollectables").GetComponentsInChildren<WarCollectable>();
+        Collectables = allCollectables.Where(c => c.Collected == false).ToArray();
+        if (Collectables.Length < 1)
+        {
+            // Start over if nothing left
+            Collectables = allCollectables;
+        }
         LastCollectable = Collectables[Collectables.Length - 1];
 
         // todo: delete this
@@ -44,9 +51,13 @@ public class WarScene : BaseGameScene
         LastCollectable.OnCollected += CollectablesDone;
         LastCollectable.OnDestroyed += CollectablesDone;
 
-        // Start dropping stuff
-        BombEmitter.GetComponent<BombEmitter>().StartBombing();
-        DropCollectable();
+        // Delay so this happens after invitation so we can get the player start X
+        this.Delay(0.2f, () =>
+        {
+            // Start dropping stuff
+            BombEmitter.GetComponent<BombEmitter>().StartBombing();
+            DropCollectable();
+        });
 
         // When the player dies
         PlayerScript.Instance.OnDeath += WarScene_OnDeath;
@@ -137,9 +148,9 @@ public class WarScene : BaseGameScene
         if (CollectablesDroppedCount == 0)
         {
             // Make it a challenge for the player
-            PlayerJoints Joints;
-            Joints = PlayerScript.Instance.GetComponent<PlayerJoints>();
-            CollectableDropRight = (Joints.spineBase.localPosition.x < 0);
+            float playerX = PlayerScript.Instance.transform.localPosition.x;
+            Debug.Log("playerX=" + playerX);
+            CollectableDropRight = (playerX < 0);
         }
 
         // Don't bomb our collectable
