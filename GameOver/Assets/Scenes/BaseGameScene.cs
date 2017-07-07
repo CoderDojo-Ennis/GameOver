@@ -32,12 +32,12 @@ public class BaseGameScene : MonoBehaviour
 
         GameManager.Instance.ActiveGameScene = this;
 
-        this.Delay(0.2f, () =>
-        {
-            Player.TravelScaleX = this.TravelScaleX;
-            Player.NaturalX = this.NaturalX;
-            Player.transform.localScale = Vector3.one * PlayerScale;
-        });
+        //this.Delay(0.2f, () =>
+        //{
+        Player.TravelScaleX = this.TravelScaleX;
+        Player.NaturalX = this.NaturalX;
+        Player.transform.localScale = Vector3.one * PlayerScale;
+        //});
 
         if (BackgroundMusic != null)
         {
