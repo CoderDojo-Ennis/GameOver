@@ -37,10 +37,17 @@ public class WarScene : BaseGameScene
         CollectablesDroppedCount = 0;
         var allCollectables = GameObject.Find("WarCollectables").GetComponentsInChildren<WarCollectable>();
         Collectables = allCollectables.Where(c => c.Collected == false).ToArray();
+        Debug.Log("Items to collect: " + Collectables.Length);
         if (Collectables.Length < 1)
         {
             // Start over if nothing left
             Collectables = allCollectables;
+            Debug.Log("Revised Items to collect: " + Collectables.Length);
+            foreach (var collectable in Collectables)
+            {
+                collectable.Collected = false;
+                collectable.Hide();
+            }
         }
         LastCollectable = Collectables[Collectables.Length - 1];
 
@@ -107,7 +114,7 @@ public class WarScene : BaseGameScene
             float screenRitghtX = 7;
             float avatarX = avatar.transform.position.x;
             float distanceToRight = screenRitghtX - avatarX;
-            avatar.GlideX(avatarX, screenRitghtX, distanceToRight * .4f).Then(FadeToBeach);
+            avatar.GlideX(avatarX, screenRitghtX, distanceToRight * .2f).Then(FadeToBeach);
         });
     }
 

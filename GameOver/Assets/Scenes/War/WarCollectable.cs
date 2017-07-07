@@ -46,19 +46,25 @@ public class WarCollectable : MonoBehaviour
         }
         else
         {
-            // Start hidden
-            Sprite = GetComponent<SpriteRenderer>();
-            if (Sprite != null)
-            {
-                Sprite.enabled = false;
-            }
-
-            // Notify mesh to hide
-            if (OnHide != null)
-            {
-                OnHide(this, null);
-            }
+            Hide();
         }
+    }
+
+    public void Hide()
+    {
+        // Start hidden
+        Sprite = GetComponent<SpriteRenderer>();
+        if (Sprite != null)
+        {
+            Sprite.enabled = false;
+        }
+
+        // Notify mesh to hide
+        if (OnHide != null)
+        {
+            OnHide(this, null);
+        }
+        AnimationTime = 0;
     }
 
     private void PhysicsEnable(bool enable)
