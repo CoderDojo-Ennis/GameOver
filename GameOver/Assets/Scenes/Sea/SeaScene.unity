@@ -370,7 +370,7 @@ MonoBehaviour:
   LerpDirection: 1
   BulletZoom: -4
   BulletSlowdown: 0.1
-  ZoomInSeconds: 0.6
+  ZoomInSeconds: 0.4
   ZoomOutSeconcs: 0.2
   PlayerPosition: {fileID: 1701910869}
 --- !u!1 &495831367
@@ -1147,6 +1147,16 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 58945964478278642, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 58945964478278642, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
