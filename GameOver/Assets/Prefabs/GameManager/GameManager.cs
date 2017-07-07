@@ -45,7 +45,9 @@ public class GameManager : MonoBehaviour
     [Header("Timer")]
     public TextMeshProUGUI Timer;
     public int TimerValue;
+    public int PulseTime;
     internal int MidTimerEventTime;
+    private AudioSource TimerPulseSound;
     public delegate void TimerEndedHandler();
     public event TimerEndedHandler TimerEnded;
     public delegate void TimerEventHandler();
@@ -94,6 +96,7 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         BackgroundMusicSource = GameObject.Find("BackgroundMusicSource").GetComponent<AudioSource>();
+        TimerPulseSound = GetComponent<AudioSource>();
         GameGestureListener = KinectController.GetComponent<GameGestureListener>();
         DontDestroyOnLoad(gameObject);
     }
@@ -651,6 +654,26 @@ public class GameManager : MonoBehaviour
         if (TimerValue == MidTimerEventTime)
         {
             TimerEvent();
+        }
+        if (TimerValue <= PulseTime)
+        {
+            TimerPulseSound.PlayOneShot(TimerPulseSound.clip);
+            // Scale to designed size over one second
+            float scale2 = 1.6f;
+            float scale = scale2;
+            int scaleSteps = 4;
+            this.Timer.rectTransform.localScale = new Vector3(scale, scale);
+            this.Repeat(1 / (scaleSteps + 1), scaleSteps, () =>
+            {
+                // Aborted
+                //if (SecondsRemaining < 0)
+                //{
+                //    this.Timer.text = "";
+                //    return;
+                //}
+                scale -= (scale2 - 1) / (float)scaleSteps;
+                this.Timer.rectTransform.localScale = new Vector3(scale, scale);
+            });
         }
         if (TimerValue > 0)
         {

@@ -45,15 +45,17 @@ public class BaseGameScene : MonoBehaviour
         }
 
         // If no player found - start with invitation
-        if (!GameManager.Instance.GameGestureListener.IsPlayerDetected)
+        if (GameManager.Instance.GameGestureListener)
         {
-            GameManager.Instance.InviteGame();
+            if (!GameManager.Instance.GameGestureListener.IsPlayerDetected)
+            {
+                GameManager.Instance.InviteGame();
+            }
+            else
+            {
+                FadeCameraIn();
+            }
         }
-        else
-        {
-            FadeCameraIn();
-        }
-
         // When the player dies
         PlayerScript.Instance.OnDeath += BaseGameScene_OnDeath;
     }
