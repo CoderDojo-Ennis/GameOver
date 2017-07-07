@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,11 +38,6 @@ public class BackgroundRemovalManager : MonoBehaviour
 
 	[Tooltip("GUI-Text to display the BR-Manager debug messages.")]
 	public GUIText debugText;
-
-    public float scale = 1;
-
-    public float offsetX = 0;
-    public float offsetY = 0;
 
 	// buffer for the raw foreground image
 	private byte[] foregroundImage;
@@ -330,12 +325,6 @@ public class BackgroundRemovalManager : MonoBehaviour
 				foregroundRect.height = -foregroundRect.height;
 			}
 
-            var drawRect = new Rect(foregroundRect);
-            drawRect.width *= scale;
-            drawRect.height *= scale;
-            drawRect.x += offsetX;
-            drawRect.y += offsetY;
-
 			// update the foreground texture
 			bool bHiResSupported = sensorData != null && sensorData.sensorInterface != null ?
 				sensorData.sensorInterface.IsBRHiResSupported() : false;
@@ -344,22 +333,22 @@ public class BackgroundRemovalManager : MonoBehaviour
 
 			if(computeBodyTexOnly && sensorData != null && sensorData.alphaBodyTexture)
 			{
-				GUI.DrawTexture(drawRect, sensorData.alphaBodyTexture);
+				GUI.DrawTexture(foregroundRect, sensorData.alphaBodyTexture);
 			}
 			else if(sensorData != null && bHiResSupported && !bKinect1Int && sensorData.color2DepthTexture)
 			{
 				//GUI.DrawTexture(foregroundRect, sensorData.alphaBodyTexture);
-				GUI.DrawTexture(drawRect, sensorData.color2DepthTexture);
+				GUI.DrawTexture(foregroundRect, sensorData.color2DepthTexture);
 			}
 			else if(sensorData != null && !bKinect1Int && sensorData.depth2ColorTexture)
 			{
 				//GUI.DrawTexture(foregroundRect, sensorData.alphaBodyTexture);
-				GUI.DrawTexture(drawRect, sensorData.depth2ColorTexture);
+				GUI.DrawTexture(foregroundRect, sensorData.depth2ColorTexture);
 			}
 			else if(foregroundTex)
 			{
 				//GUI.DrawTexture(foregroundRect, sensorData.alphaBodyTexture);
-				GUI.DrawTexture(drawRect, foregroundTex);
+				GUI.DrawTexture(foregroundRect, foregroundTex);
 			}
 		}
 	}

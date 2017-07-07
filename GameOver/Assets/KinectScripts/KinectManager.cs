@@ -1,5 +1,5 @@
 ﻿// comment out the following #define, if you want to use the depth sensor and the KinectManager on per-scene basis
-//#define USE_SINGLE_KM_IN_MULTIPLE_SCENES
+#define USE_SINGLE_KM_IN_MULTIPLE_SCENES
 
 
 using System;
@@ -2293,9 +2293,9 @@ public class KinectManager : MonoBehaviour
 
         kinectInitialized = true;
 
-#if USE_SINGLE_KM_IN_MULTIPLE_SCENES
-        DontDestroyOnLoad(gameObject);
-#endif
+        //#if USE_SINGLE_KM_IN_MULTIPLE_SCENES
+        //      DontDestroyOnLoad(gameObject);
+        //#endif
 
         // GUI Text.
         if (calibrationText != null)
@@ -2384,13 +2384,12 @@ public class KinectManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        Debug.Log("OnApplicatoinQuit");
         OnDestroy();
     }
 
     void OnDestroy()
     {
-        Debug.Log("KM was destroyed");
+        //Debug.Log("KM was destroyed");
 
         // shut down the Kinect on quitting.
         if (kinectInitialized)
