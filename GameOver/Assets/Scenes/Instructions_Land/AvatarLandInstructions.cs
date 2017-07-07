@@ -3,13 +3,13 @@
 public class AvatarLandInstructions : MonoBehaviour
 {
     private AvatarScript Avatar;
-    private AudioSource AudioSource;
+    //private AudioSource AudioSource;
     public InstructionsMenu InstructionsMenu;
 
     private void Awake()
     {
         this.Avatar = GetComponent<AvatarScript>();
-        this.AudioSource = GetComponent<AudioSource>();
+        //this.AudioSource = GetComponent<AudioSource>();
     }
 
     // Use this for initialization

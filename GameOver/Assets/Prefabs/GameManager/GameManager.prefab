@@ -984,7 +984,6 @@ GameObject:
   - component: {fileID: 23393640458411432}
   - component: {fileID: 222571117563744068}
   - component: {fileID: 114394974671849228}
-  - component: {fileID: 114509973567481648}
   m_Layer: 12
   m_Name: VideoHeading
   m_TagString: Untagged
@@ -4241,17 +4240,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   m_maskType: 0
---- !u!114 &114509973567481648
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1902071469516874}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114514621048404224
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -32,8 +32,7 @@ public class EnemyGun : MonoBehaviour
         {
             sr.sprite = firing;
             transform.Translate(RecoilDistance, 0, 0, Space.Self);
-            GameObject b;
-            b = Instantiate(BulletPrefab, FiringPoint.position, transform.rotation);
+            Instantiate(BulletPrefab, FiringPoint.position, transform.rotation);
             //b.transform.eulerAngles = new Vector3(b.transform.eulerAngles.x, b.transform.eulerAngles.y, b.transform.eulerAngles.z + Random.Range(-SprayAngle, SprayAngle));
             this.Delay(FireSpriteTime, ResetSprite);
         }
