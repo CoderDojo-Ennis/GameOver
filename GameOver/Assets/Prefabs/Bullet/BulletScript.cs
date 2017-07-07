@@ -25,7 +25,7 @@ public class BulletScript : MonoBehaviour
         //SeaCameraScript.instance.LerpToNewBullet(gameObject);
         this.Delay(SlowTime, () =>
         {
-            Time.timeScale = 1;
+            GameManager.Instance.SetTimeScale(1);
             GameManager.Instance.SetSoundTimeScale();
         });
         this.Delay(LiveTime, () =>

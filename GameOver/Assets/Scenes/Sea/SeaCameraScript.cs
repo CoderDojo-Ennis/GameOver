@@ -47,7 +47,7 @@ public class SeaCameraScript : MonoBehaviour
     {
         LerpTime = 0;
         FollowBullet = bullet;
-        Time.timeScale = BulletSlowdown;
+        GameManager.Instance.SetTimeScale(BulletSlowdown);
         GameManager.Instance.SetSoundTimeScale();
         LerpDirection = 1;
         //BulletScript = bullet.GetComponent<BulletScript>();

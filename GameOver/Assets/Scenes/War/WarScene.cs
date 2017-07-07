@@ -13,9 +13,6 @@ public class WarScene : BaseGameScene
     [Header("Bombs")]
     public GameObject BombEmitter;
 
-    [Header("Player")]
-    public Transform SpineBase;
-
     private BombEmitter BombEmitterScript;
     private WarCollectable[] Collectables;
     private WarCollectable LastCollectable;
@@ -26,6 +23,11 @@ public class WarScene : BaseGameScene
     {
         //Debug.Log("War Start");
         base.Start();
+    }
+
+    public override void FirstUpdate()
+    {
+        base.FirstUpdate();
 
         BombEmitterScript = BombEmitter.GetComponent<BombEmitter>();
         PlayerScript.Instance.ShowKinect(1);
@@ -135,7 +137,9 @@ public class WarScene : BaseGameScene
         if (CollectablesDroppedCount == 0)
         {
             // Make it a challenge for the player
-            CollectableDropRight = (SpineBase.localPosition.x < 0);
+            PlayerJoints Joints;
+            Joints = PlayerScript.Instance.GetComponent<PlayerJoints>();
+            CollectableDropRight = (Joints.spineBase.localPosition.x < 0);
         }
 
         // Don't bomb our collectable

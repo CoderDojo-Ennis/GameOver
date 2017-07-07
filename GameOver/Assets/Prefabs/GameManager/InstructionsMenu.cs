@@ -33,22 +33,21 @@ public class InstructionsMenu : BaseGameScene
         this.CountdownText = GameObject.Find("CountDownText").GetComponent<TextMeshProUGUI>();
     }
 
-    /// <summary>
-    /// Start the pause menu
-    /// </summary>
-    public new void Start()
+    public override void FirstUpdate()
     {
         // Don't call base
-        //Debug.Log("Instructions Start");
+        // base.FirstUpdate();
+
+        Debug.Log("Instructions Start");
         GameManager.Instance.ActiveGameScene = this;
         PlayerScript.Instance.ShowKinect(1);
 
         GameManager.Instance.GameGestureListener.OnSwipeLeft += KinectSwipeHorizontal;
         GameManager.Instance.GameGestureListener.OnSwipeRight += KinectSwipeHorizontal;
 
+        GameManager.Instance.SetTimeScale(0);
         this.Delay(.01f, () =>
         {
-            Time.timeScale = 0;
             if (VideoPlaylist != VideoPlaylists.None)
             {
                 PlayNextPlyalistVideo(VideoPlaylist).Then(() =>
@@ -60,7 +59,7 @@ public class InstructionsMenu : BaseGameScene
             {
                 InviteAndShowinstructions();
             }
-        });
+        }, true);
     }
 
     // un-hook events
@@ -68,12 +67,16 @@ public class InstructionsMenu : BaseGameScene
     {
         // don't call base
         // base.OnDestroy();
-        GameManager.Instance.GameGestureListener.OnSwipeLeft -= KinectSwipeHorizontal;
-        GameManager.Instance.GameGestureListener.OnSwipeRight -= KinectSwipeHorizontal;
+        if (GameManager.Instance.GameGestureListener != null)
+        {
+            GameManager.Instance.GameGestureListener.OnSwipeLeft -= KinectSwipeHorizontal;
+            GameManager.Instance.GameGestureListener.OnSwipeRight -= KinectSwipeHorizontal;
+        }
     }
 
     public void InviteAndShowinstructions()
     {
+        Debug.Log("Invite and show instructions");
         if (InvitePlayer && !GameManager.Instance.GameGestureListener.IsPlayerDetected)
         {
             GameManager.Instance.InviteGame().Then(ShowInstructions);
@@ -89,8 +92,8 @@ public class InstructionsMenu : BaseGameScene
     /// </summary>
     public void ShowInstructions()
     {
-        //Debug.Log("Instructions Show");
-        Time.timeScale = 1;
+        Debug.Log("Instructions Show");
+        GameManager.Instance.SetTimeScale(1);
 
         FadeCameraIn();
         PlayerScript.Instance.ScoreVisible = true;

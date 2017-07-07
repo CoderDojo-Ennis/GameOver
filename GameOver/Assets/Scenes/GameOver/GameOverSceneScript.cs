@@ -24,8 +24,10 @@ public class GameOverSceneScript : BaseGameScene
     /// <summary>
     /// Start the cutscene
     /// </summary>
-    public new void Start()
+    public override void FirstUpdate()
     {
+        base.FirstUpdate();
+
         // Don't call base
         GameManager.Instance.ActiveGameScene = this;
 
