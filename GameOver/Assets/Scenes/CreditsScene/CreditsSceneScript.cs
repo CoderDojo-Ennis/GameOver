@@ -24,7 +24,7 @@ public class CreditsSceneScript : BaseGameScene {
     /// <summary>
     /// Start the cutscene
     /// </summary>
-    public new void Start()
+    public override void FirstUpdate()
     {
         // Don't call base
         GameManager.Instance.ActiveGameScene = this;

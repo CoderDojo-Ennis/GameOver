@@ -26,7 +26,7 @@ public class GameOverSceneScript : BaseGameScene
     /// </summary>
     public override void FirstUpdate()
     {
-        base.FirstUpdate();
+        //base.FirstUpdate();
 
         // Don't call base
         GameManager.Instance.ActiveGameScene = this;

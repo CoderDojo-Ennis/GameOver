@@ -823,7 +823,7 @@ MonoBehaviour:
   - {fileID: 1173346625}
   - {fileID: 558800780}
   CharacterIntroDelay: 2
-  CharacterDelay: 2
+  CharacterDelay: 3
   NextScene: Instructions_WarScene
   Delay: 15
 --- !u!82 &1973017733
