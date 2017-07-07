@@ -26,11 +26,11 @@ public class GameOverSceneScript : BaseGameScene
     /// </summary>
     public override void FirstUpdate()
     {
-        base.FirstUpdate();
+        //base.FirstUpdate();
 
         // Don't call base
         GameManager.Instance.ActiveGameScene = this;
-
+        GameManager.Instance.DisableScoreCanvas();
         PlayerScript.Instance.HideKinect(0);
 
         FadeCameraIn();

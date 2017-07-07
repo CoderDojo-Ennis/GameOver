@@ -3806,6 +3806,7 @@ MonoBehaviour:
   Timer: {fileID: 114591412418778544}
   TimerValue: 0
   PulseTime: 5
+  ScoreCanvas: {fileID: 1057233005836104}
   TargetFrameRate: 25
   Paused: 0
 --- !u!114 &114349949222720930
@@ -4178,9 +4179,6 @@ MonoBehaviour:
   erodeIterations: 0
   dilateIterations: 1
   debugText: {fileID: 0}
-  scale: 1
-  offsetX: 0
-  offsetY: 0
 --- !u!114 &114553094576672908
 MonoBehaviour:
   m_ObjectHideFlags: 1

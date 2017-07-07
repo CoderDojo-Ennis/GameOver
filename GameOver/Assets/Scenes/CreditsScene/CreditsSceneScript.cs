@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 
 public class CreditsSceneScript : BaseGameScene {
+    public SpriteRenderer[] Characters;
+    public float CharacterIntroDelay;
+    public float CharacterDelay;
     [Header("Transition")]
     public string NextScene = "Instructions_WarScene";
     public float Delay = 10f;
@@ -21,11 +24,11 @@ public class CreditsSceneScript : BaseGameScene {
     /// <summary>
     /// Start the cutscene
     /// </summary>
-    public new void Start()
+    public override void FirstUpdate()
     {
         // Don't call base
         GameManager.Instance.ActiveGameScene = this;
-
+        GameManager.Instance.DisableScoreCanvas();
         PlayerScript.Instance.HideKinect(0);
 
         FadeCameraIn();
@@ -36,15 +39,31 @@ public class CreditsSceneScript : BaseGameScene {
 
         Text = GetComponentInChildren<TextMeshPro>();
 
-        Text.Type(this, 0.1f, true, () =>
+        Text.Type(this, 0.05f, true, () =>
         {
             //AudioManager.Instance.PlayTypeCharacter();
         });
-
+        this.Delay(CharacterIntroDelay, () =>
+        {
+            FadeCharacters(0);
+        });
         GameManager.Instance.PauseBackroundMusic(Delay * .9f);
         this.Delay(Delay, () =>
         {
+            GameManager.Instance.EnableScoreCanvas();
             FadeToScene(NextScene);
         });
+    }
+
+    void FadeCharacters(int index)
+    {
+        Characters[index].FadeAlpha(this, 0, 1, 1, true);
+        Debug.Log(Characters.Length + " " + index);
+        if (index < Characters.Length - 1)
+        {
+            this.Delay(CharacterDelay, () => {
+                FadeCharacters(index + 1);
+            });
+        }
     }
 }

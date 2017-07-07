@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
     public delegate void TimerEventHandler();
     public event TimerEventHandler TimerEvent;
     private GmDelayPromise TimerPromise;
+    [Header("ScoreCanvas")]
+    public GameObject ScoreCanvas;
 
     [Header("Quality")]
     public int TargetFrameRate = 25;
@@ -697,5 +699,15 @@ public class GameManager : MonoBehaviour
             TimerEnded();
             Timer.enabled = false;
         }
+    }
+
+    public void DisableScoreCanvas()
+    {
+        ScoreCanvas.SetActive(false);
+    }
+
+    public void EnableScoreCanvas()
+    {
+        ScoreCanvas.SetActive(true);
     }
 }
