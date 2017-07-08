@@ -167,6 +167,7 @@ MonoBehaviour:
   NaturalX: 1
   TravelScaleX: 10
   PlayerScale: 0.25
+  SceneRequiresPlayer: 1
   FadeSeconds: 1
   SceneCamera: {fileID: 0}
   sea: {fileID: 513335934}
@@ -1914,7 +1915,7 @@ MonoBehaviour:
   Idle: {fileID: 21300000, guid: af047bce09e333b45a339fb68999718b, type: 3}
   Duck: {fileID: 21300018, guid: af047bce09e333b45a339fb68999718b, type: 3}
   KinectTorqueScale: 1
-  KinectPositionTorqueScale: 0.5
+  KinectPositionTorqueScale: 0.3
 --- !u!61 &1961962378
 BoxCollider2D:
   m_ObjectHideFlags: 0

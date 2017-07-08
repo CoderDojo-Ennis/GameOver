@@ -490,6 +490,7 @@ MonoBehaviour:
   NaturalX: 0
   TravelScaleX: 20
   PlayerScale: 0.4
+  SceneRequiresPlayer: 1
   FadeSeconds: 1
   SceneCamera: {fileID: 0}
   CollectableDelaySeconds: 8
@@ -498,6 +499,7 @@ MonoBehaviour:
   CollectableDropRight: 0
   LeftDropPosition: {fileID: 410058891}
   RightDropPosition: {fileID: 1845926115}
+  PlayerStartPosition: {x: 0, y: -3.08, z: 0}
   BombEmitter: {fileID: 2117255478}
 --- !u!4 &1525234491
 Transform:

@@ -10,6 +10,7 @@ public class WarScene : BaseGameScene
     public bool CollectableDropRight = false;
     public Transform LeftDropPosition;
     public Transform RightDropPosition;
+    public Vector3 PlayerStartPosition;
 
     [Header("Bombs")]
     public GameObject BombEmitter;
@@ -30,6 +31,7 @@ public class WarScene : BaseGameScene
     {
         base.FirstUpdate();
         PlayerScript.Instance.transform.rotation = Quaternion.identity;
+        PlayerScript.Instance.transform.position = PlayerStartPosition;
 
         BombEmitterScript = BombEmitter.GetComponent<BombEmitter>();
         PlayerScript.Instance.ShowKinect(1);
