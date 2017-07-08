@@ -37,6 +37,7 @@ public class BeachSceneScript : BaseGameScene
         base.Awake();
         AudioSource = this.GetComponent<AudioSource>();
         Avatar = GetComponentInChildren<AvatarScript>();
+        SceneRequiresPlayer = false;
     }
 
     /// <summary>
