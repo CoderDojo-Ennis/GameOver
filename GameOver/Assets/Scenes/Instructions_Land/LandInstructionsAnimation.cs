@@ -8,6 +8,7 @@ public class LandInstructionsAnimation : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        GetComponent<InstructionsMenu>().SceneRequiresPlayer = false;
         // Full health
         PlayerScript.Instance.SetInitialHealth();
 
