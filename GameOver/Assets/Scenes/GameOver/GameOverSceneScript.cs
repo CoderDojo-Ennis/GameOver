@@ -19,6 +19,7 @@ public class GameOverSceneScript : BaseGameScene
     {
         base.Awake();
         AudioSource = this.GetComponent<AudioSource>();
+        SceneRequiresPlayer = false;
     }
 
     /// <summary>

@@ -18,6 +18,7 @@ public class CreditsSceneScript : BaseGameScene
     {
         base.Awake();
         AudioSource = this.GetComponent<AudioSource>();
+        SceneRequiresPlayer = false;
     }
 
     /// <summary>

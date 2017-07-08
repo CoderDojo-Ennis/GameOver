@@ -167,7 +167,10 @@ public class GameManager : MonoBehaviour
     private void GameGestureListener_OnUserLost(object sender, System.EventArgs e)
     {
         //Debug.Log("User Lost");
-        InviteGame();
+        if (ActiveGameScene == null || ActiveGameScene.SceneRequiresPlayer)
+        {
+            InviteGame();
+        }
     }
 
     /// <summary>
