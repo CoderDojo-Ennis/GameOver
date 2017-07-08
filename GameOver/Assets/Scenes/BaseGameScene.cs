@@ -62,6 +62,7 @@ public class BaseGameScene : MonoBehaviour
         Debug.Log("Base FirstUpdate");
         GameManager.Instance.ActiveGameScene = this;
 
+        Player = PlayerScript.Instance; //  GameObject.FindObjectOfType<PlayerScript>();
         Player.TravelScaleX = this.TravelScaleX;
         Player.NaturalX = this.NaturalX;
         Player.transform.localScale = Vector3.one * PlayerScale;
