@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
-using TMPro;
 
-public class CreditsSceneScript : BaseGameScene {
+public class CreditsSceneScript : BaseGameScene
+{
     public SpriteRenderer[] Characters;
     public float CharacterIntroDelay;
     public float CharacterDelay;
@@ -30,6 +29,12 @@ public class CreditsSceneScript : BaseGameScene {
         GameManager.Instance.ActiveGameScene = this;
         GameManager.Instance.DisableScoreCanvas();
         PlayerScript.Instance.HideKinect(0);
+
+        // Hide characters
+        foreach (var character in Characters)
+        {
+            character.FadeAlpha(this, 0, 0, 0, true);
+        }
 
         FadeCameraIn();
         if (BackgroundMusic != null)
@@ -61,7 +66,8 @@ public class CreditsSceneScript : BaseGameScene {
         Debug.Log(Characters.Length + " " + index);
         if (index < Characters.Length - 1)
         {
-            this.Delay(CharacterDelay, () => {
+            this.Delay(CharacterDelay, () =>
+            {
                 FadeCharacters(index + 1);
             });
         }

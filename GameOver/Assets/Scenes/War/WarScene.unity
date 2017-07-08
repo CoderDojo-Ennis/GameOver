@@ -499,7 +499,6 @@ MonoBehaviour:
   LeftDropPosition: {fileID: 410058891}
   RightDropPosition: {fileID: 1845926115}
   BombEmitter: {fileID: 2117255478}
-  SpineBase: {fileID: 1743863265}
 --- !u!4 &1525234491
 Transform:
   m_ObjectHideFlags: 0
@@ -708,11 +707,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4936515736008374, guid: b4829000f5290c84b99a241f871e9f81,
     type: 2}
   m_PrefabInternal: {fileID: 1212151198}
---- !u!4 &1743863265 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4394042143712264, guid: 9840335aba276f54f8329e250ab96a5f,
-    type: 2}
-  m_PrefabInternal: {fileID: 257345554}
 --- !u!1 &1790063622
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,7 +835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BombPrefab: {fileID: 1772767069592344, guid: 2d74cc3480eb6ca4fb44146190fa9007, type: 2}
-  BombIntervalSeconds: 2
+  BombIntervalSeconds: 1.75
   BombIntervalRandomSeconds: 1
   AvoidLeft: 0
   AvoidRight: 0

@@ -2,6 +2,10 @@
 
 public class BeachSceneScript : BaseGameScene
 {
+    public GameObject ForgotThought;
+    public GameObject ForgotPassport;
+    public GameObject ForgotSuitcase;
+
     [Header("Sounds")]
     public AudioClip WelcomeSound;
     public AudioClip RejectedSound;
@@ -26,12 +30,12 @@ public class BeachSceneScript : BaseGameScene
     private AvatarScript Avatar;
 
     // Cutscene sounds
-    //private AudioSource AudioSource;
+    private AudioSource AudioSource;
 
     public new void Awake()
     {
         base.Awake();
-        //AudioSource = this.GetComponent<AudioSource>();
+        AudioSource = this.GetComponent<AudioSource>();
         Avatar = GetComponentInChildren<AvatarScript>();
     }
 
@@ -40,7 +44,7 @@ public class BeachSceneScript : BaseGameScene
     /// </summary>
     public override void FirstUpdate()
     {
-        base.FirstUpdate();
+        //base.FirstUpdate();
 
         // Don't call base
         GameManager.Instance.ActiveGameScene = this;
@@ -49,6 +53,9 @@ public class BeachSceneScript : BaseGameScene
 
         BoatGuard.sprite = BoatGuyIdle;
         CoinThought.SetActive(false);
+        ForgotSuitcase.SetActive(false);
+        ForgotPassport.SetActive(false);
+        ForgotThought.SetActive(false);
 
         FadeCameraIn();
         if (BackgroundMusic != null)
@@ -59,29 +66,69 @@ public class BeachSceneScript : BaseGameScene
         ShowCollectables();
 
         Avatar.SetAnimation("WalkRight");
-        Avatar.GlideX(-6.8f, 1.4f, 2f).Then(() =>
-        {
-            Avatar.SetAnimation("IdleRight");
 
-            // accept or reject
-            this.Delay(1, () =>
+        // Have belongings - Walk to boat guy
+        if (HavePassport && HaveSuitcase)
+        {
+            Avatar.GlideX(-6.8f, 1.4f, 2f).Then(() =>
             {
-                if (HaveCoin)
-                {
-                    GiveCoin();
-                }
-                else
-                {
-                    Rejected();
-                }
-            });
-        });
+                Avatar.SetAnimation("IdleRight");
 
-        this.Delay(2f, () =>
+                // accept or reject
+                this.Delay(1, () =>
+                {
+                    if (HaveCoin)
+                    {
+                        GiveCoin();
+                    }
+                    else
+                    {
+                        Rejected();
+                    }
+                });
+            });
+
+            this.Delay(2f, () =>
+            {
+                BoatGuard.sprite = BoatGuyGimme;
+                CoinThought.SetActive(true);
+            });
+        }
+        else
         {
-            BoatGuard.sprite = BoatGuyGimme;
-            CoinThought.SetActive(true);
-        });
+            // Forgot something
+            Avatar.GlideX(-6.8f, -1f, 1.2f).Then(() =>
+            {
+                Avatar.SetAnimation("Idle");
+
+                // stop & think
+                this.Delay(1, () =>
+                {
+                    AudioSource.PlayOneShot(RejectedSound);
+                    ForgotThought.SetActive(true);
+                    if (HaveSuitcase)
+                    {
+                        ForgotPassport.SetActive(true);
+                    }
+                    else
+                    {
+                        ForgotSuitcase.SetActive(true);
+                    }
+
+                    this.Delay(4, () =>
+                    {
+                        ForgotThought.SetActive(false);
+
+                        // Go back
+                        Avatar.SetAnimation("WalkLeft");
+                        Avatar.GlideX(-1f, -7f, 1.2f).Then(() =>
+                        {
+                            FadeToScene("WarScene");
+                        });
+                    });
+                });
+            });
+        }
     }
 
     void GiveCoin()
@@ -92,9 +139,11 @@ public class BeachSceneScript : BaseGameScene
             Coin.SetActive(false);
 
             BoatGuard.sprite = BoatGuyWelcome;
+            AudioSource.PlayOneShot(WelcomeSound);
             this.Delay(1.5f, () =>
             {
                 var AvatarInBoat = new Vector3(5f, Avatar.transform.localPosition.y, Avatar.transform.localPosition.z);
+                Avatar.SetAnimation("WalkRight");
                 Avatar.transform.GlideLocalPosition(this, Avatar.transform.localPosition, AvatarInBoat, 1f, false).Then(() =>
                 {
                     Avatar.SetAnimation("Idle");
@@ -106,6 +155,7 @@ public class BeachSceneScript : BaseGameScene
 
     void Rejected()
     {
+        AudioSource.PlayOneShot(RejectedSound);
         BoatGuard.sprite = BoatGuyReject;
         this.Delay(2.5f, () =>
         {
@@ -131,8 +181,9 @@ public class BeachSceneScript : BaseGameScene
 
     bool ShowCollectable(GameObject collectable)
     {
-        string PlayerPrefKey = "Collectable_" + this.gameObject.name;
+        string PlayerPrefKey = "Collectable_" + collectable.gameObject.name;
         bool haveIt = PlayerPrefs.GetInt(PlayerPrefKey) == 1;
+        Debug.Log("Have " + gameObject.name + " = " + haveIt);
         collectable.SetActive(haveIt);
         return haveIt;
     }
