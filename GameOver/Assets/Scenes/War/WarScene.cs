@@ -29,6 +29,7 @@ public class WarScene : BaseGameScene
     public override void FirstUpdate()
     {
         base.FirstUpdate();
+        PlayerScript.Instance.transform.rotation = Quaternion.identity;
 
         BombEmitterScript = BombEmitter.GetComponent<BombEmitter>();
         PlayerScript.Instance.ShowKinect(1);
