@@ -130,6 +130,8 @@ public class WarCollectable : MonoBehaviour
             OnDestroyed(this, null);
         }
 
+        PlayerScript.Instance.Damage(10);//damage player when missed collectable
+
         // todo - fail sound and/or graphic
         Destroy(gameObject);
     }
