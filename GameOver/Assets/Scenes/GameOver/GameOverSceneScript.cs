@@ -14,6 +14,7 @@ public class GameOverSceneScript : BaseGameScene
     private AudioSource AudioSource;
 
     private TextMeshPro Text;
+    GmDelayPromise sceneDelay;
 
     public new void Awake()
     {
@@ -53,9 +54,19 @@ public class GameOverSceneScript : BaseGameScene
         });
 
         GameManager.Instance.PauseBackroundMusic(Delay * .9f);
-        this.Delay(Delay, () =>
+        sceneDelay = this.Delay(Delay, () =>
         {
             FadeToScene(NextScene);
         });
+    }
+
+    new void Update()
+    {
+        base.Update();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            sceneDelay.Abort();
+            FadeToScene(NextScene);
+        }
     }
 }
