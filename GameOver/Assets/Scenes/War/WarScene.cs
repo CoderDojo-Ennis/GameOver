@@ -157,6 +157,8 @@ public class WarScene : BaseGameScene
         // Where to do the first one
         if (CollectablesDroppedCount == 0)
         {
+            // Drop first bomb right on player
+            BombEmitterScript.DropNextBombFrom(new Vector3(PlayerScript.Instance.transform.localPosition.x, 4.27f, 0));
             // Make it a challenge for the player
             float playerX = PlayerScript.Instance.transform.localPosition.x;
             Debug.Log("playerX=" + playerX);
