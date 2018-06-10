@@ -1,0 +1,12 @@
+Friday July 3 14:00 - 17:00
+
+Level 3 - Thru the fence
+	Background with fence to be cut thru
+	Dog/Guard with torch on patrol
+	Things to hide behind (bushes)
+	Tool(s) to collect
+	Cut thru the fence
+
+Level 3 success:
+	Transform into pixel character and walk out
+	Video of camp life

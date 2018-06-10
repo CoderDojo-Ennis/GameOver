@@ -184,7 +184,7 @@ MonoBehaviour:
   BulletSpeed: 15
   ZoomTime: 0
   SlowTime: 0.7
-  LiveTime: 0.8
+  LiveTime: 0.9
 --- !u!212 &212241693023566630
 SpriteRenderer:
   m_ObjectHideFlags: 1

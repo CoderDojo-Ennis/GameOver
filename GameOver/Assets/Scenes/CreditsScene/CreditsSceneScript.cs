@@ -14,10 +14,14 @@ public class CreditsSceneScript : BaseGameScene
     private AudioSource AudioSource;
     private TextMeshPro Text;
 
+    GmDelayPromise sceneDelay;
+    GmDelayPromise charDelay;
+
     public new void Awake()
     {
         base.Awake();
         AudioSource = this.GetComponent<AudioSource>();
+        SceneRequiresPlayer = false;
     }
 
     /// <summary>
@@ -48,12 +52,12 @@ public class CreditsSceneScript : BaseGameScene
         {
             //AudioManager.Instance.PlayTypeCharacter();
         });
-        this.Delay(CharacterIntroDelay, () =>
+        charDelay = this.Delay(CharacterIntroDelay, () =>
         {
             FadeCharacters(0);
         });
         GameManager.Instance.PauseBackroundMusic(Delay * .9f);
-        this.Delay(Delay, () =>
+        sceneDelay = this.Delay(Delay, () =>
         {
             GameManager.Instance.EnableScoreCanvas();
             FadeToScene(NextScene);
@@ -70,6 +74,17 @@ public class CreditsSceneScript : BaseGameScene
             {
                 FadeCharacters(index + 1);
             });
+        }
+    }
+
+    new void Update()
+    {
+        base.Update();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            sceneDelay.Abort();
+            charDelay.Abort();
+            FadeToScene(NextScene);
         }
     }
 }

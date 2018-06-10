@@ -83,7 +83,7 @@ public class SeaInstructionsAnimation : MonoBehaviour
 
         BulletInstance = Instantiate(Bullet, BulletStart.position, BulletStart.rotation, this.transform);
         BulletInstance.layer = this.gameObject.layer;
-        GameManager.Instance.SetTimeScale(.05f);
+        GameManager.Instance.SetTimeScale(.1f);
 
         BulletScript = BulletInstance.GetComponent<BulletScript>();
         BulletScript.ZoomTime = 0.1f;

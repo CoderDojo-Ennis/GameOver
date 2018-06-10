@@ -10,6 +10,7 @@ public class WarScene : BaseGameScene
     public bool CollectableDropRight = false;
     public Transform LeftDropPosition;
     public Transform RightDropPosition;
+    public Vector3 PlayerStartPosition;
 
     [Header("Bombs")]
     public GameObject BombEmitter;
@@ -29,6 +30,8 @@ public class WarScene : BaseGameScene
     public override void FirstUpdate()
     {
         base.FirstUpdate();
+        PlayerScript.Instance.transform.rotation = Quaternion.identity;
+        PlayerScript.Instance.transform.position = PlayerStartPosition;
 
         BombEmitterScript = BombEmitter.GetComponent<BombEmitter>();
         PlayerScript.Instance.ShowKinect(1);
@@ -154,6 +157,8 @@ public class WarScene : BaseGameScene
         // Where to do the first one
         if (CollectablesDroppedCount == 0)
         {
+            // Drop first bomb right on player
+            BombEmitterScript.DropNextBombFrom(new Vector3(PlayerScript.Instance.transform.localPosition.x, 4.27f, 0));
             // Make it a challenge for the player
             float playerX = PlayerScript.Instance.transform.localPosition.x;
             Debug.Log("playerX=" + playerX);

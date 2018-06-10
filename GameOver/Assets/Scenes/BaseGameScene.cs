@@ -10,6 +10,7 @@ public class BaseGameScene : MonoBehaviour
     public float TravelScaleX = 10;
     private PlayerScript Player;
     public float PlayerScale = 1;
+    public bool SceneRequiresPlayer = true;
 
     [Header("Transition")]
     public float FadeSeconds = 1f;

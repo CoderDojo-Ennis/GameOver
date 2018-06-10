@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
     private void GameGestureListener_OnUserDetected(object sender, System.EventArgs e)
     {
         //todo - show user resume menu - move this to invite script
-        if (Paused)
+        if (Paused && ActiveGameScene.SceneRequiresPlayer)
         {
             Debug.Log("User Detected");
             GameManager.Instance.SetTimeScale(0);
@@ -167,7 +167,10 @@ public class GameManager : MonoBehaviour
     private void GameGestureListener_OnUserLost(object sender, System.EventArgs e)
     {
         //Debug.Log("User Lost");
-        InviteGame();
+        if (ActiveGameScene == null || ActiveGameScene.SceneRequiresPlayer)
+        {
+            InviteGame();
+        }
     }
 
     /// <summary>
@@ -697,7 +700,8 @@ public class GameManager : MonoBehaviour
         else
         {
             TimerEnded();
-            Timer.enabled = false;
+            Timer.text = "";
+            //Timer.enabled = false;
         }
     }
 
