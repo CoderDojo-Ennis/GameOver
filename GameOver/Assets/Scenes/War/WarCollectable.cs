@@ -108,7 +108,7 @@ public class WarCollectable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Bomb")
+        if (collision.gameObject.CompareTag("Bomb"))
         {
             DestroyedByBomb();
         }
@@ -116,7 +116,7 @@ public class WarCollectable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             Collect();
         }
