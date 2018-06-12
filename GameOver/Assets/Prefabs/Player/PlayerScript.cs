@@ -133,26 +133,31 @@ public class PlayerScript : MonoBehaviour
     /// Take damage
     /// </summary>
     /// <param name="damage"></param>
-    public void Damage(int damage)
+    public void Damage(int damage, bool ChangeColour = true, bool PlaySound = true)
     {
         if (!Invincible)
         {
             Health -= damage;
             DisplayHealth();
-            PlayerImage.ShowDamaged();
-            if (Health > 0)
+            if (ChangeColour)
             {
-                AudioSource.PlayOneShot(InjureSound);
+                PlayerImage.ShowDamaged();
             }
-            else
+            if (PlaySound)
             {
-                AudioSource.PlayOneShot(DeathSound);
-                if (OnDeath != null)
+                if (Health > 0)
                 {
-                    OnDeath(this, null);
+                    AudioSource.PlayOneShot(InjureSound);
+                }
+                else
+                {
+                    AudioSource.PlayOneShot(DeathSound);
+                    if (OnDeath != null)
+                    {
+                        OnDeath(this, null);
+                    }
                 }
             }
-
             Invincible = true;
             this.Delay(1, () =>
             {

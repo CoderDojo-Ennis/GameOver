@@ -8,6 +8,10 @@ public class LandScene : BaseGameScene
     public LandCollectable BoltCutters;
     public float DelayBeforeCutters;
     public GameObject CutterInfo;
+    public Searchlight searchlight;
+    private AudioSource LoseSound;
+    private bool CanFail = true;
+    private int CurrentPhase; //Phase 1 = searchlight      Phase 2 = searchlight + dog and guard
 
 	new void Start ()
     {
@@ -15,6 +19,8 @@ public class LandScene : BaseGameScene
         instance = this;
         Invoke("DropCutters", DelayBeforeCutters);
         CutterInfo.SetActive(false);
+        LoseSound = GetComponent<AudioSource>();
+        CurrentPhase = 1;
 	}
 	
     void DropCutters()
@@ -29,10 +35,35 @@ public class LandScene : BaseGameScene
 
     public void Win()
     {
-
+        CurrentPhase++;
+        if (CurrentPhase == 3)
+        {
+            // todo-winning scene
+        }
     }
 
-	public override void FirstUpdate ()
+    public void Fail()
+    {
+        if (CanFail)
+        {
+            CanFail = false;
+            LoseSound.Play();
+            PlayerScript.Instance.Damage(10, false, false);
+            this.Delay(2, () =>
+            {
+                Camera c = Camera.main;
+                GameManager.Instance.FadeCameraOut(1).Then(() =>
+                {
+                    GameManager.Instance.FadeCameraIn(1, c);
+                    searchlight.transform.Rotate(0, 180, 0, Space.World);
+                    searchlight.Restart();
+                    CanFail = true;
+                });
+            });
+        }
+    }
+
+    public override void FirstUpdate ()
     {
         base.FirstUpdate();
 	}

@@ -17,6 +17,8 @@ public class LandCollectable : MonoBehaviour
     private bool Collected = false;
     private Vector3 MoveFrom;
     private float MoveLerp = 0;
+    public GameObject mesh;
+    public GameObject sprite;
 
     void Start ()
     {
@@ -41,8 +43,17 @@ public class LandCollectable : MonoBehaviour
     {
         if (Collected)
         {
-            transform.position = Vector3.Lerp(MoveFrom, CollectedLocation, MoveLerp);
-            MoveLerp += 4 * Time.deltaTime;
+            if (!transform.position.Approximately(CollectedLocation, 0.5f))
+            {
+                transform.position = Vector3.Lerp(MoveFrom, CollectedLocation, MoveLerp);
+                MoveLerp += 4 * Time.deltaTime;
+            }
+            try
+            {
+                mesh.SetActive(false);
+                sprite.SetActive(true);
+            }
+            catch (System.NullReferenceException) { } 
         }
         else
         {

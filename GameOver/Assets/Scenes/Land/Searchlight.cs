@@ -6,6 +6,7 @@ public class Searchlight : MonoBehaviour
 {
     public float SweepRange;
     public float SweepSpeed;
+    private float LocalSweepSpeed;
     private float InitialRotation;
     public int FramesVisibleForLoss;
     private int FrameCounter = 0;
@@ -13,18 +14,28 @@ public class Searchlight : MonoBehaviour
     public Color PlayerDark;
     public Color PlayerLight;
     private bool PlayerCollidedLastFrame = false;
+    public bool Sweeping = true;
 
 	void Start ()
     {
         InitialRotation = transform.rotation.eulerAngles.y;
+        LocalSweepSpeed = SweepSpeed;
 	}
 	
 	void Update ()
     {
-        transform.Rotate(transform.up, SweepSpeed * Time.deltaTime);
-        if (transform.rotation.eulerAngles.y > InitialRotation + SweepRange || transform.rotation.eulerAngles.y < InitialRotation - SweepRange)
+        if (Sweeping)
         {
-            SweepSpeed = -SweepSpeed;
+            transform.Rotate(0, LocalSweepSpeed * Time.deltaTime, 0, Space.World);
+            //transform.Rotate(Vector3.up, LocalSweepSpeed * Time.deltaTime);
+        }
+        if (transform.rotation.eulerAngles.y > InitialRotation + SweepRange)
+        {
+            LocalSweepSpeed = -SweepSpeed;
+        }
+        else if (transform.rotation.eulerAngles.y < InitialRotation - SweepRange)
+        {
+            LocalSweepSpeed = SweepSpeed;
         }
 	}
 
@@ -55,9 +66,11 @@ public class Searchlight : MonoBehaviour
                     PlayerScript.Instance.PlayerImage.SetColour(PlayerLight, 0.1f);
                 }
                 FrameCounter++;
-                if (FrameCounter >= FramesVisibleForLoss)
+                if (FrameCounter >= FramesVisibleForLoss && Sweeping)
                 {
-                    //Player has been seen for too long - lose
+                    FrameCounter = 0;
+                    Sweeping = false;
+                    LandScene.instance.Fail();
                 }
             }
             PlayerCollidedLastFrame = false;
@@ -66,6 +79,12 @@ public class Searchlight : MonoBehaviour
         {
             PlayerHidden();
         }
+    }
+
+    public void Restart()
+    {
+        FrameCounter = 0;
+        Sweeping = true;
     }
 
     void PlayerHidden()
