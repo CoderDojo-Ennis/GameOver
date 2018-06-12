@@ -7,7 +7,7 @@ public class Searchlight : MonoBehaviour
     public float SweepRange;
     public float SweepSpeed;
     private float LocalSweepSpeed;
-    private float InitialRotation;
+    private float ReferenceRotation;
     public int FramesVisibleForLoss;
     private int FrameCounter = 0;
     private bool PlayerVisible = true;
@@ -18,7 +18,7 @@ public class Searchlight : MonoBehaviour
 
 	void Start ()
     {
-        InitialRotation = transform.rotation.eulerAngles.y;
+        ReferenceRotation = transform.rotation.eulerAngles.y;
         LocalSweepSpeed = SweepSpeed;
 	}
 	
@@ -29,11 +29,11 @@ public class Searchlight : MonoBehaviour
             transform.Rotate(0, LocalSweepSpeed * Time.deltaTime, 0, Space.World);
             //transform.Rotate(Vector3.up, LocalSweepSpeed * Time.deltaTime);
         }
-        if (transform.rotation.eulerAngles.y > InitialRotation + SweepRange)
+        if (transform.rotation.eulerAngles.y > ReferenceRotation + SweepRange)
         {
             LocalSweepSpeed = -SweepSpeed;
         }
-        else if (transform.rotation.eulerAngles.y < InitialRotation - SweepRange)
+        else if (transform.rotation.eulerAngles.y < ReferenceRotation - SweepRange)
         {
             LocalSweepSpeed = SweepSpeed;
         }

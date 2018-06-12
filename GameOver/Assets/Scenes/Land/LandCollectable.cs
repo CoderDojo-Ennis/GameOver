@@ -19,9 +19,11 @@ public class LandCollectable : MonoBehaviour
     private float MoveLerp = 0;
     public GameObject mesh;
     public GameObject sprite;
+    private Vector3 InitialLocation;
 
     void Start ()
     {
+        InitialLocation = transform.position;
         MaxYPos = transform.position.y + BobDistance;
         MinYPos = transform.position.y - BobDistance;
     }
@@ -39,11 +41,26 @@ public class LandCollectable : MonoBehaviour
         }
     }
 
+    public void Restart()
+    {
+        MoveLerp = 0;
+        FallSpeed = 0;
+        Collected = false;
+        transform.position = InitialLocation;
+        transform.rotation = Quaternion.identity;
+        try
+        {
+            mesh.SetActive(true);
+            sprite.SetActive(false);
+        }
+        catch (System.NullReferenceException) { }
+    }
+
     void Update ()
     {
         if (Collected)
         {
-            if (!transform.position.Approximately(CollectedLocation, 0.5f))
+            if (MoveLerp < 0.95f)
             {
                 transform.position = Vector3.Lerp(MoveFrom, CollectedLocation, MoveLerp);
                 MoveLerp += 4 * Time.deltaTime;

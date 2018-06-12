@@ -57,7 +57,17 @@ public class LandScene : BaseGameScene
                     GameManager.Instance.FadeCameraIn(1, c);
                     searchlight.transform.Rotate(0, 180, 0, Space.World);
                     searchlight.Restart();
+                    foreach(LandCollectable collectable in FindObjectsOfType<LandCollectable>())
+                    {
+                        collectable.Restart();
+                    }
+                    Invoke("DropCutters", DelayBeforeCutters);
                     CanFail = true;
+                    try
+                    {
+                        CutterInfo.GetComponent<FenceCut>().ProgressSlider.value = CutterInfo.GetComponent<FenceCut>().ProgressSlider.maxValue;
+                    } catch { }
+                    CutterInfo.SetActive(false);
                 });
             });
         }

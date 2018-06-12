@@ -29,8 +29,8 @@ public class FenceCut : MonoBehaviour
                 gameObject.SetActive(false);
             }
             float FramesToFinish = ProgressSlider.maxValue / (CutSpeed * Time.deltaTime);
-            BoltCutters.transform.Rotate(0, 0, 360 / FramesToFinish);
-            BoltCutters.transform.Translate(0, 3, 0, Space.Self);
+            BoltCutters.transform.Rotate(0, 0, -(360 / FramesToFinish));
+            BoltCutters.transform.Translate(0, 0.005f, 0, Space.Self);
             FrameCounter++;
             if (FrameCounter == BoltCutterAnimationSpeed)
             {
