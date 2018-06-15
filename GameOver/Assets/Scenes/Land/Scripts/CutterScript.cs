@@ -57,6 +57,8 @@ public class CutterScript : MonoBehaviour
             sprite.SetActive(false);
         }
         catch (System.NullReferenceException) { }
+        MaxYPos = transform.position.y + BobDistance;
+        MinYPos = transform.position.y - BobDistance;
     }
 
     void Update ()

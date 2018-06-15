@@ -3897,7 +3897,7 @@ MonoBehaviour:
   BoltCutters: {fileID: 1061406679}
   Bone: {fileID: 578260914}
   DelayBeforeCutters: 5
-  DelayBeforeBone: 0
+  DelayBeforeBone: 5
   CutterInfo: {fileID: 334224254}
   searchlight: {fileID: 1232463778}
   Phase2Objects: {fileID: 2030019139}

@@ -35,6 +35,8 @@ public class BoneScript : MonoBehaviour
         Collected = false;
         transform.position = DropPosLeft;
         transform.rotation = Quaternion.identity;
+        MaxYPos = transform.position.y + BobDistance;
+        MinYPos = transform.position.y - BobDistance;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
