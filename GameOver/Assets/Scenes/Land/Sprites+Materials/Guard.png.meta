@@ -6,6 +6,9 @@ TextureImporter:
     21300002: Guard_Front
     21300004: Guard_Walk_1
     21300006: Guard_Walk_2
+    21300008: Guard_Still_Arm
+    21300010: Guard_Walk_1_Arm
+    21300012: Guard_Walk_2_Arm
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -123,11 +126,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 39
         width: 15
         height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -143,11 +146,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 17
-        y: 0
+        y: 39
         width: 12
         height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -163,11 +166,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 31
-        y: 0
+        y: 39
         width: 15
         height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -183,6 +186,26 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 48
+        y: 39
+        width: 15
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7074c3e330b42be4abf979a85a368d60
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Guard_Still_Arm
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 15
         height: 38
@@ -193,7 +216,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7074c3e330b42be4abf979a85a368d60
+      spriteID: 84c0843530e7313498ba2b0af8523349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Guard_Walk_1_Arm
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 15
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0559851343a42954ab51df390762d599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Guard_Walk_2_Arm
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 15
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32714bf34d5bbf942903a9d17c6c64fc
       vertices: []
       indices: 
       edges: []

@@ -58,7 +58,7 @@ public class BoneScript : MonoBehaviour
         {
             YVelocity -= 9.8f * Time.deltaTime;
             float xMovement = (Vector3.Distance(transform.position, DropPosLeft) > Vector3.Distance(transform.position, DropPosRight) ? 2 : -2) * Time.deltaTime;
-            transform.Translate(xMovement, YVelocity * Time.deltaTime, 2 * Time.deltaTime);
+            transform.Translate(xMovement, YVelocity * Time.deltaTime, 2 * Time.deltaTime, Space.World);
             transform.Rotate(0, 0, ThrownRotateSpeed * Time.deltaTime);
         }
         else
@@ -100,16 +100,20 @@ public class BoneScript : MonoBehaviour
         }
     }
 
-    public void Fall()
+    public string Fall()
     {
+        string whereDropped = "";
         if (Vector3.Distance(PlayerScript.Instance.transform.position, DropPosLeft) > Vector3.Distance(PlayerScript.Instance.transform.position, DropPosRight))
         {
             transform.position = DropPosLeft;
+            whereDropped = "left";
         }
         else
         {
             transform.position = DropPosRight;
+            whereDropped = "right";
         }
         FallSpeed = 0.01f;
+        return whereDropped;
     }
 }

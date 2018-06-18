@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using AuraAPI;
 
 public class LandScene : BaseGameScene
 {
@@ -15,8 +17,28 @@ public class LandScene : BaseGameScene
     private AudioSource LoseSound;
     private bool CanFail = true;
     private int CurrentPhase; //Phase 1 = searchlight      Phase 2 = dog and guard
+    private string WhereBoneDropped;
 
-	new void Start ()
+    public static List<T> FindObjectsOfTypeAll<T>() //useful extension method
+    {
+        List<T> results = new List<T>();
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var s = SceneManager.GetSceneAt(i);
+            if (s.isLoaded)
+            {
+                var allGameObjects = s.GetRootGameObjects();
+                for (int j = 0; j < allGameObjects.Length; j++)
+                {
+                    var go = allGameObjects[j];
+                    results.AddRange(go.GetComponentsInChildren<T>(true));
+                }
+            }
+        }
+        return results;
+    }
+
+    new void Start ()
     {
         base.Start();
         instance = this;
@@ -25,6 +47,10 @@ public class LandScene : BaseGameScene
         LoseSound = GetComponent<AudioSource>();
         CurrentPhase = 1;
         //Phase2Objects.SetActive(false);
+        foreach(AuraLight light in FindObjectsOfTypeAll<AuraLight>())
+        {
+            light.enabled = true; //sometimes the lights just randomly disable for some reason
+        }
 	}
 	
     void DropCutters()
@@ -34,7 +60,7 @@ public class LandScene : BaseGameScene
 
     void DropBone()
     {
-        Bone.Fall();
+        WhereBoneDropped = Bone.Fall();
     }
 
     public void CuttersCollected()
@@ -48,6 +74,7 @@ public class LandScene : BaseGameScene
 
     public void BoneCollected()
     {
+        this.Delay(0.5f, () => { Phase2Objects.GetComponentInChildren<GuardScript>().SawSomething(WhereBoneDropped); });
     }
 
     public void Win()

@@ -143,19 +143,22 @@ public class PlayerScript : MonoBehaviour
             {
                 PlayerImage.ShowDamaged();
             }
-            if (PlaySound)
+            if (Health > 0)
             {
-                if (Health > 0)
+                if (PlaySound)
                 {
                     AudioSource.PlayOneShot(InjureSound);
                 }
-                else
+            }
+            else
+            {
+                if (PlaySound)
                 {
                     AudioSource.PlayOneShot(DeathSound);
-                    if (OnDeath != null)
-                    {
-                        OnDeath(this, null);
-                    }
+                }
+                if (OnDeath != null)
+                {
+                    OnDeath(this, null);
                 }
             }
             Invincible = true;

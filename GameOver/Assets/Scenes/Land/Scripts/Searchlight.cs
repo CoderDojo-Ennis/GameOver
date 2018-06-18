@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Searchlight : MonoBehaviour
 {
+    public bool SideToSide; //If true, go side to side, if false, spin 360
     public float SweepRange;
     public float SweepSpeed;
     private float LocalSweepSpeed;
@@ -29,13 +30,16 @@ public class Searchlight : MonoBehaviour
             transform.Rotate(0, LocalSweepSpeed * Time.deltaTime, 0, Space.World);
             //transform.Rotate(Vector3.up, LocalSweepSpeed * Time.deltaTime);
         }
-        if (transform.rotation.eulerAngles.y > ReferenceRotation + SweepRange)
+        if (SideToSide)
         {
-            LocalSweepSpeed = -SweepSpeed;
-        }
-        else if (transform.rotation.eulerAngles.y < ReferenceRotation - SweepRange)
-        {
-            LocalSweepSpeed = SweepSpeed;
+            if (transform.rotation.eulerAngles.y > ReferenceRotation + SweepRange)
+            {
+                LocalSweepSpeed = -SweepSpeed;
+            }
+            else if (transform.rotation.eulerAngles.y < ReferenceRotation - SweepRange)
+            {
+                LocalSweepSpeed = SweepSpeed;
+            }
         }
 	}
 
