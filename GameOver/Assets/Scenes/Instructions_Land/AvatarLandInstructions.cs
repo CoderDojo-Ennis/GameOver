@@ -15,6 +15,7 @@ public class AvatarLandInstructions : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        /*
         Avatar.SetAnimation("Idle");
         this.Delay(4f, () =>
         {
@@ -24,5 +25,6 @@ public class AvatarLandInstructions : MonoBehaviour
                 InstructionsMenu.FadeToScene("GameOverScene");
             });
         });
+        */
     }
 }

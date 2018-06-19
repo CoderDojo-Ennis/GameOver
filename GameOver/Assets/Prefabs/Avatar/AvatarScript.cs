@@ -16,7 +16,7 @@ public class AvatarScript : MonoBehaviour
 
     public GmDelayPromise GlideX(float startX, float targetX, float seconds)
     {
-        int steps = 40;
+        int steps = 80;
         float step = 0;
 
         transform.localPosition = new Vector3(startX, transform.localPosition.y, transform.localPosition.z);
