@@ -44,12 +44,13 @@ public class GuardScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (PlayerCollidedLastFrame)
+        if (PlayerCollidedLastFrame && !Bushes.instance.PlayerBehindBushes)
         {
             FrameCounter++;
             if (FrameCounter >= FramesVisibleForLoss)
             {
                 FrameCounter = 0;
+                SawSomething();
                 LandScene.instance.Fail();
             }
             PlayerCollidedLastFrame = false;
@@ -78,9 +79,16 @@ public class GuardScript : MonoBehaviour
                 direction = true;
             }
 
-            foreach(EnemyWalk e in GetComponentsInChildren<EnemyWalk>())
+            foreach (EnemyWalk e in GetComponentsInChildren<EnemyWalk>())
             {
-                e.RunOffScreen(direction);
+                e.RunOffScreen(false, direction);
+            }
+        }
+        else
+        {
+            foreach (EnemyWalk e in GetComponentsInChildren<EnemyWalk>())
+            {
+                e.RunOffScreen(true, true);
             }
         }
     }

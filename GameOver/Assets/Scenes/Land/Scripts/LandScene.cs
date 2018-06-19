@@ -44,6 +44,7 @@ public class LandScene : BaseGameScene
         instance = this;
         Invoke("DropCutters", DelayBeforeCutters);
         CutterInfo.SetActive(false);
+        Phase2Objects.SetActive(false);
         LoseSound = GetComponent<AudioSource>();
         CurrentPhase = 1;
         //Phase2Objects.SetActive(false);
@@ -112,10 +113,13 @@ public class LandScene : BaseGameScene
     {
         if (CanFail)
         {
+            CanFail = false;
             LoseSound.Play();
             PlayerScript.Instance.Damage(10, false, false);
             this.Delay(2, () =>
             {
+                GameManager.Instance.FadeToScene(SceneManager.GetActiveScene().name, 1);
+                /*
                 Camera c = Camera.main;
                 GameManager.Instance.FadeCameraOut(1).Then(() =>
                 {
@@ -123,7 +127,9 @@ public class LandScene : BaseGameScene
                     searchlight.transform.Rotate(0, 180, 0, Space.World);
                     searchlight.Restart();
                     BoltCutters.Restart();
+                    Bone.Restart();
                     Invoke("DropCutters", DelayBeforeCutters);
+                    Phase2Objects.SetActive(false);
                     CanFail = true;
                     try
                     {
@@ -131,6 +137,7 @@ public class LandScene : BaseGameScene
                     } catch { }
                     CutterInfo.SetActive(false);
                 });
+                */
             });
         }
     }

@@ -6,6 +6,7 @@ public class EnemyWalk : MonoBehaviour
 {
     private bool WalkingRight = true;   //if false - walking left
     private bool RunningFast = false;
+    private bool Moving = true;
     private GuardScript guardScript;
 
     void Start ()
@@ -15,41 +16,53 @@ public class EnemyWalk : MonoBehaviour
 	
 	void Update ()
     {
-        if (RunningFast)
+        if (Moving)
         {
-            float moveDistance = (WalkingRight ? guardScript.RunSpeed : -guardScript.RunSpeed) * Time.deltaTime;
-            transform.Translate(moveDistance, 0, 0);
-        }
-        else
-        {
-            float moveDistance = (WalkingRight ? guardScript.WalkSpeed : -guardScript.WalkSpeed) * Time.deltaTime;
-            transform.Translate(moveDistance, 0, 0);
-            if (WalkingRight)
+            if (RunningFast)
             {
-                if (transform.position.x > guardScript.RightWalkBoundary.position.x)
-                {
-                    WalkingRight = false;
-                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                }
+                float moveDistance = (WalkingRight ? guardScript.RunSpeed : -guardScript.RunSpeed) * Time.deltaTime;
+                transform.Translate(moveDistance, 0, 0);
             }
             else
             {
-                if (transform.position.x < guardScript.LeftWalkBoundary.position.x)
+                float moveDistance = (WalkingRight ? guardScript.WalkSpeed : -guardScript.WalkSpeed) * Time.deltaTime;
+                transform.Translate(moveDistance, 0, 0);
+                if (WalkingRight)
                 {
-                    WalkingRight = true;
-                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    if (transform.position.x > guardScript.RightWalkBoundary.position.x)
+                    {
+                        WalkingRight = false;
+                        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    }
+                }
+                else
+                {
+                    if (transform.position.x < guardScript.LeftWalkBoundary.position.x)
+                    {
+                        WalkingRight = true;
+                        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    }
                 }
             }
         }
     }
 
-    public void RunOffScreen(bool direction) //if true, right, otherwise, left
+    public void RunOffScreen(bool stopMoving, bool direction) //if true, right, otherwise, left.
     {
-        RunningFast = true;
-        if (WalkingRight != direction)
+        if (stopMoving)
         {
-            WalkingRight = direction;
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            Moving = false;
+            this.Delay(5, () => { Moving = true; });
+        }
+        else
+        {
+            RunningFast = true;
+            if (WalkingRight != direction)
+            {
+                WalkingRight = direction;
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            }
+            this.Delay(10, () => { RunningFast = false; });
         }
     }
 }
