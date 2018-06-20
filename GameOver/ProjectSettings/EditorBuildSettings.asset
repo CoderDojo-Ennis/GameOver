@@ -27,8 +27,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Instructions_Land/Instructions_LandScene.unity
     guid: 75ea7d0aea9893441a7f4af56575d72c
   - enabled: 1
+    path: Assets/Scenes/Land/LandScene.unity
+    guid: b9a9e849731f3ee40b471195193719a5
+  - enabled: 1
     path: Assets/Scenes/GameOver/GameOverScene.unity
     guid: b172ca7670916394b919b9b04adbf6b7
   - enabled: 1
     path: Assets/Scenes/CreditsScene/CreditsScene.unity
     guid: b1f593e1d57775b4382f8abddc26a61a
+  m_configObjects: {}
