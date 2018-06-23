@@ -52,7 +52,8 @@ public class LandScene : BaseGameScene
         {
             light.enabled = true; //sometimes the lights just randomly disable for some reason
         }
-	}
+        GetComponentInChildren<ChildScript>().StartFollowing(PlayerScript.Instance.transform);
+    }
 	
     void DropCutters()
     {

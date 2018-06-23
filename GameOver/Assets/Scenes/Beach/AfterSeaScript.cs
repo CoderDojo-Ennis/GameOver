@@ -33,6 +33,7 @@ public class AfterSeaScript : BaseGameScene
             GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
         }
         BoatGuard.sprite = BoatGuardIdle;
+        GetComponentInChildren<ChildScript>().StartFollowing(Avatar.transform);
         GlideBoat().Then(() => {
             this.Delay(1, () => {
                 Avatar.SetAnimation("WalkRight");
