@@ -87,7 +87,9 @@ public class LandScene : BaseGameScene
             CurrentPhase++;
             if (CurrentPhase == 3)
             {
-                // todo-winning scene
+                this.Delay(2, () => {
+                    GameManager.Instance.FadeToScene("FinalAnimation", 1);
+                });
             }
             else  //start phase 2
             {
