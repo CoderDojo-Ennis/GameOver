@@ -5,6 +5,7 @@ using UnityEngine;
 public class TrumpScript : MonoBehaviour
 {
     private Animator Anim;
+    private float movingSpeed = 0;
 
     public void Awake()
     {
@@ -25,6 +26,16 @@ public class TrumpScript : MonoBehaviour
             transform.position = new Vector3(x, transform.position.y, transform.position.z);
             transform.localPosition = new Vector3(x, transform.localPosition.y, transform.localPosition.z);
         }, true);
+    }
+
+    public void StartMoving(float speed)
+    {
+        movingSpeed = speed;
+    }
+
+    private void Update()
+    {
+        transform.Translate(movingSpeed * Time.deltaTime, 0, 0);
     }
 
     public void SetAnimation(string animation)

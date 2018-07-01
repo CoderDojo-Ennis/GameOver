@@ -46,9 +46,16 @@ public class FinalAnimationScript : BaseGameScene
                         Child.SetAnimation("ChildTaken");
                         Child.transform.localScale = new Vector3(-Child.transform.localScale.x, Child.transform.localScale.y, Child.transform.localScale.z);
                         Child.transform.SetParent(Trump.transform);
-                        Trump.GlideX(Trump.transform.localPosition.x, 10, 4).Then(() => {
-                            GameManager.Instance.FadeToScene("GameOverScene", 2);
+                        Trump.StartMoving(2);
+                        this.Delay(1, () => {
+                            Avatar.SetAnimation("Cry");
+                            this.Delay(5, () => {
+                                GameManager.Instance.FadeToScene("GameOverScene", 2);
+                            });
                         });
+                        //Trump.GlideX(Trump.transform.localPosition.x, 10, 4).Then(() => {
+                            //GameManager.Instance.FadeToScene("GameOverScene", 2);
+                        //});
                     });
                 });
             });
