@@ -320,6 +320,11 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 33715032245731966, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -329,11 +334,6 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 33715032245731966, guid: 9840335aba276f54f8329e250ab96a5f,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
@@ -1158,7 +1158,6 @@ MonoBehaviour:
   LookTowards: {fileID: 1891968602}
   Arm: {fileID: 1378982563}
   ShootDelay: 6
-  SprayAngle: 0
   FireSpriteTime: 0.15
   RecoilDistance: 0.06
   ShootTime: 0

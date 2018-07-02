@@ -185,10 +185,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114591412418778544, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 33715032245731966, guid: 9840335aba276f54f8329e250ab96a5f,
         type: 2}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114394974671849228, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
@@ -912,6 +932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BombPrefab: {fileID: 1772767069592344, guid: 2d74cc3480eb6ca4fb44146190fa9007, type: 2}
+  BombDrag: 2
   BombIntervalSeconds: 1.75
   BombIntervalRandomSeconds: 1
   AvoidLeft: 0
