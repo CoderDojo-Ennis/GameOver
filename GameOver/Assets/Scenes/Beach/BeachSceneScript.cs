@@ -66,6 +66,7 @@ public class BeachSceneScript : BaseGameScene
 
         ShowCollectables();
 
+        GetComponentInChildren<ChildScript>().StartFollowing(Avatar.transform);
         Avatar.SetAnimation("WalkRight");
 
         // Have belongings - Walk to boat guy

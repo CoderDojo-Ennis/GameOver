@@ -36,6 +36,8 @@ public class WarScene : BaseGameScene
         BombEmitterScript = BombEmitter.GetComponent<BombEmitter>();
         PlayerScript.Instance.ShowKinect(1);
 
+        GetComponentInChildren<ChildScript>().StartFollowing(PlayerScript.Instance.transform);
+
         // Find Collectables not collected
         CollectablesDroppedCount = 0;
         var allCollectables = GameObject.Find("WarCollectables").GetComponentsInChildren<WarCollectable>();

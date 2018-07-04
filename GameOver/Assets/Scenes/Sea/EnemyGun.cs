@@ -12,7 +12,6 @@ public class EnemyGun : MonoBehaviour
     public GameObject Arm;
     [Header("Variables")]
     public float ShootDelay;
-    public float SprayAngle;
     public float FireSpriteTime;
     public float RecoilDistance;
     private Vector3 OriginalPos;

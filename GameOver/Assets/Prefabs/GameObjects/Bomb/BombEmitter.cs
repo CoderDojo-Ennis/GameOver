@@ -4,6 +4,7 @@ public class BombEmitter : MonoBehaviour
 {
     [Header("The Bomb")]
     public GameObject BombPrefab;
+    public float BombDrag = 2;
 
     [Header("Frequency")]
     public float BombIntervalSeconds = 3;
@@ -90,7 +91,8 @@ public class BombEmitter : MonoBehaviour
             Quaternion rotation = Quaternion.identity;
 
             // Spawn
-            GameObject.Instantiate(BombPrefab, position, rotation);
+            GameObject bomb = Instantiate(BombPrefab, position, rotation);
+            bomb.GetComponent<Rigidbody2D>().drag = BombDrag;
 
             // Arís!
             ScheduleNextBomb();

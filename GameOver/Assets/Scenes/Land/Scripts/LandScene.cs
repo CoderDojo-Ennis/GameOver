@@ -12,7 +12,7 @@ public class LandScene : BaseGameScene
     public float DelayBeforeCutters;
     public float DelayBeforeBone;
     public GameObject CutterInfo;
-    public Searchlight searchlight;
+    public GameObject searchlight;
     public GameObject Phase2Objects;
     private AudioSource LoseSound;
     private bool CanFail = true;
@@ -52,7 +52,8 @@ public class LandScene : BaseGameScene
         {
             light.enabled = true; //sometimes the lights just randomly disable for some reason
         }
-	}
+        GetComponentInChildren<ChildScript>().StartFollowing(PlayerScript.Instance.transform);
+    }
 	
     void DropCutters()
     {
@@ -86,14 +87,16 @@ public class LandScene : BaseGameScene
             CurrentPhase++;
             if (CurrentPhase == 3)
             {
-                // todo-winning scene
+                this.Delay(2, () => {
+                    GameManager.Instance.FadeToScene("FinalAnimation", 1);
+                });
             }
             else  //start phase 2
             {
                 GameManager.Instance.FadeCameraOut(1).Then(() =>
                 {
                     GameManager.Instance.FadeCameraIn(1, Camera.main);
-                    searchlight.gameObject.SetActive(false);
+                    searchlight.SetActive(false);
                     Phase2Objects.SetActive(true);
                     BoltCutters.Restart();
                     Invoke("DropCutters", DelayBeforeCutters);

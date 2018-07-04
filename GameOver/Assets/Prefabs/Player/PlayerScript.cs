@@ -169,6 +169,16 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public void GiveHealth(int healthToGive)
+    {
+        Health += healthToGive;
+        if (Health > InitialHealth)
+        {
+            Health = InitialHealth;
+        }
+        DisplayHealth();
+    }
+
     private void DisplayHealth()
     {
         var hp = Health;
