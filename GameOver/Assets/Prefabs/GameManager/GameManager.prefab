@@ -5170,7 +5170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VideoClips:
-  - {fileID: 32900000, guid: e65573b320f9fd749acafee416cfa4db, type: 3}
   - {fileID: 32900000, guid: 3edc1386f878b3141a0ce5b0c681c492, type: 3}
   Heading: End
 --- !u!114 &114921017101680944
