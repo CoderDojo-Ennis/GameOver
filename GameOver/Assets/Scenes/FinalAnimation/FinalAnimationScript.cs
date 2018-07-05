@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FinalAnimationScript : BaseGameScene
 {
+    public VideoPlaylists VideoPlaylist;
     private AvatarScript Avatar;
     private TrumpScript Trump;
     private ChildScript Child;
@@ -18,6 +19,22 @@ public class FinalAnimationScript : BaseGameScene
 
     public override void FirstUpdate()
     {
+        this.Delay(.01f, () =>
+        {
+            GameManager.Instance.SetTimeScale(0);
+            if (VideoPlaylist != VideoPlaylists.None)
+            {
+                PlayNextPlyalistVideo(VideoPlaylist).Then(() =>
+                {
+                    GameManager.Instance.SetTimeScale(1);
+                });
+            }
+            else
+            {
+                GameManager.Instance.SetTimeScale(1);
+            }
+        }, true);
+
         GameManager.Instance.ActiveGameScene = this;
         PlayerScript.Instance.HideKinect(0);
         FadeCameraIn();

@@ -34,7 +34,7 @@ public class GeekyMonkeyVideoPlaylist : MonoBehaviour {
     public GmDelayPromise PlayNext()
     {
         string prefsKey = "VideoPlaylistIndex_" + this.name;
-        int index = PlayerPrefs.GetInt(prefsKey);
+        int index = PlayerPrefs.GetInt(prefsKey, 0);
         index++;
         if (index >= this.VideoClips.Length)
         {

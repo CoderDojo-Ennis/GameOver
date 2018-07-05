@@ -4,5 +4,6 @@
     Intro,
     War,
     Sea,
-    Land
+    Land,
+    End
 }
