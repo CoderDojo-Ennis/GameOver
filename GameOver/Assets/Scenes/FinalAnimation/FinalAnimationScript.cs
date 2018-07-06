@@ -45,13 +45,14 @@ public class FinalAnimationScript : BaseGameScene
         PlayerScript.Instance.HideKinect(0);
         Guard.sprite = GuardIdle;
         FadeCameraIn();
-        if (BackgroundMusic != null)
-        {
-            GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
-        }
+        GameManager.Instance.PauseBackroundMusic();
 
         this.Delay(1, () =>
         {
+            if (BackgroundMusic != null)
+            {
+                GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
+            }
             Child.SetAnimation("ChildWalk");
             Avatar.SetAnimation("WalkRight");
             Child.GlideX(-9.5f, -5.1f, 2);
