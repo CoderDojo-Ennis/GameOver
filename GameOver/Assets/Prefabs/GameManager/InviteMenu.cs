@@ -13,6 +13,8 @@ public class InviteMenu : BaseMenu
     [Header("Avatar")]
     private AvatarScript Avatar;
 
+    private TextMeshProUGUI CountdownText;
+
     /// <summary>
     /// Awake (before start)
     /// </summary>
@@ -20,6 +22,7 @@ public class InviteMenu : BaseMenu
     {
         Avatar = GetComponentInChildren<AvatarScript>(true);
         Avatar.gameObject.layer = this.gameObject.layer;
+        CountdownText = GameObject.Find("CountDownText").GetComponent<TextMeshProUGUI>();
     }
 
     /// <summary>
@@ -48,6 +51,7 @@ public class InviteMenu : BaseMenu
         Avatar.GlideX(-7, 0, 1.2f).Then(() =>
         {
             Avatar.SetAnimation("Idle");
+            CountdownText.text = "";
         });
     }
 }

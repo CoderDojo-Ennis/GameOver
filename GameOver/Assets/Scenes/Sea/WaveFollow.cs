@@ -14,7 +14,7 @@ public class WaveFollow : MonoBehaviour
         int layerMask = ~(1 << LayerMask.NameToLayer("Player")); //Don't collide with the player layer
         if (Physics.Raycast(ray, out hit, 10000, layerMask))
         {
-            Debug.Log(hit.collider.gameObject.name);
+            // Debug.Log(hit.collider.gameObject.name);
             transform.position = hit.point;
             if (Rotate)
             {

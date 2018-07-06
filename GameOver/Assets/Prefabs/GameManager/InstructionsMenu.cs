@@ -214,9 +214,15 @@ public class InstructionsMenu : BaseGameScene
                 }
                 else
                 {
-                    this.CountdownText.text = SecondsRemaining.ToString();
-                    AudioSource.PlayOneShot(CountdownSecondSound);
-                    SecondsRemaining--;
+                    if (Time.timeScale > 0 && !GameManager.Instance.Paused)
+                    {
+                        this.CountdownText.text = SecondsRemaining.ToString();
+                        AudioSource.PlayOneShot(CountdownSecondSound);
+                        SecondsRemaining--;
+                    } else
+                    {
+                        this.CountdownText.text = "";
+                    }
                 }
 
                 // Scale to designed size over one second
