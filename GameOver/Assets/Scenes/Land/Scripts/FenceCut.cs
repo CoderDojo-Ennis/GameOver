@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class FenceCut : MonoBehaviour
 {
+    public Vector3 Center;
+    public float Radius = 2;
     public CutterScript BoltCutters;
     public Sprite BoltCutter1;
     public Sprite BoltCutter2;
@@ -28,9 +30,12 @@ public class FenceCut : MonoBehaviour
                 LandScene.instance.Win();
                 gameObject.SetActive(false);
             }
+            float percent = (ProgressSlider.value / 100) * 2 * Mathf.PI;
             float FramesToFinish = ProgressSlider.maxValue / (CutSpeed * Time.deltaTime);
-            BoltCutters.transform.Rotate(0, 0, -(360 / FramesToFinish));
-            BoltCutters.transform.Translate(0, 0.005f, 0, Space.Self);
+            //BoltCutters.transform.Rotate(0, 0, (360 / FramesToFinish));
+            //BoltCutters.transform.Translate(0, 0.005f, 0, Space.Self);
+            BoltCutters.transform.rotation = Quaternion.Euler(0, 0, -percent * Mathf.Rad2Deg + 90);
+            BoltCutters.transform.position = new Vector3(Center.x + Mathf.Sin(percent) * Radius, Center.y + Mathf.Cos(percent) * Radius, Center.z);
             FrameCounter++;
             if (FrameCounter == BoltCutterAnimationSpeed)
             {

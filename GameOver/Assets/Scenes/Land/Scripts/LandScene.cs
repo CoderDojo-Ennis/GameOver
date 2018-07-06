@@ -55,7 +55,7 @@ public class LandScene : BaseGameScene
         }
         GetComponentInChildren<ChildScript>().StartFollowing(PlayerScript.Instance.transform);
         PlayerScript.Instance.transform.rotation = Quaternion.identity;
-        PlayerScript.Instance.transform.position = new Vector3(0, -2.65f, 0);
+        PlayerScript.Instance.transform.position = new Vector3(0, -2.65f, 1.62f);
     }
 	
     void DropCutters()
