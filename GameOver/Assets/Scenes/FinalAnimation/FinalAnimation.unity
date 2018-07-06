@@ -435,6 +435,11 @@ Prefab:
       value: 
       objectReference: {fileID: 21844569874585710, guid: 98afbf837b4a34245bb8aec2027d03b0,
         type: 2}
+    - target: {fileID: 114797397669503548, guid: 9840335aba276f54f8329e250ab96a5f,
+        type: 2}
+      propertyPath: MaxClipSeconds
+      value: 45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9840335aba276f54f8329e250ab96a5f, type: 2}
   m_IsPrefabAsset: 0
