@@ -38,7 +38,7 @@ public class AfterSeaScript : BaseGameScene
             this.Delay(1, () => {
                 Avatar.SetAnimation("WalkRight");
                 Avatar.GlideX(-4.5f, 8, 3).Then(() => {
-                    FadeToScene("LandScene");
+                    FadeToScene("Instructions_LandScene");
                 });
             });
             this.Delay(2, () => {
