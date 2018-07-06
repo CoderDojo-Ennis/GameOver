@@ -934,7 +934,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 65999c83e13849e40beaf7187c350c98, type: 3}
+  m_audioClip: {fileID: 8300000, guid: dff32061bba40cb469a3d177a7318f96, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1
@@ -947,7 +947,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1068,7 +1068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28fef261c93086b4e8fd306ad317bdcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundMusic: {fileID: 0}
+  BackgroundMusic: {fileID: 8300000, guid: dff32061bba40cb469a3d177a7318f96, type: 3}
   NaturalX: 1
   TravelScaleX: 10
   PlayerScale: 1
@@ -1076,7 +1076,6 @@ MonoBehaviour:
   FadeSeconds: 1
   SceneCamera: {fileID: 481672277}
   VideoPlaylist: 5
-  bgsound: {fileID: 1969501741}
   Guard: {fileID: 1226982219}
   GuardIdle: {fileID: 21300000, guid: c35590d30c5d52549b77d7ed1fa1eec5, type: 3}
   GuardPoint: {fileID: 21300004, guid: c35590d30c5d52549b77d7ed1fa1eec5, type: 3}

@@ -5,7 +5,6 @@ using UnityEngine;
 public class FinalAnimationScript : BaseGameScene
 {
     public VideoPlaylists VideoPlaylist;
-    public AudioSource bgsound;
     public SpriteRenderer Guard;
     public Sprite GuardIdle;
     public Sprite GuardPoint;
@@ -34,7 +33,6 @@ public class FinalAnimationScript : BaseGameScene
                 {
                     GameManager.Instance.SetTimeScale(1);
                     GameManager.Instance.FadeCameraIn(1, cam);
-                    // bgsound.Play();
                 });
             }
             else
