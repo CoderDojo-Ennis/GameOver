@@ -4400,7 +4400,7 @@ MonoBehaviour:
   Instructions: {fileID: 0}
   CameraMask: {fileID: 212041183437480786}
   ActiveCamera: {fileID: 0}
-  MusicTimeScale: 0.05
+  MusicTimeScale: 0.03
   Timer: {fileID: 114591412418778544}
   TimerValue: 0
   PulseTime: 5
