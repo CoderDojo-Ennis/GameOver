@@ -25,6 +25,7 @@ public class InstructionsMenu : BaseGameScene
 
     // Menu sounds
     private AudioSource AudioSource;
+    private GmDelayPromise TimerPromise;
 
     public new void Awake()
     {
@@ -169,6 +170,16 @@ public class InstructionsMenu : BaseGameScene
     }
 
     /// <summary>
+    /// Stop and hide the countdown timer
+    /// </summary>
+    public void StopCountdown()
+    {
+        SecondsRemaining = 0;
+        TimerPromise.Abort();
+        this.CountdownText.text = "";
+    }
+
+    /// <summary>
     /// Start the countdown timer
     /// </summary>
     public void StartCountdown()
@@ -190,14 +201,14 @@ public class InstructionsMenu : BaseGameScene
             //Debug.Log("Pre-Countdown complete");
 
             // Number of seconds
-            this.Repeat(1f, this.CountdownSeconds + 1, () =>
+            TimerPromise = this.Repeat(1f, this.CountdownSeconds + 1, () =>
             {
                 //Debug.Log("Countdown seconds remaining: " + SecondsRemaining);
 
                 if (SecondsRemaining < 0)
                 {
                     // Aborted
-                    this.CountdownText.text = "";
+                    StopCountdown();
                     return;
                 }
                 if (SecondsRemaining == 0)
