@@ -9,9 +9,11 @@ public class ChildScript : MonoBehaviour
     private float FollowTolerance = 0.8f;
     private float FollowSpeed = 1.5f;
     private float XScale;
+    private AudioSource AudioSource;
 
     private void Start()
     {
+        AudioSource = GetComponent<AudioSource>();
         Anim = GetComponent<Animator>();
         XScale = transform.localScale.x;
     }
@@ -63,5 +65,10 @@ public class ChildScript : MonoBehaviour
     public void StartFollowing(Transform ToFollow)
     {
         Following = ToFollow;
+    }
+
+    public void Cry()
+    {
+        AudioSource.PlayOneShot(AudioSource.clip);
     }
 }

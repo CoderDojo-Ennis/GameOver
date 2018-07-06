@@ -34,7 +34,7 @@ public class FinalAnimationScript : BaseGameScene
                 {
                     GameManager.Instance.SetTimeScale(1);
                     GameManager.Instance.FadeCameraIn(1, cam);
-                    bgsound.Play();
+                    // bgsound.Play();
                 });
             }
             else
@@ -70,6 +70,7 @@ public class FinalAnimationScript : BaseGameScene
                         Trump.SetAnimation("TrumpWalkArm");
                         Trump.transform.localScale = new Vector3(-Trump.transform.localScale.x, Trump.transform.localScale.y, Trump.transform.localScale.z);
                         Child.SetAnimation("ChildTaken");
+                        Child.Cry();
                         Child.transform.localScale = new Vector3(-Child.transform.localScale.x, Child.transform.localScale.y, Child.transform.localScale.z);
                         Child.transform.SetParent(Trump.transform);
                         Trump.StartMoving(2);
