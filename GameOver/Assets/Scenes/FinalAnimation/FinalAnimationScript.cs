@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class FinalAnimationScript : BaseGameScene
 {
+    public VideoPlaylists VideoPlaylist;
+    public SpriteRenderer Guard;
+    public Sprite GuardIdle;
+    public Sprite GuardPoint;
+    private Camera cam;
     private AvatarScript Avatar;
     private TrumpScript Trump;
     private ChildScript Child;
@@ -14,20 +19,40 @@ public class FinalAnimationScript : BaseGameScene
         Avatar = GetComponentInChildren<AvatarScript>();
         Trump = GetComponentInChildren<TrumpScript>();
         Child = GetComponentInChildren<ChildScript>();
+        cam = GetComponentInChildren<Camera>();
     }
 
     public override void FirstUpdate()
     {
+        this.Delay(.01f, () =>
+        {
+            GameManager.Instance.SetTimeScale(0);
+            if (VideoPlaylist != VideoPlaylists.None)
+            {
+                PlayNextPlyalistVideo(VideoPlaylist).Then(() =>
+                {
+                    GameManager.Instance.SetTimeScale(1);
+                    GameManager.Instance.FadeCameraIn(1, cam);
+                });
+            }
+            else
+            {
+                GameManager.Instance.SetTimeScale(1);
+            }
+        }, true);
+
         GameManager.Instance.ActiveGameScene = this;
         PlayerScript.Instance.HideKinect(0);
+        Guard.sprite = GuardIdle;
         FadeCameraIn();
-        if (BackgroundMusic != null)
-        {
-            GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
-        }
+        GameManager.Instance.PauseBackroundMusic();
 
         this.Delay(1, () =>
         {
+            if (BackgroundMusic != null)
+            {
+                GameManager.Instance.PlayBackgroundMusic(BackgroundMusic);
+            }
             Child.SetAnimation("ChildWalk");
             Avatar.SetAnimation("WalkRight");
             Child.GlideX(-9.5f, -5.1f, 2);
@@ -44,17 +69,29 @@ public class FinalAnimationScript : BaseGameScene
                         Trump.SetAnimation("TrumpWalkArm");
                         Trump.transform.localScale = new Vector3(-Trump.transform.localScale.x, Trump.transform.localScale.y, Trump.transform.localScale.z);
                         Child.SetAnimation("ChildTaken");
+                        Child.Cry();
                         Child.transform.localScale = new Vector3(-Child.transform.localScale.x, Child.transform.localScale.y, Child.transform.localScale.z);
                         Child.transform.SetParent(Trump.transform);
                         Trump.StartMoving(2);
-                        this.Delay(1, () => {
+                        this.Delay(1, () =>
+                        {
                             Avatar.SetAnimation("Cry");
-                            this.Delay(5, () => {
-                                GameManager.Instance.FadeToScene("GameOverScene", 2);
+                            this.Delay(4, () =>
+                            {
+                                Guard.sprite = GuardPoint;
+                                this.Delay(1, () =>
+                                {
+                                    //Avatar.transform.localScale = new Vector3(-Avatar.transform.localScale.x, Avatar.transform.localScale.y, Avatar.transform.localScale.z);
+                                    Avatar.SetAnimation("WalkCry");
+                                    Avatar.GlideX(Avatar.transform.localPosition.x, -8.8f, 2).Then(() =>
+                                    {
+                                        GameManager.Instance.FadeToScene("GameOverScene", 2);
+                                    });
+                                });
                             });
                         });
                         //Trump.GlideX(Trump.transform.localPosition.x, 10, 4).Then(() => {
-                            //GameManager.Instance.FadeToScene("GameOverScene", 2);
+                        //GameManager.Instance.FadeToScene("GameOverScene", 2);
                         //});
                     });
                 });

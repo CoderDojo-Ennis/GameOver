@@ -11,8 +11,10 @@ public class WaveFollow : MonoBehaviour
         transform.position = RaftPosition;
         RaycastHit hit;
         Ray ray = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(ray, out hit))
+        int layerMask = ~(1 << LayerMask.NameToLayer("Player")); //Don't collide with the player layer
+        if (Physics.Raycast(ray, out hit, 10000, layerMask))
         {
+            // Debug.Log(hit.collider.gameObject.name);
             transform.position = hit.point;
             if (Rotate)
             {

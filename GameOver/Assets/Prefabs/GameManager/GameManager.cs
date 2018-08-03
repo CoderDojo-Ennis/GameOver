@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GeekyMonkeyVideoPlaylist VideoPlaylist_War;
     public GeekyMonkeyVideoPlaylist VideoPlaylist_Sea;
     public GeekyMonkeyVideoPlaylist VideoPlaylist_Land;
+    public GeekyMonkeyVideoPlaylist VideoPlaylist_End;
 
     internal bool IsVideoPlaying;
 
@@ -538,6 +539,9 @@ public class GameManager : MonoBehaviour
                 break;
             case VideoPlaylists.Land:
                 playlist = VideoPlaylist_Land;
+                break;
+            case VideoPlaylists.End:
+                playlist = VideoPlaylist_End;
                 break;
         }
 

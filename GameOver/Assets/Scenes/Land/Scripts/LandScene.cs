@@ -41,6 +41,7 @@ public class LandScene : BaseGameScene
     new void Start ()
     {
         base.Start();
+        GameManager.Instance.StopTimer();
         instance = this;
         Invoke("DropCutters", DelayBeforeCutters);
         CutterInfo.SetActive(false);
@@ -53,6 +54,8 @@ public class LandScene : BaseGameScene
             light.enabled = true; //sometimes the lights just randomly disable for some reason
         }
         GetComponentInChildren<ChildScript>().StartFollowing(PlayerScript.Instance.transform);
+        PlayerScript.Instance.transform.rotation = Quaternion.identity;
+        PlayerScript.Instance.transform.position = new Vector3(0, -2.65f, 1.62f);
     }
 	
     void DropCutters()

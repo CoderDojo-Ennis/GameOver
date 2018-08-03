@@ -84,10 +84,10 @@ public class CutterScript : MonoBehaviour
             {
                 transform.Translate(0, -FallSpeed, 0);
                 FallSpeed += 0.07f;
-                if (transform.position.y <= FinalHeight)
+                if (transform.localPosition.y <= FinalHeight)
                 {
                     FallSpeed = 0;
-                    transform.position = new Vector3(transform.position.x, FinalHeight, transform.position.z);
+                    transform.localPosition = new Vector3(transform.position.x, FinalHeight, transform.position.z);
                     MaxYPos = transform.position.y + BobDistance;
                     MinYPos = transform.position.y - BobDistance;
                 }
