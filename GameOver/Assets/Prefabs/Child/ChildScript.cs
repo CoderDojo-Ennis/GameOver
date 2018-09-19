@@ -69,6 +69,6 @@ public class ChildScript : MonoBehaviour
 
     public void Cry()
     {
-        AudioSource.PlayOneShot(AudioSource.clip);
+        //AudioSource.PlayOneShot(AudioSource.clip);
     }
 }

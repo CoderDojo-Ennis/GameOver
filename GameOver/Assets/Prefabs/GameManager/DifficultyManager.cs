@@ -35,12 +35,14 @@ public class DifficultyManager : MonoBehaviour
     public DifficultySetting[] difficultySettings;
     private int currentDifficulty = 1; //0 is easy, 1 is normal, 2 is hard
 
+    private GmDelayPromise CurrentTextDisappearDelay;
+
 	void OnEnable ()
     {
         DiffText = GetComponentInChildren<Text>();
-		if (difficultySettings.Length != 3 || DifficultyTextColours.Length != 3)
+		if (difficultySettings.Length != 4 || DifficultyTextColours.Length != 4)
         {
-            Debug.LogError("There are " + difficultySettings.Length + "difficulty settings / colours! There should only be 3!");
+            Debug.LogError("There are " + difficultySettings.Length + "difficulty settings / colours! There should only be 4!");
         }
         SceneManager.sceneLoaded += OnSceneLoaded;
         ShowText();
@@ -53,7 +55,7 @@ public class DifficultyManager : MonoBehaviour
 
     void Update ()
     {
-		if (Input.GetButtonDown("DifficultyUp") && currentDifficulty < 2)
+		if (Input.GetButtonDown("DifficultyUp") && currentDifficulty < 3)
         {
             currentDifficulty++;
             SetDifficulty();
@@ -121,13 +123,23 @@ public class DifficultyManager : MonoBehaviour
             case 2:
                 DiffText.text = "H";
                 break;
+            case 3:
+                DiffText.text = "EX";
+                break;
+            default:
+                Debug.LogError("...What just happened?");
+                break;
         }
     }
 
     private void ShowText()
     {
+        if (CurrentTextDisappearDelay != null)
+        {
+            CurrentTextDisappearDelay.Abort();
+        }
         DiffText.gameObject.SetActive(true);
-        this.Delay(TextScreenTime, () => { DiffText.gameObject.SetActive(false); });
+        CurrentTextDisappearDelay = this.Delay(TextScreenTime, () => { DiffText.gameObject.SetActive(false); });
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
