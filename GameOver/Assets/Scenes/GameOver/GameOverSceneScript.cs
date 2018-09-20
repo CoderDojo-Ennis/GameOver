@@ -53,7 +53,7 @@ public class GameOverSceneScript : BaseGameScene
             //AudioManager.Instance.PlayTypeCharacter();
         });
 
-        GameManager.Instance.PauseBackroundMusic(Delay * .9f);
+        //GameManager.Instance.PauseBackroundMusic(Delay * .9f);
         sceneDelay = this.Delay(Delay, () =>
         {
             FadeToScene(NextScene);

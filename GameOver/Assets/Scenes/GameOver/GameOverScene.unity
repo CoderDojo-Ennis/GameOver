@@ -514,7 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823c28e59c2b8e9489262f72d6e9273b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundMusic: {fileID: 0}
+  BackgroundMusic: {fileID: 8300000, guid: 0fd027d4b8902234bbf0f33569465bf4, type: 3}
   NaturalX: 1
   TravelScaleX: 10
   PlayerScale: 1
